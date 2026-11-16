@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>StageKit — Press Kits para Músicos Profissionais</title>
-  <!-- StageKit v3.14.1: corrige feedback de recuperação de senha na versão Preview. -->
+  <!-- StageKit v3.15: calendário, contratos, galeria e ajustes de visualização; mantém autenticação da v3.14.1. -->
   <!-- StageKit 3.7: identifica rotas diretas antes de renderizar a página inicial. -->
   <script>
     (function () {
@@ -47,6 +47,7 @@
   <!-- Supabase JS Client CDN -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="https://cdn.jsdelivr.net/npm/tus-js-client@4.3.1/dist/tus.min.js"></script>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
 
   <style>
     /* StageKit 3.7: impede a página inicial de piscar em links públicos. */
@@ -108,6 +109,21 @@
       background-color: #F9FAFB !important;
       border-color: #D1D5DB !important;
       color: #111827 !important;
+    }
+    /* StageKit v3.15 - ajustes visuais para players, modais e fotos */
+    .stagekit-gallery-photo { height: clamp(260px, 38vw, 420px); }
+    .stagekit-gallery-photo img { object-fit: cover; width: 100%; height: 100%; }
+    .stagekit-instagram-frame { height: 620px; width: 100%; border: 0; background: #050505; }
+    .stagekit-ig-shell { width: 100%; height: 540px; overflow: hidden; position: relative; background: #050505; }
+    .stagekit-ig-shell .stagekit-instagram-frame { height: 665px; transform: translateY(-57px); }
+    .stagekit-contract-content { white-space: pre-wrap; overflow-wrap: anywhere; font: 13px/1.7 'Plus Jakarta Sans', sans-serif; }
+    .stagekit-calendar-day { min-height: 88px; }
+    .stagekit-calendar-day:focus-visible { outline: 2px solid #f59e0b; outline-offset: 1px; }
+    .stagekit-modal-scroll { min-height: 0; overscroll-behavior: contain; }
+    @media (max-width:640px) {
+      .stagekit-calendar-day { min-height: 66px; padding: 5px !important; }
+      .stagekit-instagram-frame { height: 600px; }
+      .stagekit-ig-shell { height: 500px; }
     }
   </style>
 </head>
@@ -353,7 +369,7 @@
           <span class="text-amber-500 font-bold text-xs uppercase tracking-widest">Galeria</span>
           <h3 class="text-xl font-bold text-white mt-1">Fotos do Artista & Shows</h3>
         </div>
-        <div id="displayPublicGalleryGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 max-w-5xl mx-auto"></div>
+        <div id="displayPublicGalleryGrid" class="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-6xl mx-auto"></div>
       </div>
 
       <!-- PLAYER INTERNO INTEGRADO ("VAMOS OUVIR") -->
@@ -798,7 +814,7 @@
                 <input type="url" id="editYoutube3" inputmode="url" placeholder="https://www.tiktok.com/@perfil/video/..." class="w-full bg-zinc-800 border border-zinc-700 rounded-xl p-2 text-white">
               </div>
             </div>
-            <p class="text-[11px] text-zinc-500 leading-relaxed">Cole o endereço completo de uma publicação pública do Instagram (ex.: instagram.com/reel/CODIGO/), inclusive com parâmetros de compartilhamento. Links /share/reel/ são apenas redirecionamentos e devem ser abertos no navegador antes de copiar a URL final. O Instagram pode restringir a reprodução incorporada; para maior previsibilidade use YouTube.</p>
+            <p class="text-[11px] text-zinc-400 leading-relaxed">Cole o link completo do vídeo público. O StageKit exibirá o player incorporado aqui. <strong class="text-amber-400">Para um player totalmente limpo, use YouTube ou Vimeo:</strong> o Instagram pode impor sua própria interface e miniatura.</p>
           </div>
         </div>
 
@@ -1039,7 +1055,8 @@ CLÁUSULA SEGUNDA - DA RESPONSABILIDADE
 Este documento é gerado através da plataforma StageKit com padrão Casa 6 Produções, sendo de total e exclusiva responsabilidade civil e criminal do ARTISTA a execução, negociação, emissão de recibos e cumprimento deste instrumento.</textarea>
             </div>
           </div>
-          <div class="flex gap-3">
+          <div class="flex flex-wrap gap-3">
+            <button type="button" onclick="openStagekitContractPreview()" class="bg-zinc-800 hover:bg-zinc-700 border border-amber-500/35 text-amber-400 font-bold py-2.5 px-4 rounded-xl flex items-center gap-2 cursor-pointer"><i data-lucide="eye" class="w-4 h-4"></i> Visualizar contrato</button>
             <button onclick="saveContractModel()" id="saveContractBtn" class="flex-1 bg-amber-500 hover:bg-amber-600 text-black font-bold py-2.5 rounded-xl cursor-pointer">Salvar Modelo Global do Sistema</button>
             <button onclick="downloadContractPdf()" class="bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 text-white font-bold py-2.5 px-4 rounded-xl flex items-center gap-2 cursor-pointer"><i data-lucide="download" class="w-4 h-4"></i> Baixar via PDF</button>
           </div>
@@ -1149,32 +1166,47 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
         </div>
       </div>
 
-      <!-- ABA 10: GOOGLE AGENDA -->
-      <div id="tabCalendar" class="dashboard-tab max-w-3xl space-y-6 hidden">
+      <!-- ABA 10: GOOGLE AGENDA / CALENDARIO DE EVENTOS -->
+      <div id="tabCalendar" class="dashboard-tab max-w-5xl space-y-6 hidden">
         <div>
-          <h2 class="text-xl font-bold text-white">Google Agenda (Ferramenta)</h2>
-          <p class="text-xs text-zinc-400 mt-1">Conecte sua conta do Google exclusivamente para sincronizar a agenda dos seus shows.</p>
+          <h2 class="text-xl font-bold text-white">Agenda dos Shows</h2>
+          <p class="text-xs text-zinc-400 mt-1">Veja seus eventos cadastrados por data. Clique em um dia para consultar os detalhes e os cachês.</p>
         </div>
-        <div class="bg-brand-cardBg border border-brand-border p-6 rounded-2xl space-y-4 text-xs">
-          <div class="flex items-center justify-between bg-zinc-900 p-4 rounded-xl border border-zinc-800">
-            <div class="flex items-center gap-3">
-              <i data-lucide="calendar" class="w-6 h-6 text-amber-500"></i>
-              <div>
-                <p class="font-bold text-white text-sm">Status: <span id="googleCalendarStatusText" class="text-zinc-400 font-normal">Não conectado</span></p>
-                <p class="text-[11px] text-zinc-500">Sincronize seus shows cadastrados com o seu Google Calendar pessoal.</p>
-              </div>
+        <div class="bg-brand-cardBg border border-brand-border p-4 sm:p-6 rounded-2xl space-y-5">
+          <div class="flex flex-wrap justify-between items-center gap-3">
+            <div class="flex items-center gap-2">
+              <button type="button" onclick="changeStagekitCalendarMonth(-1)" class="p-2 rounded-lg border border-zinc-700 bg-zinc-900 text-white" aria-label="Mês anterior"><i data-lucide="chevron-left" class="w-4 h-4"></i></button>
+              <h3 id="stagekitCalendarMonthTitle" class="font-bold text-white text-base min-w-[168px] text-center">Mês atual</h3>
+              <button type="button" onclick="changeStagekitCalendarMonth(1)" class="p-2 rounded-lg border border-zinc-700 bg-zinc-900 text-white" aria-label="Próximo mês"><i data-lucide="chevron-right" class="w-4 h-4"></i></button>
             </div>
-            <button onclick="connectGoogleCalendar()" id="connectCalendarBtn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 px-5 rounded-xl shadow-md transition-all cursor-pointer">
-              Conectar Google Agenda
-            </button>
+            <button type="button" onclick="goStagekitCalendarToday()" class="border border-amber-500/40 bg-amber-500/10 text-amber-400 px-4 py-2 rounded-xl text-xs font-bold">Hoje</button>
           </div>
-
-          <div class="space-y-3 pt-2">
-            <h3 class="font-bold text-amber-400 text-sm">Eventos Sincronizados na Agenda</h3>
-            <div id="googleCalendarEventsList" class="space-y-2">
-              <p class="text-zinc-500 italic">Nenhum evento na agenda sincronizada.</p>
+          <div class="grid grid-cols-7 gap-1 sm:gap-2 text-center text-[11px] uppercase tracking-wider font-bold text-zinc-400">
+            <span>Seg</span><span>Ter</span><span>Qua</span><span>Qui</span><span>Sex</span><span>Sáb</span><span>Dom</span>
+          </div>
+          <div id="stagekitCalendarGrid" class="grid grid-cols-7 gap-1 sm:gap-2"></div>
+          <div class="text-[11px] text-zinc-500">Datas com ponto dourado possuem eventos. As informações financeiras ficam somente na Área do Artista.</div>
+        </div>
+        <div class="bg-brand-cardBg border border-brand-border p-4 sm:p-6 rounded-2xl space-y-4">
+          <div class="flex items-center gap-2 text-amber-400 font-bold text-sm"><i data-lucide="calendar-check" class="w-5 h-5"></i> Próximos eventos cadastrados</div>
+          <div id="googleCalendarEventsList" class="space-y-2"><p class="text-zinc-400">Nenhum evento cadastrado.</p></div>
+        </div>
+        <div class="bg-brand-cardBg border border-brand-border p-4 sm:p-6 rounded-2xl space-y-4">
+          <h3 class="font-bold text-white text-sm flex items-center gap-2"><i data-lucide="calendar-plus" class="w-5 h-5 text-blue-400"></i> Integrar com Google Agenda (opcional)</h3>
+          <p class="text-zinc-400 text-xs leading-relaxed">Os shows acima já aparecem aqui sem Google. Para enviar os eventos ao calendário Google, o artista precisa autorizar o acesso na conta Google escolhida. Digitar um e-mail não concede permissão.</p>
+          <div class="flex flex-col sm:flex-row gap-3">
+            <div class="flex-1">
+              <label class="block text-[11px] text-zinc-400 mb-1" for="stagekitGoogleEmail">E-mail da conta Google</label>
+              <input id="stagekitGoogleEmail" type="email" autocomplete="email" placeholder="email@gmail.com" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white text-xs">
             </div>
+            <button type="button" onclick="connectGoogleCalendar()" id="connectCalendarBtn" class="self-end bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-xl shadow-md transition-all cursor-pointer text-xs">Conectar com Google</button>
           </div>
+          <div class="flex flex-wrap gap-2 items-center">
+            <button id="syncStagekitCalendarBtn" type="button" onclick="syncStagekitEventsToGoogle()" class="hidden bg-amber-500 hover:bg-amber-600 text-black font-bold rounded-xl py-2.5 px-4 text-xs">Enviar eventos para o Google Agenda</button>
+            <button id="disconnectStagekitGoogleBtn" type="button" onclick="disconnectGoogleCalendar()" class="hidden border border-zinc-700 text-zinc-300 rounded-xl py-2.5 px-4 text-xs">Desconectar nesta sessão</button>
+            <span class="text-[11px] text-zinc-400">Status: <strong id="googleCalendarStatusText" class="font-semibold">Não conectado</strong></span>
+          </div>
+          <p class="text-[11px] text-zinc-500">A autorização do Google expira e poderá precisar ser renovada. Os eventos permanecem salvos no StageKit. Sincronização apenas mediante clique do artista.</p>
         </div>
       </div>
 
@@ -1349,9 +1381,9 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
     </div>
   </div>
 
-  <div id="formatModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
-    <div class="bg-brand-cardBg border border-brand-border rounded-3xl max-w-lg w-full max-h-[90vh] flex flex-col p-6 sm:p-8 space-y-4 shadow-2xl relative">
-      <button onclick="closeFormatModal()" class="absolute top-6 right-6 text-zinc-400 hover:text-white z-20 bg-zinc-900/80 p-1.5 rounded-full border border-zinc-700 cursor-pointer"><i data-lucide="x" class="w-5 h-5"></i></button>
+  <div id="formatModal" class="fixed inset-0 z-[160] bg-black/85 backdrop-blur-sm hidden flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
+    <div class="bg-brand-cardBg border border-brand-border rounded-3xl max-w-lg w-full flex flex-col p-4 sm:p-6 gap-3 shadow-2xl relative overflow-hidden" style="height:min(760px,calc(100dvh - 24px));max-height:calc(100dvh - 24px)">
+      <button onclick="closeFormatModal()" aria-label="Fechar orçamento" title="Fechar" class="absolute top-3 right-3 text-white hover:text-amber-400 z-30 bg-zinc-800 p-2 rounded-full border border-zinc-600 cursor-pointer"><i data-lucide="x" class="w-5 h-5"></i></button>
       <div class="shrink-0 pr-10">
         <span class="text-xs font-bold text-amber-500 uppercase" id="modalFormatSubtitle">ORÇAMENTO DE SHOW</span>
         <h3 class="text-xl sm:text-2xl font-bold text-white mt-1" id="modalFormatTitle">Solicitar Proposta</h3>
@@ -1360,7 +1392,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
         </p>
       </div>
 
-      <div class="overflow-y-auto space-y-3 text-xs pr-1 no-scrollbar flex-1">
+      <div class="stagekit-modal-scroll overflow-y-auto space-y-3 text-xs pr-1 no-scrollbar flex-1">
         <div>
           <label class="block font-semibold text-zinc-300 mb-1">1. Nome do Contratante *</label>
           <input type="text" id="qClientName" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-2.5 text-white" placeholder="Nome do Contratante">
@@ -1412,7 +1444,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
         </div>
       </div>
 
-      <div class="shrink-0 pt-2">
+      <div class="shrink-0 pt-2 border-t border-zinc-800">
         <button id="modalSubmitBtn" onclick="sendWhatsAppBudget()" class="w-full bg-emerald-500 hover:bg-emerald-600 text-black font-extrabold py-3 rounded-xl text-sm flex items-center justify-center gap-2 shadow-lg cursor-pointer">
           <i data-lucide="message-square" class="w-4 h-4"></i> Verificar Disponibilidade & Enviar WhatsApp
         </button>
@@ -1420,6 +1452,40 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
     </div>
   </div>
 
+
+  <!-- LIGHTBOX DA GALERIA -->
+  <div id="stagekitGalleryLightbox" class="fixed inset-0 z-[170] hidden bg-black/95 p-3 sm:p-6 flex items-center justify-center" role="dialog" aria-modal="true" aria-label="Foto ampliada" onclick="if(event.target===this)closeStagekitGalleryPhoto()">
+    <button type="button" onclick="closeStagekitGalleryPhoto()" class="absolute top-4 right-4 text-white bg-zinc-800 p-3 rounded-xl z-20" aria-label="Fechar foto"><i data-lucide="x" class="w-5 h-5"></i></button>
+    <img id="stagekitGalleryLightboxImg" class="max-h-[90dvh] max-w-full object-contain rounded-xl" alt="Foto ampliada do artista">
+  </div>
+
+  <!-- VISUALIZAR CONTRATO -->
+  <div id="stagekitContractPreviewModal" class="fixed inset-0 z-[180] hidden bg-black/90 backdrop-blur-md p-3 sm:p-6 items-center justify-center" role="dialog" aria-modal="true" aria-labelledby="stagekitContractPreviewTitle">
+    <div class="relative w-full max-w-3xl bg-brand-cardBg border border-amber-500/35 rounded-2xl max-h-[94dvh] flex flex-col overflow-hidden">
+      <div class="shrink-0 px-5 py-4 flex items-center justify-between border-b border-zinc-800">
+        <h3 id="stagekitContractPreviewTitle" class="font-bold text-white text-lg">Visualização do contrato</h3>
+        <button type="button" onclick="closeStagekitContractPreview()" class="text-white rounded-lg bg-zinc-800 p-2" aria-label="Fechar visualização"><i data-lucide="x" class="w-5 h-5"></i></button>
+      </div>
+      <div class="stagekit-modal-scroll overflow-y-auto p-5 sm:p-7 flex-1 bg-zinc-950/50">
+        <div id="stagekitContractPreviewBody" class="stagekit-contract-content bg-white text-zinc-900 rounded-xl p-5 sm:p-8 shadow-xl"></div>
+      </div>
+      <div class="shrink-0 flex justify-end gap-2 p-4 border-t border-zinc-800">
+        <button type="button" onclick="closeStagekitContractPreview()" class="bg-zinc-800 text-white font-bold py-2.5 px-4 rounded-xl text-xs">Fechar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- DETALHES DA DATA NA AGENDA (RESTRITO AO ARTISTA) -->
+  <div id="stagekitDayDetailsModal" class="fixed inset-0 z-[180] hidden bg-black/85 backdrop-blur-md p-3 sm:p-6 items-center justify-center" role="dialog" aria-modal="true" aria-labelledby="stagekitDayDetailsTitle">
+    <div class="bg-brand-cardBg border border-brand-border rounded-2xl w-full max-w-xl max-h-[90dvh] flex flex-col overflow-hidden">
+      <div class="flex items-center justify-between gap-2 p-4 border-b border-zinc-800">
+        <h3 id="stagekitDayDetailsTitle" class="font-bold text-white text-lg">Eventos do dia</h3>
+        <button type="button" onclick="closeStagekitDayDetails()" class="bg-zinc-800 text-white p-2 rounded-lg" aria-label="Fechar detalhes"><i data-lucide="x" class="w-5 h-5"></i></button>
+      </div>
+      <div id="stagekitDayDetailsBody" class="stagekit-modal-scroll overflow-y-auto p-4 space-y-3 text-sm"></div>
+      <div class="shrink-0 p-4 border-t border-zinc-800 flex justify-end"><button type="button" onclick="closeStagekitDayDetails()" class="px-4 py-2 bg-amber-500 text-black rounded-xl font-bold text-xs">Fechar</button></div>
+    </div>
+  </div>
 
   <!-- FEEDBACK VISUAL SUPABASE (TOAST) -->
   <div id="supabaseToast" class="fixed bottom-6 right-6 z-[220] hidden items-center gap-3 px-5 py-3.5 rounded-2xl bg-zinc-900 border border-amber-500/50 text-white text-xs font-bold shadow-2xl transition-all duration-300">
@@ -1432,6 +1498,9 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
     const SUPABASE_URL = 'https://gixxspfvcgxumyxnyumi.supabase.co';
     const SUPABASE_KEY = 'sb_publishable_IjxfEWK0jyD72SKNzqCqkg_hFJ8_rIF';
     const supabaseClient = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY) : null;
+    // ID publico OAuth Google. Preencha após criar um cliente OAuth Web no Google Cloud.
+    // NÃO use Google API secret nem token aqui. Calendário do StageKit funciona sem isso.
+    const STAGEKIT_GOOGLE_CLIENT_ID = 'COLE_AQUI_SEU_CLIENT_ID_GOOGLE_OAUTH';
     const STAGEKIT_AUTH_REDIRECT = `${window.location.origin}/`;
     let stagekitRecoveryActive = false;
 
@@ -1687,6 +1756,15 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
     }
 
     // Inclui também os campos criados dinamicamente dos depoimentos.
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape') {
+        closeStagekitGalleryPhoto();
+        closeStagekitContractPreview();
+        closeStagekitDayDetails();
+        closeFormatModal();
+      }
+    });
+
     document.addEventListener('change', event => {
       const input=event.target;
       if (!input || input.type!=='file') return;
@@ -1756,7 +1834,8 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
         const shortcode = segments[1];
         if (!/^[a-zA-Z0-9_-]{5,64}$/.test(shortcode)) return null;
         const canonical=`https://www.instagram.com/${type}/${shortcode}/`;
-        return {platform:'Instagram',kind:'iframe',format:'portrait',canonical, url:`${canonical}embed/`};
+        // O embed é oficial da plataforma; a Meta controla a interface e o play.
+        return {platform:'Instagram',kind:'iframe',format:'portrait',canonical,url:`${canonical}embed/`};
       }
 
       if (['tiktok.com','www.tiktok.com','m.tiktok.com'].includes(host)) {
@@ -2103,7 +2182,10 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       if(supabaseClient) {
         supabaseClient.auth.onAuthStateChange((event) => {
           if(event==='PASSWORD_RECOVERY') setTimeout(openStagekitNewPassword,0);
-          if(event==='SIGNED_OUT') {sessionUser=null;}
+          if(event==='SIGNED_OUT') {
+            stagekitGoogleAccessToken='';stagekitGoogleAuthorizedEmail='';stagekitGoogleTokenExpires=0;
+            sessionUser=null;
+          }
         });
       }
       const directSlug=window.location.pathname!=='/' && window.location.pathname!=='/dashboard' && window.location.pathname!=='/modovisualizacao';
@@ -2346,18 +2428,25 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       }
 
       const socialContainer = document.getElementById('displaySocialLinksContainer');
-      if(socialContainer) {
-        let socials = [];
-        socials.push({name: 'YouTube', url: artistData.channelYoutube || '#', icon: 'youtube', color: 'text-red-500'});
-        socials.push({name: 'Instagram', url: artistData.instagram ? `https://instagram.com/${artistData.instagram}` : '#', icon: 'instagram', color: 'text-pink-500'});
-        socials.push({name: 'TikTok', url: artistData.tiktok ? `https://tiktok.com/@${artistData.tiktok}` : '#', icon: 'video', color: 'text-cyan-400'});
-        socials.push({name: 'Facebook', url: artistData.facebook ? `https://facebook.com/${artistData.facebook}` : '#', icon: 'facebook', color: 'text-blue-500'});
-
-        socialContainer.innerHTML = socials.map(s => `
-          <a href="${escHtml(safeExternalUrl(s.url) || '#')}" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-brand-cardBg border border-brand-border text-white text-xs font-bold hover:border-amber-500/50 transition-all shadow-md">
-            <i data-lucide="${s.icon}" class="w-4 h-4 ${s.color}"></i> ${s.name}
-          </a>
-        `).join('');
+      if (socialContainer) {
+        const socials = [
+          { name:'YouTube', raw: artistData.channelYoutube, icon:'youtube', color:'text-red-400', bg:'bg-red-500/10', base:'' },
+          { name:'Instagram', raw: artistData.instagram, icon:'instagram', color:'text-pink-400', bg:'bg-pink-500/10', base:'https://www.instagram.com/' },
+          { name:'TikTok', raw: artistData.tiktok, icon:'music-2', color:'text-cyan-300', bg:'bg-cyan-500/10', base:'https://www.tiktok.com/@' },
+          { name:'Facebook', raw: artistData.facebook, icon:'facebook', color:'text-blue-400', bg:'bg-blue-500/10', base:'https://www.facebook.com/' }
+        ];
+        socialContainer.innerHTML = socials.map(s => {
+          const raw = String(s.raw || '').trim();
+          if (!raw || ['#','seunomeaqui'].includes(raw.toLowerCase())) return '';
+          const absolute = /^(https?:)?\/\//i.test(raw) ? raw.replace(/^\/\//,'https://') :
+            /^(www\.)?(youtube\.com|youtu\.be|instagram\.com|tiktok\.com|facebook\.com)\//i.test(raw) ? `https://${raw}` : '';
+          const url = absolute || (s.base ? s.base + raw.replace(/^@/,'').replace(/^\/+/, '') : 'https://www.youtube.com/@' + raw.replace(/^@/,''));
+          const safe = safeExternalUrl(url);
+          if (!safe) return '';
+          return `<a href="${escHtml(safe)}" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-brand-cardBg border border-brand-border text-white text-xs font-bold hover:border-amber-500/50 transition-all shadow-md">
+            <span class="w-8 h-8 rounded-lg ${s.bg} flex items-center justify-center"><i data-lucide="${s.icon}" class="w-4 h-4 ${s.color}"></i></span>${s.name}
+          </a>`;
+        }).join('');
       }
 
       const vContainer = document.getElementById('displayVideosContainer');
@@ -2373,8 +2462,10 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
               ? 'w-full min-h-[540px] sm:min-h-[570px]'
               : 'aspect-video w-full';
             return `
-              <div class="rounded-2xl overflow-hidden border border-brand-border shadow-xl bg-black ${cardClass} flex flex-col" aria-label="Player de vídeo ${index + 1}">
-                <iframe class="w-full flex-1 border-0 min-h-[300px] ${portrait ? 'sm:min-h-[570px]' : ''}" src="${escHtml(item.url)}" title="Reproduzir vídeo ${index + 1} do ${escHtml(item.platform)} aqui no StageKit" loading="lazy" allow="accelerometer; autoplay; encrypted-media; fullscreen; picture-in-picture; clipboard-write; web-share; gyroscope" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+              <div class="rounded-2xl overflow-hidden border border-brand-border shadow-xl bg-black ${item.platform==='Instagram' ? 'w-full max-w-[380px] mx-auto' : cardClass} flex flex-col" aria-label="Player de vídeo ${index + 1}">
+                ${item.platform==='Instagram' ?
+                  `<div class="stagekit-ig-shell"><iframe class="stagekit-instagram-frame" src="${escHtml(item.url)}" title="Reel do Instagram ${index + 1}" loading="lazy" scrolling="no" allow="autoplay; encrypted-media; fullscreen; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>` :
+                  `<iframe class="w-full flex-1 border-0 min-h-[300px] ${portrait ? 'sm:min-h-[570px]' : ''}" src="${escHtml(item.url)}" title="Reproduzir vídeo ${index + 1} do ${escHtml(item.platform)} aqui no StageKit" loading="lazy" allow="accelerometer; autoplay; encrypted-media; fullscreen; picture-in-picture; clipboard-write; web-share; gyroscope" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>`}
               </div>`;
           }).join('');
         } else {
@@ -2393,9 +2484,9 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
         const gallerySection = document.getElementById('secaoGaleriaFotos');
         if (gallerySection) gallerySection.classList.toggle('hidden', photos.length === 0);
         galleryGrid.innerHTML = photos.map((photo, index) => `
-          <div class="rounded-2xl overflow-hidden h-48 sm:h-56 border border-zinc-800 bg-zinc-900 shadow-xl">
-            <img src="${escHtml(safeExternalUrl(photo))}" alt="Foto ${index + 1} do artista" loading="lazy" class="w-full h-full object-cover hover:scale-105 transition-transform">
-          </div>
+          <button type="button" onclick="openStagekitGalleryPhoto(${index})" class="stagekit-gallery-photo block text-left rounded-2xl overflow-hidden border border-zinc-800 bg-zinc-900 shadow-xl cursor-zoom-in hover:border-amber-500/60 transition-colors" aria-label="Ampliar foto ${index + 1} do artista">
+            <img src="${escHtml(safeExternalUrl(photo))}" alt="Foto ${index + 1} do artista" loading="lazy" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
+          </button>
         `).join('');
       }
 
@@ -2563,9 +2654,10 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       document.getElementById('previewModeBanner')?.classList.toggle('hidden', !preview);
       const landingActions = document.getElementById('landingHeaderActions');
       const panelActions = document.getElementById('panelHeaderActions');
-      landingActions?.classList.toggle('hidden', !!sessionUser);
-      panelActions?.classList.toggle('hidden', !sessionUser);
-      if (sessionUser) panelActions?.classList.add('flex');
+      // O Press Kit é exclusivo do contratante; sem botões de login/cadastro.
+      landingActions?.classList.add('hidden');
+      panelActions?.classList.toggle('hidden', !preview);
+      panelActions?.classList.toggle('flex', preview);
       const back = document.getElementById('backToDashboardContainer');
       const backText = document.getElementById('backToDashboardBtnText');
       back?.classList.toggle('hidden', !preview);
@@ -2940,6 +3032,8 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
 
         async function logoutToHome() {
       if(supabaseClient) await supabaseClient.auth.signOut();
+      // Nunca permitir que outra conta reutilize autorização Google anterior.
+      stagekitGoogleAccessToken='';stagekitGoogleAuthorizedEmail='';stagekitGoogleTokenExpires=0;
       sessionUser=null;eventsList=[];musiciansList=[];usersDatabase=[];
       localStorage.removeItem('stagekit_session');
       localStorage.removeItem('stagekit_users_db');
@@ -3022,6 +3116,11 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
     function openFormatModal(formatName) {
       selectedFormatForModal = formatName;
       document.getElementById('modalFormatTitle').innerText = formatName;
+      const wedding = /casamento|cerim[oô]nia/i.test(formatName);
+      const eventType = document.getElementById('qEventType');
+      const barOption = [...eventType.options].find(option => option.value === 'Show em bar / restaurante');
+      if (barOption) { barOption.hidden = wedding; barOption.disabled = wedding; }
+      eventType.value = wedding ? 'Casamento e Cerimônia (Ambos)' : 'Show em bar / restaurante';
       document.getElementById('formatModal').classList.remove('hidden');
     }
 
@@ -3463,6 +3562,41 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       }
     }
 
+    function openStagekitGalleryPhoto(index) {
+      const urls = (Array.isArray(artistData.galleryPhotos) ? artistData.galleryPhotos : [])
+        .filter(value => typeof value === 'string' && safeExternalUrl(value));
+      const url = safeExternalUrl(urls[index]);
+      if (!url) return;
+      const img = document.getElementById('stagekitGalleryLightboxImg');
+      img.src = url;
+      const modal = document.getElementById('stagekitGalleryLightbox');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeStagekitGalleryPhoto() {
+      const modal = document.getElementById('stagekitGalleryLightbox');
+      modal?.classList.add('hidden');
+      modal?.classList.remove('flex');
+      const img = document.getElementById('stagekitGalleryLightboxImg');
+      if (img) img.removeAttribute('src');
+    }
+
+    function openStagekitContractPreview() {
+      const text = document.getElementById('contractText')?.value || '';
+      document.getElementById('stagekitContractPreviewBody').textContent = text || 'Contrato vazio.';
+      const modal = document.getElementById('stagekitContractPreviewModal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      try { lucide.createIcons(); } catch(e) {}
+    }
+
+    function closeStagekitContractPreview() {
+      const modal = document.getElementById('stagekitContractPreviewModal');
+      modal?.classList.add('hidden');
+      modal?.classList.remove('flex');
+    }
+
     function downloadContractPdf() {
       const text = document.getElementById('contractText').value;
       const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
@@ -3710,6 +3844,8 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
         return;
       }
       const event = {
+        id: editingEventIndex !== null && eventsList[editingEventIndex]?.id
+          ? eventsList[editingEventIndex].id : crypto.randomUUID(),
         name,
         date: document.getElementById('newEventDate').value,
         location: document.getElementById('newEventLocation').value.trim(),
@@ -3937,29 +4073,222 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       renderMusicians();
     }
 
-    async function connectGoogleCalendar() {
-      if(sessionUser && sessionUser.role === 'admin') return;
-      artistData.googleCalendarConnected = true;
-      await saveData(true);
-      document.getElementById('googleCalendarStatusText').innerText = 'Conectado com sucesso';
-      document.getElementById('googleCalendarStatusText').className = 'text-emerald-400 font-bold';
+    // ================= STAGEKIT v3.15: AGENDA REAL DO ARTISTA =================
+    let stagekitCalendarCursor = new Date(new Date().getFullYear(),new Date().getMonth(),1);
+    let stagekitGoogleAccessToken = '';
+    let stagekitGoogleAuthorizedEmail = '';
+    let stagekitGoogleTokenExpires = 0;
+
+    function stagekitCalendarIsoDate(dt) {
+      return `${dt.getFullYear()}-${String(dt.getMonth()+1).padStart(2,'0')}-${String(dt.getDate()).padStart(2,'0')}`;
+    }
+
+    function stagekitEventsForDay(iso) {
+      return eventsList.map((event,index) => ({event,index}))
+        .filter(({event}) => String(event.date || '').slice(0,10) === iso)
+        .sort((a,b) => String(a.event.date || '').localeCompare(String(b.event.date || '')));
+    }
+
+    function changeStagekitCalendarMonth(delta) {
+      stagekitCalendarCursor = new Date(stagekitCalendarCursor.getFullYear(),stagekitCalendarCursor.getMonth()+delta,1);
       renderCalendarEvents();
-      alert('Google Agenda conectado!');
+    }
+
+    function goStagekitCalendarToday() {
+      stagekitCalendarCursor = new Date(new Date().getFullYear(),new Date().getMonth(),1);
+      renderCalendarEvents();
+    }
+
+    function openStagekitDayDetails(iso) {
+      if (!sessionUser || sessionUser.role === 'admin') return;
+      const list = stagekitEventsForDay(iso);
+      if (!list.length) return;
+      const [year,month,day] = iso.split('-');
+      document.getElementById('stagekitDayDetailsTitle').textContent = `Eventos de ${day}/${month}/${year}`;
+      document.getElementById('stagekitDayDetailsBody').innerHTML = list.map(({event,index}) => {
+        const dt = getStagekitEventDateTime(event.date);
+        const musicians = getEventMusicians(event).map(m=>`${escHtml(m.name)}: ${formatStagekitMoney(m.value)}`).join(' • ') || 'Não informado';
+        return `<section class="bg-zinc-900 border border-zinc-700 rounded-xl p-4 space-y-2">
+          <h4 class="text-white font-bold">${escHtml(event.name || 'Evento')}</h4>
+          <p class="text-amber-400 text-xs">${escHtml(event.project || 'Show')}</p>
+          <p class="text-zinc-300">📅 ${escHtml(dt.date)} ${escHtml(dt.time)} • ${escHtml(event.location || event.local || 'Local não informado')}</p>
+          <p class="text-zinc-300">Cachê total: <strong>${formatStagekitMoney(event.cache)}</strong></p>
+          <p class="text-zinc-400 text-xs">Músicos: ${musicians}</p>
+          <button type="button" onclick="editStagekitCalendarEvent(${index})" class="bg-amber-500/10 border border-amber-500/40 text-amber-400 px-3 py-2 rounded-lg text-xs font-bold">Editar evento</button>
+        </section>`;
+      }).join('');
+      const modal=document.getElementById('stagekitDayDetailsModal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function editStagekitCalendarEvent(index) {
+      closeStagekitDayDetails();
+      switchTab('tabEvents');
+      editEvent(index);
+      document.getElementById('tabEvents')?.scrollIntoView({behavior:'smooth',block:'start'});
+    }
+
+    function closeStagekitDayDetails() {
+      const modal=document.getElementById('stagekitDayDetailsModal');
+      modal?.classList.add('hidden');
+      modal?.classList.remove('flex');
     }
 
     function renderCalendarEvents() {
+      const grid = document.getElementById('stagekitCalendarGrid');
+      const header = document.getElementById('stagekitCalendarMonthTitle');
       const container = document.getElementById('googleCalendarEventsList');
-      if(!container) return;
-      if(!artistData.googleCalendarConnected || eventsList.length === 0) {
-        container.innerHTML = '<p class="text-zinc-500 italic">Nenhum evento sincronizado.</p>';
+      if (!grid || !header || !container) return;
+      const year=stagekitCalendarCursor.getFullYear();
+      const month=stagekitCalendarCursor.getMonth();
+      header.textContent = new Intl.DateTimeFormat('pt-BR',{month:'long',year:'numeric'}).format(stagekitCalendarCursor);
+      const firstDay = new Date(year,month,1);
+      const offset = (firstDay.getDay()+6)%7;
+      const start = new Date(year,month,1-offset);
+      const today=stagekitCalendarIsoDate(new Date());
+      grid.innerHTML = Array.from({length:42},(_,index) => {
+        const day=new Date(start.getFullYear(),start.getMonth(),start.getDate()+index);
+        const iso=stagekitCalendarIsoDate(day);
+        const count=stagekitEventsForDay(iso).length;
+        const outside=day.getMonth()!==month;
+        return `<button type="button" aria-label="${day.getDate()} de ${header.textContent}${count?`, ${count} evento(s)`:''}"
+          onclick="openStagekitDayDetails('${iso}')" ${count ? '' : 'disabled'}
+          class="stagekit-calendar-day rounded-xl border p-2 text-left flex flex-col justify-between transition-colors ${outside?'opacity-30 border-zinc-800 bg-zinc-950/50':'border-zinc-700 bg-zinc-900/70'} ${iso===today?'ring-1 ring-amber-500':''} ${count?'hover:border-amber-500 cursor-pointer':'cursor-default'}">
+          <span class="text-xs font-bold ${iso===today?'text-amber-400':'text-zinc-200'}">${day.getDate()}</span>
+          ${count?`<span class="flex items-center gap-1 text-[10px] text-amber-400"><span class="w-1.5 h-1.5 bg-amber-400 rounded-full"></span>${count} evento${count>1?'s':''}</span>`:''}
+        </button>`;
+      }).join('');
+      const upcoming=eventsList.map((event,index) => ({event,index}))
+        .filter(({event}) => event.date && !isNaN(Date.parse(event.date)))
+        .sort((a,b)=>Date.parse(a.event.date)-Date.parse(b.event.date))
+        .filter(({event}) => Date.parse(event.date)>=Date.now()-86400000)
+        .slice(0,8);
+      container.innerHTML = upcoming.length ? upcoming.map(({event,index}) => {
+        const dt=getStagekitEventDateTime(event.date);
+        return `<button type="button" onclick="openStagekitDayDetails('${String(event.date).slice(0,10)}')" class="flex w-full items-center justify-between gap-2 bg-zinc-900 border border-zinc-800 hover:border-amber-500/50 rounded-xl p-3 text-left">
+          <span class="font-bold text-white text-xs">${escHtml(event.name || 'Evento')} <span class="block text-[10px] text-zinc-400 mt-1">${escHtml(event.location || event.local || '')}</span></span>
+          <span class="text-amber-400 text-xs shrink-0">${dt.date} • ${dt.time}</span>
+        </button>`;
+      }).join('') : '<p class="text-zinc-500 text-xs">Nenhum evento futuro cadastrado. Adicione na aba Eventos.</p>';
+      const status=document.getElementById('googleCalendarStatusText');
+      const authorized=!!(stagekitGoogleAccessToken && stagekitGoogleTokenExpires > Date.now());
+      if (status) { status.textContent = authorized ? `Conectado: ${stagekitGoogleAuthorizedEmail}` : 'Não conectado'; status.className=authorized?'text-emerald-400 font-semibold':'text-zinc-400'; }
+      document.getElementById('syncStagekitCalendarBtn')?.classList.toggle('hidden',!authorized);
+      document.getElementById('disconnectStagekitGoogleBtn')?.classList.toggle('hidden',!authorized);
+      const googleEmail=document.getElementById('stagekitGoogleEmail');
+      if (googleEmail && !googleEmail.value) googleEmail.value=artistData.googleCalendarEmail || sessionUser?.email || '';
+      try { lucide.createIcons(); } catch(e) {}
+    }
+
+    function connectGoogleCalendar() {
+      if (!sessionUser || sessionUser.role==='admin') return;
+      const email=document.getElementById('stagekitGoogleEmail')?.value.trim().toLowerCase();
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        showToast('Digite o e-mail da conta Google que deseja conectar.','error');return;
+      }
+      if (!STAGEKIT_GOOGLE_CLIENT_ID.endsWith('.apps.googleusercontent.com')) {
+        showToast('Google Agenda ainda não foi ativado pelo administrador. É necessário configurar o Client ID OAuth Web no código.','error');
         return;
       }
-      container.innerHTML = eventsList.map(ev => `
-        <div class="bg-zinc-900 p-3 rounded-xl border border-zinc-800 flex justify-between items-center text-xs">
-          <p class="font-bold text-white">${escHtml(ev.name)} (${escHtml(ev.project)})</p>
-          <span class="px-2.5 py-1 rounded-full bg-blue-500/10 text-blue-400 font-semibold text-[10px]">Sincronizado</span>
-        </div>
-      `).join('');
+      if (!window.google?.accounts?.oauth2) {
+        showToast('Não foi possível carregar o login Google. Confira sua conexão e bloqueadores.','error');return;
+      }
+      try {
+        // Token somente em memória; não armazenar credenciais de acesso no Supabase.
+        const client=window.google.accounts.oauth2.initTokenClient({
+          client_id: STAGEKIT_GOOGLE_CLIENT_ID,
+          scope: 'https://www.googleapis.com/auth/calendar.events https://www.googleapis.com/auth/userinfo.email',
+          callback: async response => {
+            if (response.error || !response.access_token) {
+              showToast('O Google não autorizou o acesso.','error');return;
+            }
+            try {
+              const who=await fetch('https://www.googleapis.com/oauth2/v3/userinfo',{headers:{Authorization:`Bearer ${response.access_token}`}});
+              if(!who.ok) throw new Error('Não foi possível validar o e-mail do Google.');
+              const profile=await who.json();
+              if(String(profile.email || '').trim().toLowerCase() !== email) {
+                showToast(`O e-mail autorizado (${profile.email || 'desconhecido'}) é diferente do digitado. Selecione a conta correta no Google.`, 'error');
+                return;
+              }
+              stagekitGoogleAccessToken=response.access_token;
+              stagekitGoogleAuthorizedEmail=profile.email;
+              stagekitGoogleTokenExpires=Date.now()+(Number(response.expires_in)||3300)*1000-60000;
+              artistData.googleCalendarEmail=profile.email;
+              if (!(await saveData(false))) {
+                showToast('Conectado ao Google, mas não foi possível salvar o e-mail no perfil.','error');
+              } else { showToast('Google Agenda autorizado! Clique em Enviar eventos para sincronizar.','success'); }
+              renderCalendarEvents();
+            } catch(error) { showToast('Falha ao autorizar Google: '+error.message,'error'); }
+          },
+          error_callback: () => showToast('A janela do Google foi fechada ou bloqueada.','error')
+        });
+        client.requestAccessToken({prompt:'select_account consent'});
+      } catch(error) {showToast('Não foi possível iniciar o Google OAuth: '+error.message,'error');}
+    }
+
+    async function syncStagekitEventsToGoogle() {
+      if (!stagekitGoogleAccessToken || stagekitGoogleTokenExpires < Date.now()) {
+        stagekitGoogleAccessToken='';renderCalendarEvents();
+        showToast('Sessão Google expirada. Clique em Conectar com Google novamente.','error');return;
+      }
+      if (!eventsList.length) {showToast('Nenhum evento cadastrado para sincronizar.','error');return;}
+      const button=document.getElementById('syncStagekitCalendarBtn');
+      if(button){button.disabled=true;button.textContent='Enviando eventos...';}
+      let sent=0;
+      try {
+        for (const event of eventsList) {
+          const date=new Date(event.date || '');
+          if (!event.date || Number.isNaN(date.getTime())) continue;
+          if (!event.stagekitGoogleId) event.stagekitGoogleId=crypto.randomUUID();
+          // Garante que a sincronização nunca compartilhe cachês privados dos músicos.
+          const payload={
+            summary: event.name || 'Show - StageKit',
+            location: event.location || event.local || '',
+            description:`Formato: ${event.project || 'A combinar'}\nEvento cadastrado no StageKit.`,
+            start:{dateTime:date.toISOString()},
+            end:{dateTime:new Date(date.getTime()+2*60*60*1000).toISOString()},
+            extendedProperties:{private:{stagekit_id:event.stagekitGoogleId}}
+          };
+          const id=event.googleCalendarEventId;
+          const url=id
+            ? `https://www.googleapis.com/calendar/v3/calendars/primary/events/${encodeURIComponent(id)}`
+            : 'https://www.googleapis.com/calendar/v3/calendars/primary/events';
+          const res=await fetch(url,{
+            method:id?'PUT':'POST',
+            headers:{Authorization:`Bearer ${stagekitGoogleAccessToken}`,'Content-Type':'application/json'},
+            body:JSON.stringify(payload)
+          });
+          if (!res.ok) {
+            const details=await res.text();
+            if(res.status===401){stagekitGoogleAccessToken='';renderCalendarEvents();}
+            throw new Error(`Google Calendar HTTP ${res.status}: ${details.slice(0,180)}`);
+          }
+          const response=await res.json();
+          if(response.id) event.googleCalendarEventId=response.id;
+          sent++;
+        }
+        artistData.eventsList=eventsList;
+        const saved=await saveData(false);
+        showToast(saved ? `${sent} evento(s) enviado(s) ao Google Agenda!` : 'Eventos enviados ao Google; não foi possível registrar IDs no StageKit.', saved?'success':'error');
+      } catch(error) {
+        // Registra IDs dos eventos já enviados, evitando duplicatas em outra tentativa.
+        artistData.eventsList=eventsList;
+        await saveData(false);
+        showToast(`Enviados ${sent} evento(s), mas houve erro: ${error.message}`,'error');
+      } finally {
+        if(button){button.disabled=false;button.textContent='Enviar eventos para o Google Agenda';}
+        renderCalendarEvents();
+      }
+    }
+
+    function disconnectGoogleCalendar() {
+      if(stagekitGoogleAccessToken && window.google?.accounts?.oauth2?.revoke) {
+        window.google.accounts.oauth2.revoke(stagekitGoogleAccessToken,() => {});
+      }
+      stagekitGoogleAccessToken='';stagekitGoogleAuthorizedEmail='';stagekitGoogleTokenExpires=0;
+      showToast('Google Agenda desconectado nesta sessão.','success');
+      renderCalendarEvents();
     }
 
     async function adminToggleUserStatus(whatsapp, currentStatus) {
