@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>StageKit — Press Kits para Músicos Profissionais</title>
-  <!-- StageKit v3.14: Supabase Auth e-mail + senha, recuperação por e-mail e tabelas privadas com RLS. -->
+  <!-- StageKit v3.14.1: corrige feedback de recuperação de senha na versão Preview. -->
   <!-- StageKit 3.7: identifica rotas diretas antes de renderizar a página inicial. -->
   <script>
     (function () {
@@ -1333,6 +1333,8 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       <input type="password" id="recoveryNewPassword" autocomplete="new-password" placeholder="Nova senha" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
       <input type="password" id="recoveryConfirmPassword" autocomplete="new-password" placeholder="Confirmar nova senha" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
       <button id="stagekitConfirmRecoveryBtn" type="button" onclick="confirmStagekitRecovery()" class="w-full bg-amber-500 hover:bg-amber-600 text-black font-bold py-3 rounded-xl">Salvar nova senha</button>
+      <p id="stagekitRecoveryFeedback" role="status" aria-live="polite" class="hidden text-sm font-semibold leading-relaxed"></p>
+      <button id="stagekitRecoveryReturnButton" type="button" onclick="returnToLoginAfterStagekitRecovery()" class="hidden w-full border border-amber-500/40 text-amber-400 font-bold py-3 rounded-xl hover:bg-amber-500/10">Voltar para o login</button>
     </div>
   </div>
 
@@ -1420,7 +1422,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
 
 
   <!-- FEEDBACK VISUAL SUPABASE (TOAST) -->
-  <div id="supabaseToast" class="fixed bottom-6 right-6 z-[100] hidden items-center gap-3 px-5 py-3.5 rounded-2xl bg-zinc-900 border border-amber-500/50 text-white text-xs font-bold shadow-2xl transition-all duration-300">
+  <div id="supabaseToast" class="fixed bottom-6 right-6 z-[220] hidden items-center gap-3 px-5 py-3.5 rounded-2xl bg-zinc-900 border border-amber-500/50 text-white text-xs font-bold shadow-2xl transition-all duration-300">
     <span id="supabaseToastIcon" class="w-2.5 h-2.5 rounded-full bg-amber-500 animate-pulse"></span>
     <span id="supabaseToastText">Sincronizando com o banco de dados...</span>
   </div>
@@ -1468,33 +1470,110 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
         feedback.className = 'text-xs text-red-400';
       } finally { button.disabled = false; }
     }
+    function isStagekitRecoveryRequest() {
+      const hashParams = new URLSearchParams(window.location.hash.replace(/^#/, ''));
+      const searchParams = new URLSearchParams(window.location.search);
+      return stagekitRecoveryActive ||
+        hashParams.get('type') === 'recovery' ||
+        searchParams.get('type') === 'recovery';
+    }
+
+    function setStagekitRecoveryFeedback(message, type='info') {
+      const el = document.getElementById('stagekitRecoveryFeedback');
+      if (!el) return;
+      el.textContent = message;
+      el.className = `text-sm font-semibold leading-relaxed ${
+        type === 'success' ? 'text-emerald-400' :
+        type === 'error' ? 'text-red-400' : 'text-amber-400'
+      }`;
+    }
+
     function openStagekitNewPassword() {
       stagekitRecoveryActive = true;
       updateStagekitRecoveryUI();
-      const m=document.getElementById('stagekitNewPasswordModal');
-      m.classList.remove('hidden');m.classList.add('flex');
+      const modal = document.getElementById('stagekitNewPasswordModal');
+      const button = document.getElementById('stagekitConfirmRecoveryBtn');
+      const back = document.getElementById('stagekitRecoveryReturnButton');
+      if (button) { button.disabled = false; button.classList.remove('hidden'); button.textContent = 'Salvar nova senha'; }
+      if (back) back.classList.add('hidden');
+      ['recoveryNewPassword','recoveryConfirmPassword'].forEach(id => {
+        const input=document.getElementById(id);
+        if(input) input.disabled=false;
+      });
+      document.getElementById('stagekitRecoveryFeedback')?.classList.add('hidden');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
     }
+
     async function confirmStagekitRecovery() {
-      const pass=document.getElementById('recoveryNewPassword').value;
-      const confirm=document.getElementById('recoveryConfirmPassword').value;
-      if (!isValidPassword(pass)) return showToast('Senha precisa ter pelo menos 8 caracteres, letras e números.', 'error');
-      if(pass!==confirm) return showToast('As senhas não coincidem.', 'error');
-      const btn=document.getElementById('stagekitConfirmRecoveryBtn');btn.disabled=true;
+      const pass = document.getElementById('recoveryNewPassword').value;
+      const confirmation = document.getElementById('recoveryConfirmPassword').value;
+      if (!isValidPassword(pass)) {
+        setStagekitRecoveryFeedback('A senha precisa ter pelo menos 8 caracteres, com letras e números.', 'error');
+        return;
+      }
+      if (pass !== confirmation) {
+        setStagekitRecoveryFeedback('As senhas não coincidem. Confira e tente novamente.', 'error');
+        return;
+      }
+      if (!supabaseClient) {
+        setStagekitRecoveryFeedback('Sem conexão com o Supabase. Atualize a página e solicite outro link.', 'error');
+        return;
+      }
+
+      const button = document.getElementById('stagekitConfirmRecoveryBtn');
+      button.disabled = true;
+      button.textContent = 'Salvando senha...';
+      setStagekitRecoveryFeedback('Verificando e salvando sua nova senha...', 'info');
+
       try {
-        const {error}=await supabaseClient.auth.updateUser({password:pass});
-        if(error) throw error;
-        stagekitRecoveryActive=false;updateStagekitRecoveryUI();
-        document.getElementById('stagekitNewPasswordModal').classList.add('hidden');
-        document.getElementById('stagekitNewPasswordModal').classList.remove('flex');
-        document.getElementById('recoveryNewPassword').value='';
-        document.getElementById('recoveryConfirmPassword').value='';
-        window.history.replaceState({},'', '/');
-        await restoreStagekitAuthSession();
-        showToast('Senha alterada! Agora você pode entrar normalmente.', 'success');
-        if(sessionUser) showArtistDashboard(); else {goHome();openLoginModal();}
-      } catch(e) {showToast(e.message||'Não foi possível alterar a senha.', 'error');}
-      finally {btn.disabled=false;}
+        const { error } = await supabaseClient.auth.updateUser({ password: pass });
+        if (error) throw error;
+
+        // O teste de recuperação não deve criar automaticamente um perfil novo
+        // antes de concluirmos a migração dos artistas antigos.
+        stagekitRecoveryActive = false;
+        updateStagekitRecoveryUI();
+        ['recoveryNewPassword','recoveryConfirmPassword'].forEach(id => {
+          const input = document.getElementById(id);
+          if (input) { input.value = ''; input.disabled = true; }
+        });
+        button.classList.add('hidden');
+        document.getElementById('stagekitRecoveryReturnButton').classList.remove('hidden');
+        setStagekitRecoveryFeedback(
+          'Senha alterada com sucesso! Você já pode usar a nova senha. Clique em "Voltar para o login".',
+          'success'
+        );
+        showToast('Senha alterada com sucesso!', 'success');
+
+        // Remove tokens temporários da barra de endereço.
+        window.history.replaceState({}, '', window.location.pathname);
+        try {
+          const { error: logoutError } = await supabaseClient.auth.signOut();
+          if (logoutError) console.warn('Logout após troca de senha:', logoutError.message);
+        } catch (logoutError) {
+          console.warn('Logout após troca de senha:', logoutError);
+        }
+        sessionUser = null;
+      } catch (error) {
+        setStagekitRecoveryFeedback(
+          'Não foi possível alterar a senha: ' + (error.message || 'solicite um novo link de recuperação.'),
+          'error'
+        );
+        showToast('Não foi possível alterar a senha.', 'error');
+        button.disabled = false;
+        button.textContent = 'Tentar novamente';
+      }
     }
+
+    function returnToLoginAfterStagekitRecovery() {
+      const modal = document.getElementById('stagekitNewPasswordModal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+      goHome();
+      openLoginModal();
+    }
+
     async function alterarSenhaStageKit() {
       if(!sessionUser || !supabaseClient) return showToast('Faça login primeiro.', 'error');
       const current = document.getElementById('editProfileCurrentPassword').value;
@@ -1963,7 +2042,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
     // Revalida a sessão sem bloquear a visualização pública e sem substituir dados
     // do artista que está sendo visitado por dados da conta logada.
     async function restoreStagekitAuthSession() {
-      if (!supabaseClient) return;
+      if (!supabaseClient || isStagekitRecoveryRequest()) return;
       const {data:{user},error}=await supabaseClient.auth.getUser();
       if(error || !user) {sessionUser=null;return;}
       if(user.is_anonymous || !user.email) {
@@ -1975,6 +2054,11 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       if(readError) throw readError;
       if(!row && role==='artista') {
         const metadata=user.user_metadata||{};
+        // Contas antigas convidadas devem ser vinculadas ao Press Kit original
+        // antes de obter acesso; nunca criar um perfil vazio automaticamente.
+        if (!metadata.stagekit_name || !metadata.stagekit_phone) {
+          throw new Error('Seu acesso por e-mail está pronto, mas o Press Kit antigo precisa ser vinculado antes do primeiro login.');
+        }
         const name=String(metadata.stagekit_name||user.email?.split('@')[0]||'ARTISTA').trim().toUpperCase();
         const phone=normalizeWhatsapp(metadata.stagekit_phone||'');
         const seed=normalizeSlug(name).slice(0,55)||'artista';
@@ -4036,5 +4120,3 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
 </body>
 </html>
 
-⋮⋮⋮⋮
-⋮⋮⋮⋮
