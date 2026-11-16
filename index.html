@@ -1,16 +1,10 @@
-
-
-
-
-
-
 <!DOCTYPE html>
 <html lang="pt-BR" class="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>StageKit — Press Kits para Músicos Profissionais</title>
-  <!-- StageKit v3.13: recuperação por WhatsApp e alteração de senha via Supabase Edge Function. Mantém as funcionalidades anteriores. -->
+  <!-- StageKit v3.14: Supabase Auth e-mail + senha, recuperação por e-mail e tabelas privadas com RLS. -->
   <!-- StageKit 3.7: identifica rotas diretas antes de renderizar a página inicial. -->
   <script>
     (function () {
@@ -662,7 +656,11 @@
           </div>
           <div class="grid sm:grid-cols-2 gap-4">
             <div>
-              <label class="block font-semibold text-zinc-300 mb-1">WhatsApp de Acesso *</label>
+              <label class="block font-semibold text-zinc-300 mb-1">E-mail de acesso</label>
+              <input type="email" id="editProfileEmail" readonly class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-zinc-400 cursor-not-allowed" title="E-mail alterado pelo fluxo de verificacao do Supabase Auth">
+            </div>
+            <div>
+              <label class="block font-semibold text-zinc-300 mb-1">WhatsApp de contato *</label>
               <input type="text" id="editProfilePhone" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white" placeholder="(21) 99999-9999">
             </div>
           </div>
@@ -674,7 +672,7 @@
           <div class="flex items-center gap-2 text-amber-400 font-bold text-sm">
             <i data-lucide="key-round" class="w-5 h-5"></i> Alterar senha
           </div>
-          <p id="stagekitRecoveryNotice" class="hidden rounded-xl bg-amber-500/10 border border-amber-500/30 p-3 text-amber-400 font-bold">Você entrou com uma senha provisória. Defina sua senha definitiva para continuar.</p>
+          <p id="stagekitRecoveryNotice" class="hidden rounded-xl bg-amber-500/10 border border-amber-500/30 p-3 text-amber-400 font-bold">O link de recuperação foi validado. Escolha sua nova senha.</p>
           <div class="space-y-2">
             <label for="editProfileCurrentPassword" class="block text-zinc-300 font-semibold">Senha atual</label>
             <input type="password" id="editProfileCurrentPassword" autocomplete="current-password" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white" placeholder="Sua senha atual">
@@ -690,7 +688,7 @@
             </div>
           </div>
           <button id="stagekitChangePasswordButton" type="button" onclick="alterarSenhaStageKit()" class="bg-amber-500 hover:bg-amber-600 text-black font-extrabold py-3 px-6 rounded-xl shadow-md">Alterar senha</button>
-          <p class="text-[11px] text-zinc-500">Sua senha não é enviada pelo navegador para a tabela de perfis. A validação ocorre na função segura do Supabase.</p>
+          <p class="text-[11px] text-zinc-500">Sua senha é gerenciada pelo Supabase Auth e não fica salva na tabela de perfis.</p>
         </div>
       </div>
 
@@ -1245,7 +1243,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       <div>
         <span class="text-xs font-bold text-amber-500 uppercase">Crie seu StageKit</span>
         <h3 class="text-2xl font-bold text-white mt-1">Cadastro de Artista</h3>
-        <p class="text-xs text-zinc-400 mt-1">Insira seu WhatsApp e uma senha segura.</p>
+        <p class="text-xs text-zinc-400 mt-1">Cadastre um e-mail válido para receber a confirmação e recuperar a senha.</p>
       </div>
 
       <div class="space-y-3 text-xs">
@@ -1253,13 +1251,17 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
           <label class="block font-semibold text-zinc-300 mb-1">Nome Completo / Nome Artístico *</label>
           <input type="text" id="regFullName" required class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white" placeholder="Seu nome completo">
         </div>
+        <div>
+          <label class="block font-semibold text-zinc-300 mb-1">E-mail de acesso *</label>
+          <input type="email" id="regEmail" required autocomplete="email" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white" placeholder="voce@exemplo.com">
+        </div>
         <div class="grid sm:grid-cols-2 gap-3">
           <div>
             <label class="block font-semibold text-zinc-300 mb-1">Data de Nascimento *</label>
             <input type="date" id="regBirthDate" required class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
           </div>
           <div>
-            <label class="block font-semibold text-zinc-300 mb-1">WhatsApp de Acesso *</label>
+            <label class="block font-semibold text-zinc-300 mb-1">WhatsApp de contato *</label>
             <input type="text" id="regPhone" required class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white" placeholder="(21) 99999-9999">
           </div>
         </div>
@@ -1281,13 +1283,13 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       <div>
         <span class="text-xs font-bold text-amber-500 uppercase">Área do Artista & Admin</span>
         <h3 class="text-2xl font-bold text-white mt-1">Entrar no Painel</h3>
-        <p class="text-xs text-zinc-400 mt-1">Digite seu WhatsApp de acesso e senha.</p>
+        <p class="text-xs text-zinc-400 mt-1">Digite seu e-mail cadastrado e sua senha.</p>
       </div>
 
       <div class="space-y-4 text-xs">
         <div>
-          <label class="block font-semibold text-zinc-300 mb-1">WhatsApp de Acesso</label>
-          <input type="text" id="loginWhatsapp" onkeypress="handleLoginKey(event)" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white" placeholder="Seu WhatsApp">
+          <label class="block font-semibold text-zinc-300 mb-1">E-mail de acesso</label>
+          <input type="email" id="loginEmail" autocomplete="email" onkeypress="handleLoginKey(event)" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white" placeholder="seu@email.com">
         </div>
         <div>
           <label class="block font-semibold text-zinc-300 mb-1">Senha</label>
@@ -1306,19 +1308,31 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
     </div>
   </div>
 
-  <!-- RECUPERAÇÃO POR WHATSAPP: o código é criado no servidor, nunca no HTML -->
+  <!-- Recuperação oficial via Supabase Auth: o link de uso único é enviado pelo SMTP configurado -->
   <div id="forgotPasswordModal" class="fixed inset-0 z-[120] bg-black/85 backdrop-blur-sm hidden items-center justify-center p-4">
     <div class="bg-brand-cardBg border border-brand-border rounded-3xl max-w-md w-full p-6 sm:p-8 space-y-5 shadow-2xl relative">
       <button type="button" onclick="closeForgotPasswordModal()" class="absolute right-5 top-5 text-zinc-400 hover:text-white" aria-label="Fechar"><i data-lucide="x" class="w-5 h-5"></i></button>
       <div class="space-y-2">
         <span class="font-bold text-xs uppercase text-amber-500">Recuperar acesso</span>
         <h3 class="text-2xl font-bold text-white">Esqueceu sua senha?</h3>
-        <p class="text-zinc-400 text-sm">Digite o WhatsApp cadastrado. Enviaremos um código provisório válido por 10 minutos. Use esse código como senha para entrar e depois escolha sua nova senha em <strong>Perfil &amp; Dados</strong>.</p>
+        <p class="text-zinc-400 text-sm">Informe o e-mail de acesso. Você receberá um link seguro para criar uma nova senha. Confira também o spam.</p>
       </div>
-      <label for="forgotWhatsapp" class="block text-zinc-300 text-xs font-semibold">WhatsApp cadastrado</label>
-      <input type="tel" id="forgotWhatsapp" autocomplete="tel" inputmode="tel" placeholder="(21) 99999-9999" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
-      <button type="button" id="forgotPasswordSendButton" onclick="requestTemporaryPassword()" class="w-full bg-amber-500 hover:bg-amber-600 text-black font-extrabold py-3 rounded-xl shadow-md">Enviar senha provisória por WhatsApp</button>
+      <label for="forgotEmail" class="block text-zinc-300 text-xs font-semibold">E-mail cadastrado</label>
+      <input type="email" id="forgotEmail" autocomplete="email" placeholder="seu@email.com" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
+      <button type="button" id="forgotPasswordSendButton" onclick="requestTemporaryPassword()" class="w-full bg-amber-500 hover:bg-amber-600 text-black font-extrabold py-3 rounded-xl shadow-md">Enviar link de recuperação por e-mail</button>
       <p id="forgotPasswordFeedback" aria-live="polite" class="text-xs text-zinc-400"></p>
+    </div>
+  </div>
+
+  <!-- Definição de senha após clicar no link recebido por e-mail -->
+  <div id="stagekitNewPasswordModal" class="fixed inset-0 z-[150] bg-black/90 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="bg-brand-cardBg border border-amber-500/30 rounded-3xl max-w-md w-full p-6 sm:p-8 space-y-4 shadow-2xl">
+      <div class="text-amber-400 text-xs font-bold uppercase">Recuperação de acesso</div>
+      <h3 class="text-2xl font-bold text-white">Crie sua nova senha</h3>
+      <p class="text-zinc-400 text-sm">O link foi validado. Escolha uma senha com pelo menos oito caracteres, incluindo letras e números.</p>
+      <input type="password" id="recoveryNewPassword" autocomplete="new-password" placeholder="Nova senha" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
+      <input type="password" id="recoveryConfirmPassword" autocomplete="new-password" placeholder="Confirmar nova senha" class="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-white">
+      <button id="stagekitConfirmRecoveryBtn" type="button" onclick="confirmStagekitRecovery()" class="w-full bg-amber-500 hover:bg-amber-600 text-black font-bold py-3 rounded-xl">Salvar nova senha</button>
     </div>
   </div>
 
@@ -1416,104 +1430,92 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
     const SUPABASE_URL = 'https://gixxspfvcgxumyxnyumi.supabase.co';
     const SUPABASE_KEY = 'sb_publishable_IjxfEWK0jyD72SKNzqCqkg_hFJ8_rIF';
     const supabaseClient = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY) : null;
-    const STAGEKIT_ACCOUNT_ENDPOINT = `${SUPABASE_URL}/functions/v1/stagekit-conta`;
-    let stagekitForcePasswordChange = Boolean(sessionStorage.getItem('stagekit_recovery_token'));
-
-    async function stagekitAccount(action, params = {}) {
-      let response;
-      try {
-        response = await fetch(STAGEKIT_ACCOUNT_ENDPOINT, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_KEY },
-          body: JSON.stringify({ action, ...params })
-        });
-      } catch (_) {
-        throw new Error('Não foi possível conectar ao serviço de contas. Verifique sua conexão.');
-      }
-      const result = await response.json().catch(() => null);
-      if (!response.ok || !result?.ok) {
-        throw new Error(result?.message || 'Serviço de contas indisponível. Verifique se a função stagekit-conta está publicada no Supabase.');
-      }
-      return result;
-    }
+    const STAGEKIT_AUTH_REDIRECT = `${window.location.origin}/`;
+    let stagekitRecoveryActive = false;
 
     function updateStagekitRecoveryUI() {
-      const notice = document.getElementById('stagekitRecoveryNotice');
-      if (notice) notice.classList.toggle('hidden', !stagekitForcePasswordChange);
-      const currentField = document.getElementById('editProfileCurrentPassword');
-      if (currentField) {
-        currentField.disabled = stagekitForcePasswordChange;
-        currentField.placeholder = stagekitForcePasswordChange ? 'Dispensada na recuperação' : 'Sua senha atual';
-      }
+      document.getElementById('stagekitRecoveryNotice')?.classList.toggle('hidden', !stagekitRecoveryActive);
     }
 
     function openForgotPasswordModal() {
       const modal = document.getElementById('forgotPasswordModal');
-      document.getElementById('forgotWhatsapp').value = document.getElementById('loginWhatsapp')?.value || '';
+      const loginEmail = document.getElementById('loginEmail');
+      document.getElementById('forgotEmail').value = loginEmail?.value || '';
       document.getElementById('forgotPasswordFeedback').textContent = '';
       modal.classList.remove('hidden'); modal.classList.add('flex');
-      try { lucide.createIcons(); } catch (_) {}
     }
     function closeForgotPasswordModal() {
       const modal = document.getElementById('forgotPasswordModal');
       modal.classList.add('hidden'); modal.classList.remove('flex');
     }
     async function requestTemporaryPassword() {
-      const input = document.getElementById('forgotWhatsapp');
+      const email = document.getElementById('forgotEmail').value.trim().toLowerCase();
       const feedback = document.getElementById('forgotPasswordFeedback');
       const button = document.getElementById('forgotPasswordSendButton');
-      const phone = normalizeWhatsapp(input.value).replace(/^55(?=\d{10,11}$)/, '');
-      if (!/^\d{10,11}$/.test(phone)) {
-        feedback.textContent = 'Digite um WhatsApp válido com DDD.';
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        feedback.textContent = 'Informe um e-mail válido.';
         return;
       }
+      if (!supabaseClient) return showToast('Supabase não carregou.', 'error');
       button.disabled = true;
-      button.textContent = 'Solicitando código...';
       try {
-        const result = await stagekitAccount('request', { whatsapp: phone });
-        feedback.textContent = result.message || 'Confira seu WhatsApp. O código será válido por 10 minutos.';
+        const {error} = await supabaseClient.auth.resetPasswordForEmail(email, {redirectTo: STAGEKIT_AUTH_REDIRECT});
+        if (error) throw error;
+        feedback.textContent = 'Se o e-mail estiver cadastrado, receberá um link para alterar a senha. Verifique também o spam.';
         feedback.className = 'text-xs text-emerald-400';
-        const loginPhone = document.getElementById('loginWhatsapp');
-        if(loginPhone) loginPhone.value = phone;
-      } catch (e) {
-        feedback.textContent = e.message || 'Falha ao solicitar código.';
+      } catch(e) {
+        feedback.textContent = 'Falha no envio: ' + (e.message || 'Tente novamente.');
         feedback.className = 'text-xs text-red-400';
-      } finally {
-        button.disabled = false;
-        button.textContent = 'Enviar senha provisória por WhatsApp';
-      }
+      } finally { button.disabled = false; }
+    }
+    function openStagekitNewPassword() {
+      stagekitRecoveryActive = true;
+      updateStagekitRecoveryUI();
+      const m=document.getElementById('stagekitNewPasswordModal');
+      m.classList.remove('hidden');m.classList.add('flex');
+    }
+    async function confirmStagekitRecovery() {
+      const pass=document.getElementById('recoveryNewPassword').value;
+      const confirm=document.getElementById('recoveryConfirmPassword').value;
+      if (!isValidPassword(pass)) return showToast('Senha precisa ter pelo menos 8 caracteres, letras e números.', 'error');
+      if(pass!==confirm) return showToast('As senhas não coincidem.', 'error');
+      const btn=document.getElementById('stagekitConfirmRecoveryBtn');btn.disabled=true;
+      try {
+        const {error}=await supabaseClient.auth.updateUser({password:pass});
+        if(error) throw error;
+        stagekitRecoveryActive=false;updateStagekitRecoveryUI();
+        document.getElementById('stagekitNewPasswordModal').classList.add('hidden');
+        document.getElementById('stagekitNewPasswordModal').classList.remove('flex');
+        document.getElementById('recoveryNewPassword').value='';
+        document.getElementById('recoveryConfirmPassword').value='';
+        window.history.replaceState({},'', '/');
+        await restoreStagekitAuthSession();
+        showToast('Senha alterada! Agora você pode entrar normalmente.', 'success');
+        if(sessionUser) showArtistDashboard(); else {goHome();openLoginModal();}
+      } catch(e) {showToast(e.message||'Não foi possível alterar a senha.', 'error');}
+      finally {btn.disabled=false;}
     }
     async function alterarSenhaStageKit() {
-      if (!sessionUser?.whatsapp) return showToast('Entre na sua conta primeiro.', 'error');
-      const currentPassword = document.getElementById('editProfileCurrentPassword').value;
-      const newPassword = document.getElementById('editProfileNewPassword').value;
-      const confirmPassword = document.getElementById('editProfileConfirmPassword').value;
-      const recoveryToken = sessionStorage.getItem('stagekit_recovery_token') || '';
-      if (!isValidPassword(newPassword)) return showToast('A nova senha precisa ter 8 caracteres ou mais, incluindo letras e números.', 'error');
-      if(newPassword !== confirmPassword) return showToast('As duas senhas novas não coincidem.', 'error');
-      if(!recoveryToken && !currentPassword) return showToast('Digite sua senha atual.', 'error');
-      const button = document.getElementById('stagekitChangePasswordButton');
-      button.disabled = true;
-      button.textContent = 'Alterando senha...';
+      if(!sessionUser || !supabaseClient) return showToast('Faça login primeiro.', 'error');
+      const current = document.getElementById('editProfileCurrentPassword').value;
+      const pass=document.getElementById('editProfileNewPassword').value;
+      const confirm=document.getElementById('editProfileConfirmPassword').value;
+      if(!current) return showToast('Informe a senha atual.', 'error');
+      if(!isValidPassword(pass)) return showToast('Use 8 caracteres ou mais, incluindo letras e números.', 'error');
+      if(pass!==confirm) return showToast('As senhas não coincidem.', 'error');
+      const button=document.getElementById('stagekitChangePasswordButton');button.disabled=true;
       try {
-        await stagekitAccount('change', { whatsapp: sessionUser.whatsapp, currentPassword, newPassword, recoveryToken });
-        document.getElementById('editProfileCurrentPassword').value = '';
-        document.getElementById('editProfileNewPassword').value = '';
-        document.getElementById('editProfileConfirmPassword').value = '';
-        stagekitForcePasswordChange = false;
-        sessionStorage.removeItem('stagekit_recovery_token');
-        updateStagekitRecoveryUI();
-        showToast('Senha alterada com sucesso!', 'success');
-      } catch (e) {
-        showToast(e.message || 'Erro ao alterar senha.', 'error');
-      } finally {
-        button.disabled = false;
-        button.textContent = 'Alterar senha';
-      }
+        const {error:reauthErr}=await supabaseClient.auth.signInWithPassword({email:sessionUser.email,password:current});
+        if(reauthErr) throw new Error('Senha atual incorreta.');
+        const {error}=await supabaseClient.auth.updateUser({password:pass});
+        if(error) throw error;
+        ['editProfileCurrentPassword','editProfileNewPassword','editProfileConfirmPassword'].forEach(id=>document.getElementById(id).value='');
+        showToast('Senha alterada com sucesso.', 'success');
+      } catch(e) {showToast(e.message||'Erro ao alterar senha.', 'error');}
+      finally {button.disabled=false;}
     }
 
-
-    // Utilitários StageKit v3.5
+        // Utilitários StageKit v3.5
     const STAGEKIT_MEDIA_BUCKET = 'stagekit-media';
     // Supabase Free: até 50 MB por arquivo. A plataforma usa tetos muito menores.
     const STAGEKIT_MAX_IMAGE_BYTES = 50 * 1024 * 1024; // limite do arquivo original
@@ -1781,8 +1783,8 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       }
     }
 
-    let usersDatabase = JSON.parse(localStorage.getItem('stagekit_users_db')) || [];
-    let sessionUser = JSON.parse(localStorage.getItem('stagekit_session')) || null;
+    let usersDatabase = [];
+    let sessionUser = null;
     let isViewingOwnOnlineKit = false;
     let isAdminViewingArtistKit = false;
 
@@ -1796,12 +1798,9 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       createdAt: "2026-01-01"
     };
 
-    if(!usersDatabase.some(u => normalizeWhatsapp(u.whatsapp) === "21989368930")) {
-      usersDatabase.push(superAdminAccount);
-      localStorage.setItem('stagekit_users_db', JSON.stringify(usersDatabase));
-    }
 
-    let artistData = sessionUser || {
+
+        let artistData = {
       role: "artista",
       status: "Ativo",
       whatsapp: "21989368930",
@@ -1855,10 +1854,10 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       musiciansList: []
     };
 
-    let eventsList = (sessionUser && Array.isArray(sessionUser.eventsList)) ? sessionUser.eventsList : (JSON.parse(localStorage.getItem('stagekit_events')) || []);
+    let eventsList = [];
     let editingEventIndex = null;
     let eventSaveInProgress = false;
-    let musiciansList = (sessionUser && Array.isArray(sessionUser.musiciansList)) ? sessionUser.musiciansList : (JSON.parse(localStorage.getItem('stagekit_musicians')) || []);
+    let musiciansList = [];
     let globalContractModel = localStorage.getItem('stagekit_global_contract') || `CONTRATO DE PRESTAÇÃO DE SERVIÇOS ARTÍSTICOS - PADRÃO CASA 6 PRODUÇÕES
 
 Pelo presente instrumento particular, de um lado o(a) contratado(a) [NOME DO ARTISTA], inscrito(a) no CPF sob o nº [CPF], doravante denominado(a) ARTISTA, e de outro o CONTRATANTE acordam a realização da apresentação musical conforme termos combinados.
@@ -1880,7 +1879,8 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       delete profile.password;
       return {
         ...profile,
-        whatsapp: normalizeWhatsapp(row.whatsapp),
+        whatsapp: normalizeWhatsapp(row.whatsapp || profile.whatsapp),
+        email: row.email || profile.email || '',
         role: row.role || profile.role || 'artista',
         status: row.status || profile.status || 'Ativo',
         createdAt: row.created_at || profile.createdAt || '',
@@ -1894,78 +1894,33 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
     }
 
     async function fetchAllUsersFromSupabase() {
-      if (!supabaseClient) return;
+      if (!supabaseClient || sessionUser?.role !== 'admin') return;
       try {
-        const { data, error } = await supabaseClient
-          .from('stagekit_users')
-          .select('*');
-
-        if (!error && Array.isArray(data)) {
-          usersDatabase = data.map(buildArtistObjectFromSupabaseRow).filter(Boolean);
-          if (!usersDatabase.some(u => normalizeWhatsapp(u.whatsapp) === '21989368930')) {
-            usersDatabase.push(superAdminAccount);
-          }
-          localStorage.setItem('stagekit_users_db', JSON.stringify(usersDatabase));
-
-          const artists = usersDatabase.filter(u => u.role !== 'admin');
-          const sumBudgets = artists.reduce((acc, u) => acc + (u.budgetsGeneratedCount || 0), 0);
-          if (sumBudgets > totalBudgetsCount) {
-            totalBudgetsCount = sumBudgets;
-          }
-
-          renderSuperAdminData();
-          renderClientsData();
-        }
-      } catch (err) {
-        console.warn('Erro ao carregar lista de usuários do Supabase:', err);
-      }
+        const {data,error}=await supabaseClient.from('stagekit_accounts')
+          .select('user_id,email,whatsapp,role,status,slug,profile_data,created_at')
+          .order('created_at',{ascending:false});
+        if(error) throw error;
+        usersDatabase=(data||[]).map(buildArtistObjectFromSupabaseRow).filter(Boolean);
+        renderSuperAdminData(); renderClientsData();
+      } catch(e) {console.warn('Lista de artistas não disponível:',e);}
     }
 
-    async function syncArtistToSupabase(targetUserObj, showFeedback = false) {
-      if (!supabaseClient || !targetUserObj || !targetUserObj.whatsapp) return false;
-      const cleanPhone = normalizeWhatsapp(targetUserObj.whatsapp);
-      if (!cleanPhone) return false;
-
-      if (showFeedback) showToast('Salvando alterações na nuvem...', 'loading');
-
-      const payloadToSave = {
-        ...targetUserObj,
-        whatsapp: cleanPhone,
-        eventsList: targetUserObj.role === 'admin' ? [] : eventsList,
-        musiciansList: targetUserObj.role === 'admin' ? [] : musiciansList
-      };
-      // Nunca regravar senha dentro do perfil ou em texto puro.
-      delete payloadToSave.registeredPassword;
-      delete payloadToSave.password;
-
-      try {
-        const { error } = await supabaseClient
-          .from('stagekit_users')
-          .upsert({
-            whatsapp: cleanPhone,
-            role: payloadToSave.role || 'artista',
-            status: payloadToSave.status || 'Ativo',
-            created_at: payloadToSave.createdAt || new Date().toISOString().split('T')[0],
-            slug: (payloadToSave.slug || '').toLowerCase().trim(),
-            profile_data: payloadToSave
-          }, { onConflict: 'whatsapp' });
-
-        if (error) {
-          console.error('Erro Supabase upsert:', error);
-          if (showFeedback) showToast('Erro ao salvar no banco de dados: ' + error.message, 'error');
-          return false;
-        }
-
-        if (showFeedback) showToast('Salvo!', 'success');
-        return true;
-      } catch (err) {
-        console.error('Exceção Supabase upsert:', err);
-        if (showFeedback) showToast('Falha de conexão ao salvar dados.', 'error');
-        return false;
-      }
+        async function syncArtistToSupabase(targetUserObj, showFeedback = false) {
+      if(!supabaseClient || !sessionUser?.user_id) return false;
+      const p={...targetUserObj,eventsList,musiciansList};
+      ['password','registeredPassword','resetToken','user_id','role','status'].forEach(k=>delete p[k]);
+      const slug=normalizeSlug(targetUserObj.slug);
+      if(!slug || slug.length<3) {showToast('Link inválido.','error');return false;}
+      if(showFeedback) showToast('Salvando no Supabase...','loading');
+      const {error}=await supabaseClient.from('stagekit_accounts')
+        .update({profile_data:p,whatsapp:normalizeWhatsapp(p.whatsapp),slug})
+        .eq('user_id',sessionUser.user_id);
+      if(error) { console.error('Falha ao salvar:',error);showToast('Erro no banco: '+error.message,'error');return false; }
+      if(showFeedback) showToast('Alterações salvas.','success');
+      return true;
     }
 
-    function isValidPassword(password) {
+        function isValidPassword(password) {
       if (password.length < 8) return false;
       return /[a-zA-Z]/.test(password) && /[0-9]/.test(password);
     }
@@ -1986,44 +1941,19 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       return true;
     }
 
-    async function saveData(showFeedback = false) {
-      if(stagekitForcePasswordChange) {
-        if(showFeedback) showToast('Altere sua senha provisória antes de salvar.', 'error');
-        return false;
+    async function saveData(showFeedback=false) {
+      if(!sessionUser || !artistData || !supabaseClient) {
+        if(showFeedback) showToast('Faça login para salvar.','error'); return false;
       }
-      if (!sessionUser || !artistData || !artistData.whatsapp) {
-        if (showFeedback) showToast('Faça login para salvar suas alterações.', 'error');
-        return false;
-      }
-      const oldPhone = normalizeWhatsapp(sessionUser.whatsapp);
-      const cleanPhone = normalizeWhatsapp(artistData.whatsapp || oldPhone);
-      artistData.whatsapp = cleanPhone;
-      artistData.eventsList = eventsList;
-      artistData.musiciansList = musiciansList;
-      // O Supabase é a fonte da verdade. Erros na nuvem não geram alertas falsos de sucesso.
-      const updatedUser = { ...sessionUser, ...artistData, whatsapp: cleanPhone };
-      if (!supabaseClient) {
-        if (showFeedback) showToast('Sem conexão com Supabase; nada foi publicado.', 'error');
-        return false;
-      }
-      const ok = await syncArtistToSupabase(updatedUser, showFeedback);
-      if (!ok) return false;
-      sessionUser = updatedUser;
-      const oldIndex = usersDatabase.findIndex(u => normalizeWhatsapp(u.whatsapp) === oldPhone);
-      if (oldIndex >= 0) usersDatabase.splice(oldIndex, 1);
-      const currentIndex = usersDatabase.findIndex(u => normalizeWhatsapp(u.whatsapp) === cleanPhone);
-      if (currentIndex >= 0) usersDatabase[currentIndex] = updatedUser;
-      else usersDatabase.push(updatedUser);
-      safeCacheSet('stagekit_session', sessionUser);
-      safeCacheSet('stagekit_users_db', usersDatabase);
-      safeCacheSet('stagekit_events', eventsList);
-      safeCacheSet('stagekit_musicians', musiciansList);
-      safeCacheSet('stagekit_budgets_count', String(totalBudgetsCount));
-      safeCacheSet('stagekit_global_contract', globalContractModel);
-      return true;
+      if(sessionUser.role==='admin') return false;
+      artistData.eventsList=eventsList;artistData.musiciansList=musiciansList;
+      const updatedUser={...sessionUser,...artistData};
+      const ok=await syncArtistToSupabase(updatedUser,showFeedback);
+      if(ok) {sessionUser=updatedUser;artistData=updatedUser;}
+      return ok;
     }
 
-    // O loader é exibido apenas em acessos por endereço direto (ex.: /nome-do-artista).
+        // O loader é exibido apenas em acessos por endereço direto (ex.: /nome-do-artista).
     // A tela é liberada sempre, inclusive se o Supabase estiver indisponível.
     function finishStagekitBoot() {
       document.documentElement.classList.remove('stagekit-boot-loading');
@@ -2032,87 +1962,81 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
 
     // Revalida a sessão sem bloquear a visualização pública e sem substituir dados
     // do artista que está sendo visitado por dados da conta logada.
-    async function refreshSessionWithoutBlockingRoute() {
-      if (!sessionUser || !sessionUser.whatsapp || !supabaseClient) return;
-      const originalPhone = normalizeWhatsapp(sessionUser.whatsapp);
-      try {
-        const { data: freshRow, error } = await supabaseClient
-          .from('stagekit_users').select('*').eq('whatsapp', originalPhone).maybeSingle();
-        if (error) throw error;
-        if (!freshRow || normalizeWhatsapp(sessionUser?.whatsapp) !== originalPhone) return;
-        if (freshRow.status === 'Bloqueado') {
-          sessionUser = null;
-          localStorage.removeItem('stagekit_session');
-          // Não interrompe o acesso de visitantes a um press kit público.
-          if (window.location.pathname === '/dashboard' || window.location.pathname === '/modovisualizacao') {
-            goHome();
-            showToast('Sua conta está bloqueada. Entre em contato com o suporte.', 'error');
-          }
-          return;
-        }
-        const refreshedObj = buildArtistObjectFromSupabaseRow(freshRow);
-        sessionUser = refreshedObj;
-        localStorage.setItem('stagekit_session', JSON.stringify(sessionUser));
-        // Nunca reescreve a visualização pública de outro artista.
-        const inDashboard = !document.getElementById('artistDashboard')?.classList.contains('hidden');
-        const inOwnPreview = isViewingOwnOnlineKit &&
-          normalizeWhatsapp(artistData?.whatsapp) === originalPhone;
-        if (inDashboard || inOwnPreview) {
-          artistData = refreshedObj;
-          if (Array.isArray(refreshedObj.eventsList)) eventsList = refreshedObj.eventsList;
-          if (Array.isArray(refreshedObj.musiciansList)) musiciansList = refreshedObj.musiciansList;
-          loadInputsFromState();
-          renderEvents();
-          renderMusicians();
-          updateCacheCalculations();
-          renderCalendarEvents();
-          renderTestimonialsBuilder();
-        }
-      } catch (e) {
-        console.warn('Não foi possível revalidar a sessão no Supabase:', e);
+    async function restoreStagekitAuthSession() {
+      if (!supabaseClient) return;
+      const {data:{user},error}=await supabaseClient.auth.getUser();
+      if(error || !user) {sessionUser=null;return;}
+      if(user.is_anonymous || !user.email) {
+        await supabaseClient.auth.signOut();sessionUser=null;return;
       }
+      const role=user.app_metadata?.stagekit_role==='admin'?'admin':'artista';
+      let {data:row,error:readError}=await supabaseClient.from('stagekit_accounts')
+        .select('*').eq('user_id',user.id).maybeSingle();
+      if(readError) throw readError;
+      if(!row && role==='artista') {
+        const metadata=user.user_metadata||{};
+        const name=String(metadata.stagekit_name||user.email?.split('@')[0]||'ARTISTA').trim().toUpperCase();
+        const phone=normalizeWhatsapp(metadata.stagekit_phone||'');
+        const seed=normalizeSlug(name).slice(0,55)||'artista';
+        const {data:publicRows}=await supabaseClient.from('stagekit_public_kits')
+          .select('slug').eq('slug',seed).maybeSingle();
+        const slug=`${seed}-${user.id.slice(0,6)}`;
+        const base={...artistData};
+        const profile={...base,artistMainName:name,coverText:name,
+          birthDate:metadata.stagekit_birth_date||'',whatsapp:phone,email:user.email,
+          slug,role:'artista',status:'Ativo',galleryPhotos:[],eventsList:[],musiciansList:[]};
+        const inserted=await supabaseClient.from('stagekit_accounts').insert({
+          user_id:user.id,email:user.email,whatsapp:phone||null,slug,profile_data:profile
+        }).select('*').single();
+        if(inserted.error) throw inserted.error;
+        row=inserted.data;
+      }
+      if(!row && role==='admin') {
+        throw new Error('Administrador ainda não vinculado. Consulte o SQL de implantação.');
+      }
+      if(row.status==='Bloqueado') {await supabaseClient.auth.signOut();sessionUser=null;throw new Error('Conta bloqueada.');}
+      const profile=buildArtistObjectFromSupabaseRow(row);
+      sessionUser={...profile,user_id:user.id,email:user.email,role};
+      artistData=sessionUser;
+      eventsList=Array.isArray(profile.eventsList)?profile.eventsList:[];
+      musiciansList=Array.isArray(profile.musiciansList)?profile.musiciansList:[];
+      loadInputsFromState();renderEvents();renderMusicians();
+      updateCacheCalculations();renderCalendarEvents();renderTestimonialsBuilder();
+    }
+    async function refreshSessionWithoutBlockingRoute() {
+      // O Supabase Auth renova seu próprio token; nada depende de localStorage do StageKit.
+      if(!supabaseClient) return;
+      try { await restoreStagekitAuthSession(); }
+      catch(e) {console.warn('Falha na sessão:', e.message);}
     }
 
-    async function initApp() {
-      // Prepare controles locais sem aguardar NENHUMA consulta de banco.
-      loadInputsFromState();
-      renderEvents();
-      renderMusicians();
-      updateCacheCalculations();
-      renderCalendarEvents();
-      renderSuperAdminData();
-      renderClientsData();
-      renderTestimonialsBuilder();
-      updateStagekitRecoveryUI();
-
+        async function initApp() {
+      loadInputsFromState();renderEvents();renderMusicians();
+      updateCacheCalculations();renderCalendarEvents();renderSuperAdminData();
+      renderClientsData();renderTestimonialsBuilder();updateStagekitRecoveryUI();
       window.addEventListener('popstate', handleRouting);
       window.addEventListener('hashchange', handleRouting);
-
-      // A única consulta necessária para /nome-do-artista ocorre em handleRouting.
-      // Não faz consulta de todos os usuários nem verifica o admin antes da rota.
+      if(supabaseClient) {
+        supabaseClient.auth.onAuthStateChange((event) => {
+          if(event==='PASSWORD_RECOVERY') setTimeout(openStagekitNewPassword,0);
+          if(event==='SIGNED_OUT') {sessionUser=null;}
+        });
+      }
+      const directSlug=window.location.pathname!=='/' && window.location.pathname!=='/dashboard' && window.location.pathname!=='/modovisualizacao';
       try {
+        if(!directSlug) await restoreStagekitAuthSession();
         await handleRouting();
-      } catch (e) {
-        console.error('Não foi possível abrir a rota do StageKit:', e);
-        goHome(false);
-        showToast('Não foi possível carregar o endereço. Tente atualizar a página.', 'error');
+        // Rota pública não depende de sessão e não substitui o artista visitado.
+      } catch(e) {
+        console.error('Inicialização StageKit:',e);
+        goHome(false);showToast('Não foi possível carregar o perfil: '+e.message,'error');
       } finally {
-        finishStagekitBoot();
-        try { lucide.createIcons(); } catch (e) {}
+        finishStagekitBoot();try{lucide.createIcons();}catch(e){}
       }
-
-      // Essas tarefas administrativas/sessão agora são executadas somente após
-      // a abertura da tela. Não bloqueiam o link público do artista.
-      if (sessionUser) {
-        void refreshSessionWithoutBlockingRoute();
-        if (sessionUser.role === 'admin') {
-          void ensureSuperAdminInSupabase();
-          void fetchAllUsersFromSupabase();
-        }
-      }
+      if(sessionUser?.role==='admin') void fetchAllUsersFromSupabase();
     }
 
-    // Roteamento SPA; rotas públicas funcionam sem sessão/localStorage.
+        // Roteamento SPA; rotas públicas funcionam sem sessão/localStorage.
     let stagekitRouteToken = 0;
     async function handleRouting() {
       const requestToken = ++stagekitRouteToken;
@@ -2138,7 +2062,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
         const slug = normalizeSlug(route);
         let matchedArtist = null;
         if (supabaseClient) {
-          const { data, error } = await supabaseClient.from('stagekit_users')
+          const { data, error } = await supabaseClient.from('stagekit_public_kits')
             .select('whatsapp,role,status,slug,profile_data,created_at')
             .eq('slug', slug).maybeSingle();
           if (requestToken !== stagekitRouteToken) return;
@@ -2179,6 +2103,8 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       if(elProfId) elProfId.value = artistData.musicianId || '';
       const elProfPhone = document.getElementById('editProfilePhone');
       if(elProfPhone) elProfPhone.value = artistData.whatsapp || '';
+      const emailBox=document.getElementById('editProfileEmail');
+      if(emailBox) emailBox.value=sessionUser?.email||'';
 
       const elCoverText = document.getElementById('editCoverText');
       if(elCoverText) elCoverText.value = artistData.coverText || artistData.artistMainName;
@@ -2847,7 +2773,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
 
     window.openLoginModal = function() {
       const modal = document.getElementById('loginModal');
-      const waInput = document.getElementById('loginWhatsapp');
+      const waInput = document.getElementById('loginEmail');
       const passInput = document.getElementById('loginPassword');
       if (waInput) waInput.value = '';
       if (passInput) passInput.value = '';
@@ -2873,40 +2799,21 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
     };
 
     window.submitLogin = async function() {
-      const phoneRaw = document.getElementById('loginWhatsapp')?.value || '';
-      const phone = normalizeWhatsapp(phoneRaw).replace(/^55(?=\d{10,11}$)/, '');
-      const password = document.getElementById('loginPassword')?.value || '';
-      if(!phone || !password) return showToast('Digite WhatsApp e senha.', 'error');
-      showToast('Verificando acesso com segurança...', 'loading');
+      const email=(document.getElementById('loginEmail')?.value||'').trim().toLowerCase();
+      const password=document.getElementById('loginPassword')?.value||'';
+      if(!email || !password) return showToast('Informe seu e-mail e senha.','error');
+      if(!supabaseClient) return showToast('Supabase não disponível.','error');
+      showToast('Entrando com segurança...','loading');
       try {
-        const result = await stagekitAccount('authenticate', {whatsapp:phone, password});
-        const loadedUser = result.user;
-        sessionUser = loadedUser;
-        artistData = loadedUser;
-        if (Array.isArray(loadedUser.eventsList)) eventsList = loadedUser.eventsList;
-        if (Array.isArray(loadedUser.musiciansList)) musiciansList = loadedUser.musiciansList;
-        stagekitForcePasswordChange = Boolean(result.temporary);
-        if(result.temporary && result.recoveryToken) {
-          sessionStorage.setItem('stagekit_recovery_token', result.recoveryToken);
-        } else {
-          sessionStorage.removeItem('stagekit_recovery_token');
-        }
-        safeCacheSet('stagekit_session', sessionUser);
-        loadInputsFromState();
-        renderEvents(); renderMusicians(); updateCacheCalculations(); renderCalendarEvents();
-        window.closeLoginModal(); closeForgotPasswordModal();
-        showArtistDashboard(); updateStagekitRecoveryUI();
-        if(stagekitForcePasswordChange) {
-          showToast('Código validado! Altere sua senha em Perfil & Dados.', 'success');
-          switchTab('tabProfile');
-          document.getElementById('stagekitPasswordCard')?.scrollIntoView({behavior:'smooth',block:'center'});
-        } else showToast('Login realizado com sucesso!', 'success');
-      } catch(e) {
-        showToast(e.message || 'WhatsApp ou senha incorretos.', 'error');
-      }
+        const {error}=await supabaseClient.auth.signInWithPassword({email,password});
+        if(error) throw error;
+        await restoreStagekitAuthSession();
+        window.closeLoginModal();closeForgotPasswordModal();
+        showArtistDashboard();showToast('Login realizado!','success');
+      } catch(e) {showToast('Não foi possível entrar: '+(e.message||'Confira a confirmação do e-mail.'),'error');}
     };
 
-    window.openRegisterModal = function() {
+        window.openRegisterModal = function() {
       const modal = document.getElementById('registerModal');
       if (modal) {
         modal.classList.remove('hidden');
@@ -2922,146 +2829,42 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
     };
 
     async function submitRegister() {
-      const fullName = document.getElementById('regFullName').value.trim();
-      const birthDate = document.getElementById('regBirthDate') ? document.getElementById('regBirthDate').value.trim() : '';
-      const phone = document.getElementById('regPhone').value.trim();
-      const pass = document.getElementById('regPassword').value.trim();
-      
-      if(!fullName || !phone || !pass) { alert('Preencha os campos obrigatórios.'); return; }
-      if(!isValidPassword(pass)) { alert('A senha deve ter no mínimo 8 caracteres, com letras e números.'); return; }
-
-      const cleanPhone = normalizeWhatsapp(phone);
-      if(cleanPhone.length < 10) { alert('Informe um número de WhatsApp válido com DDD.'); return; }
-
-      const generatedSlug = fullName.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]/g, '');
-      const realRegistrationDate = new Date().toISOString().split('T')[0];
-
-      showToast('Criando sua conta no banco de dados...', 'loading');
-
-      if (supabaseClient) {
-        try {
-          const { data: existingUser } = await supabaseClient
-            .from('stagekit_users')
-            .select('whatsapp')
-            .eq('whatsapp', cleanPhone)
-            .maybeSingle();
-
-          if (existingUser) {
-            showToast('Este WhatsApp já está cadastrado.', 'error');
-            alert('Já existe uma conta cadastrada com este número de WhatsApp! Faça login para acessar.');
-            return;
-          }
-        } catch (err) {
-          console.warn('Erro ao verificar duplicidade:', err);
-        }
-      }
-
-      const newUser = {
-        role: "artista",
-        status: "Ativo",
-        whatsapp: cleanPhone,
-        birthDate: birthDate,
-        artistMainName: fullName.toUpperCase(),
-        city: "Rio de Janeiro, RJ",
-        title: "A TRILHA SONORA PERFEITA PARA O SEU MOMENTO",
-        bio: "Músico profissional, multi-instrumentista e arranjador...",
-        slug: generatedSlug,
-        coverUrl: "",
-        coverZoom: 1,
-        coverRotate: 0,
-        coverText: fullName.toUpperCase(),
-        coverFont: "Plus Jakarta Sans",
-        coverFontSize: "text-2xl sm:text-4xl",
-        coverBold: true,
-        coverItalic: false,
-        coverUnderline: false,
-        channelYoutube: "",
-        instagram: "",
-        tiktok: "",
-        facebook: "",
-        youtube1: "",
-        youtube2: "",
-        youtube3: "",
-        mp4_1: "",
-        mp4_2: "",
-        mp4_3: "",
-        spotify: "",
-        deezer: "",
-        apple: "",
-        avatarUrl: "",
-        avatarZoom: 1,
-        avatarRotate: 0,
-        galleryPhotos: [],
-        testimonials: [
-          { text: "Show incrível no nosso evento! Todos elogiaram.", author: "Nome do Contratante", printUrl: "" }
-        ],
-        formats: [
-          { title: "Barzinhos & Aniversários", sub: "ACÚSTICO & BANDA", desc: "Repertório versátil de MPB, pop, rock e sertanejo adaptado ao clima do evento.", photo: "" },
-          { title: "Casamentos & Cerimônias", sub: "Ambos", desc: "Trilha sonora inesquecível para a entrada dos noivos, com som próprio incluído.", photo: "" },
-          { title: "Eventos & Formaturas", sub: "ENERGIA E PALCO", desc: "Show marcante para celebrações corporativas e recepções de alto nível.", photo: "" }
-        ],
-        cpf: "",
-        musicianId: "",
-        repertoireFileName: "",
-        contractModelText: globalContractModel,
-        googleCalendarConnected: false,
-        createdAt: realRegistrationDate,
-        budgetsGeneratedCount: 0,
-        eventsList: [],
-        musiciansList: []
-      };
-
-      if (!supabaseClient) {
-        return showToast('Supabase indisponível. Não foi possível concluir o cadastro.', 'error');
-      }
+      const fullName=document.getElementById('regFullName').value.trim();
+      const email=document.getElementById('regEmail').value.trim().toLowerCase();
+      const birthDate=document.getElementById('regBirthDate').value;
+      const phone=normalizeWhatsapp(document.getElementById('regPhone').value);
+      const pass=document.getElementById('regPassword').value;
+      if(!fullName||!email||!birthDate||phone.length<10||!isValidPassword(pass))
+        return showToast('Preencha nome, e-mail, WhatsApp, data e senha segura.','error');
+      if(!supabaseClient) return showToast('Sem conexão Supabase.','error');
+      showToast('Registrando e-mail...','loading');
       try {
-        const result = await stagekitAccount('register', {
-          whatsapp: cleanPhone,
-          password: pass,
-          name: fullName,
-          birthDate,
-          profile: newUser
-        });
-        Object.assign(newUser, result.user);
-      } catch(e) {
-        showToast(e.message || 'Não foi possível cadastrar.', 'error');
-        return;
-      }
-
-      usersDatabase.push(newUser);
-      localStorage.setItem('stagekit_users_db', JSON.stringify(usersDatabase));
-      sessionUser = newUser;
-      artistData = newUser;
-      eventsList = [];
-      musiciansList = [];
-      localStorage.setItem('stagekit_session', JSON.stringify(sessionUser));
-
-      loadInputsFromState();
-      renderEvents();
-      renderMusicians();
-      updateCacheCalculations();
-      renderCalendarEvents();
-      closeRegisterModal();
-      showToast('Conta criada e salva na nuvem!', 'success');
-      alert('Cadastro realizado com sucesso na comunidade!');
-      showArtistDashboard();
+        const {data,error}=await supabaseClient.auth.signUp({email,password:pass,
+          options:{emailRedirectTo:STAGEKIT_AUTH_REDIRECT,
+            data:{stagekit_name:fullName,stagekit_phone:phone,stagekit_birth_date:birthDate}}});
+        if(error) throw error;
+        closeRegisterModal();
+        if(data.session) {
+          await restoreStagekitAuthSession();showArtistDashboard();
+          showToast('Cadastro realizado.','success');
+        } else {
+          showToast('Confira seu e-mail e confirme o cadastro antes de entrar.','success');
+          alert('Enviamos uma confirmação para seu e-mail. Abra o link recebido e depois faça login.');
+        }
+      } catch(e) {showToast('Erro no cadastro: '+(e.message||e),'error');}
     }
 
-    function logoutToHome() {
-      stagekitForcePasswordChange = false;
-      sessionStorage.removeItem('stagekit_recovery_token');
-      sessionUser = null;
-      eventsList = [];
-      musiciansList = [];
+        async function logoutToHome() {
+      if(supabaseClient) await supabaseClient.auth.signOut();
+      sessionUser=null;eventsList=[];musiciansList=[];usersDatabase=[];
       localStorage.removeItem('stagekit_session');
+      localStorage.removeItem('stagekit_users_db');
+      localStorage.removeItem('stagekit_events');
+      localStorage.removeItem('stagekit_musicians');
       goHome();
     }
 
-    function switchTab(tabId) {
-      if(stagekitForcePasswordChange && tabId !== 'tabProfile') {
-        showToast('Defina sua nova senha em Perfil & Dados antes de continuar.', 'error');
-        return;
-      }
+        function switchTab(tabId) {
       if(sessionUser && sessionUser.role === 'admin' && tabId !== 'tabSuperAdmin' && tabId !== 'tabClients' && tabId !== 'tabContracts') {
         alert('Esta aba está bloqueada no perfil estrito de administrador da plataforma.');
         return;
@@ -3154,7 +2957,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       await saveData(false);
 
       const text = `*Olá! Gostaria de verificar disponibilidade.*\n\n👤 *Nome do Contratante:* ${clientName}\n🎵 *Formato:* ${selectedFormatForModal}\n📅 *Data:* ${dt}\n🎉 *Evento:* ${ev}\n👥 *Público:* ${aud}\n📍 *Local:* ${loc}`;
-      const phoneNum = normalizeWhatsapp(artistData.whatsapp) || '21989368930';
+      const phoneNum = normalizeWhatsapp(artistData.whatsapp);
       const fullWa = phoneNum.startsWith('55') ? phoneNum : `55${phoneNum}`;
       window.open(`https://wa.me/${fullWa}?text=${encodeURIComponent(text)}`, '_blank', 'noopener,noreferrer');
       closeFormatModal();
@@ -3175,12 +2978,9 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       
       const newPhoneRaw = document.getElementById('editProfilePhone').value.trim();
       const newCleanPhone = normalizeWhatsapp(newPhoneRaw);
-      if (newCleanPhone && newCleanPhone !== normalizeWhatsapp(sessionUser?.whatsapp)) {
-        showToast('Para trocar seu WhatsApp de acesso, procure o suporte da plataforma. Isso exige verificação do novo número.', 'error');
-        return;
-      }
+      if(newCleanPhone) artistData.whatsapp=newCleanPhone;
 
-      // A senha é alterada exclusivamente pelo botão específico "Alterar senha"
+          // A senha é alterada exclusivamente pelo botão específico "Alterar senha"
       // com validação no servidor e confirmação da nova senha.
 
       if (!(await saveData(true))) return;
@@ -3292,22 +3092,16 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       }
     }
 
-    // O StageKit original usa login por WhatsApp próprio, diferente do Supabase Auth.
-    // A autenticação anônima aqui dá uma identidade JWT ao upload e restringe o diretório
-    // ao auth.uid() nas políticas de Storage. Para produção, migrar o login para Supabase Auth.
+    // Upload do mesmo usuário autenticado; NÃO cria sessão anônima.
     async function getStorageSession() {
-      if (!supabaseClient) throw new Error('Supabase não inicializado.');
-      const {data:current,error:sessionError} = await supabaseClient.auth.getSession();
-      if (sessionError) throw sessionError;
-      if (current?.session?.access_token) return current.session;
-      const { data, error } = await supabaseClient.auth.signInAnonymously();
-      if (error || !data?.session?.access_token) {
-        throw new Error('Ative "Anonymous Sign-Ins" em Supabase → Authentication → Providers. ' + (error?.message || ''));
-      }
+      if(!supabaseClient || !sessionUser?.user_id) throw new Error('Faça login por e-mail para enviar arquivos.');
+      const {data,error}=await supabaseClient.auth.getSession();
+      if(error || !data?.session || data.session.user.id!==sessionUser.user_id)
+        throw new Error('Sessão expirada. Entre novamente.');
       return data.session;
     }
 
-    async function uploadStagekitFile(file, category, session) {
+        async function uploadStagekitFile(file, category, session) {
       if (!file) return '';
       const isVideo = category === 'videos';
       const preparedFile = isVideo ? file : await prepareStagekitImage(file, category);
@@ -3538,7 +3332,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
         artistData.formats=updated;
         showToast('Salvando formatos no banco de dados...', 'loading');
         const saved=await saveData(true);
-        if (!saved) throw new Error('O Supabase não confirmou o salvamento dos formatos. Confira as permissões da tabela stagekit_users.');
+        if (!saved) throw new Error('O Supabase não confirmou o salvamento dos formatos. Confira as permissões de stagekit_accounts.');
         for (const item of uploads) {
           item.input.value='';
           const oldUrl=previous[item.i]?.photo;
@@ -3624,9 +3418,9 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
         return true;
       }
       showToast('Verificando disponibilidade do link...', 'loading');
-      const {data, error} = await supabaseClient.from('stagekit_users').select('whatsapp').eq('slug',slug).maybeSingle();
+      const {data, error} = await supabaseClient.from('stagekit_public_kits').select('slug').eq('slug',slug).maybeSingle();
       if (error) { showToast('Não foi possível verificar o link: '+error.message,'error'); return false; }
-      if (data && normalizeWhatsapp(data.whatsapp) !== normalizeWhatsapp(sessionUser.whatsapp)) {
+      if (data && slug !== normalizeSlug(sessionUser.slug)) {
         showToast('Este endereço já pertence a outro artista. Escolha outro nome.', 'error');
         return false;
       }
@@ -4091,7 +3885,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       showToast(`Atualizando status para ${nextStatus}...`, 'loading');
 
       const { error } = await supabaseClient
-        .from('stagekit_users')
+        .from('stagekit_accounts')
         .update({ status: nextStatus })
         .eq('whatsapp', cleanPhone);
 
@@ -4106,28 +3900,10 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
     }
 
     async function adminDeleteUser(whatsapp, artistName) {
-      if (!supabaseClient) return;
-      if (!confirm(`Tem certeza que deseja excluir permanentemente o cadastro de "${artistName || whatsapp}"?`)) return;
-
-      const cleanPhone = normalizeWhatsapp(whatsapp);
-      showToast('Excluindo cadastro...', 'loading');
-
-      const { error } = await supabaseClient
-        .from('stagekit_users')
-        .delete()
-        .eq('whatsapp', cleanPhone);
-
-      if (error) {
-        showToast('Erro ao excluir cadastro: ' + error.message, 'error');
-        return;
-      }
-
-      showToast('Cadastro excluído com sucesso!', 'success');
-      await fetchAllUsersFromSupabase();
-      renderSuperAdminChart();
+      alert('A exclusão de contas Supabase Auth exige uma rotina administrativa segura no servidor. Nesta versão, utilize Bloquear, sem excluir o cadastro.');
     }
 
-    function renderSuperAdminData() {
+        function renderSuperAdminData() {
       const artists = usersDatabase.filter(u => u.role !== 'admin');
       document.getElementById('superAdminTotalArtists').innerText = artists.length;
       document.getElementById('superAdminActiveLinks').innerText = artists.filter(u => (u.status || 'Ativo') === 'Ativo').length;
@@ -4200,7 +3976,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       let found = usersDatabase.find(u => u.slug === slug);
       if (!found && supabaseClient) {
         const { data } = await supabaseClient
-          .from('stagekit_users')
+          .from('stagekit_accounts')
           .select('*')
           .eq('slug', slug)
           .maybeSingle();
@@ -4259,3 +4035,6 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
   </script>
 </body>
 </html>
+
+⋮⋮⋮⋮
+⋮⋮⋮⋮
