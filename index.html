@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>StageKit — Press Kits para Músicos Profissionais</title>
-  <!-- StageKit v3.15: calendário, contratos, galeria e ajustes de visualização; mantém autenticação da v3.14.1. -->
+  <!-- StageKit v3.16: galeria sem cortes com autoplay, ícones sociais SVG e orientação Google Agenda; mantém autenticação da v3.14.1. -->
   <!-- StageKit 3.7: identifica rotas diretas antes de renderizar a página inicial. -->
   <script>
     (function () {
@@ -111,8 +111,49 @@
       color: #111827 !important;
     }
     /* StageKit v3.15 - ajustes visuais para players, modais e fotos */
-    .stagekit-gallery-photo { height: clamp(260px, 38vw, 420px); }
-    .stagekit-gallery-photo img { object-fit: cover; width: 100%; height: 100%; }
+    /* Galeria StageKit v3.16: todas as fotos completas, sem cortes. */
+    .stagekit-gallery-viewport {
+      position: relative; width: 100%; height: clamp(310px, 60vw, 660px);
+      background: #09090b; border: 1px solid #3f3f46;
+      border-radius: 24px; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,.25);
+    }
+    .stagekit-gallery-slide {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none; transition: opacity .48s ease;
+      background: #09090b; border: 0; padding: 0;
+    }
+    .stagekit-gallery-slide.is-active { opacity: 1; pointer-events: auto; z-index: 1; }
+    .stagekit-gallery-slide img {
+      display: block; width: 100%; height: 100%; object-fit: contain;
+      object-position: center; /* Nunca recortar a imagem original */
+    }
+    .stagekit-gallery-arrow {
+      position: absolute; z-index: 3; top: 50%; transform: translateY(-50%);
+      width: 44px; height: 44px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(10,10,12,.76); border: 1px solid rgba(255,255,255,.35);
+      color: white; backdrop-filter: blur(8px);
+      cursor: pointer; transition: background .2s, transform .2s;
+    }
+    .stagekit-gallery-arrow:hover { background: #f59e0b; color: #09090b; }
+    .stagekit-gallery-arrow:focus-visible, .stagekit-gallery-dot:focus-visible {
+      outline: 3px solid #f59e0b; outline-offset: 3px;
+    }
+    .stagekit-gallery-arrow.prev { left: 14px; }
+    .stagekit-gallery-arrow.next { right: 14px; }
+    .stagekit-gallery-dot { width: 9px; height: 9px; border-radius: 99px; background: #71717a; cursor: pointer; transition: all .3s; }
+    .stagekit-gallery-dot.is-active { width: 27px; background: #f59e0b; }
+    .stagekit-gallery-brand-icon { display: block; width: 22px; height: 22px; flex-shrink: 0; }
+    @media (max-width:640px) {
+      .stagekit-gallery-viewport { height: clamp(300px, 95vw, 500px); border-radius: 18px; }
+      .stagekit-gallery-arrow { width: 38px; height: 38px; }
+      .stagekit-gallery-arrow.prev { left: 8px; }
+      .stagekit-gallery-arrow.next { right: 8px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .stagekit-gallery-slide { transition: none; }
+    }
     .stagekit-instagram-frame { height: 620px; width: 100%; border: 0; background: #050505; }
     .stagekit-ig-shell { width: 100%; height: 540px; overflow: hidden; position: relative; background: #050505; }
     .stagekit-ig-shell .stagekit-instagram-frame { height: 665px; transform: translateY(-57px); }
@@ -369,7 +410,7 @@
           <span class="text-amber-500 font-bold text-xs uppercase tracking-widest">Galeria</span>
           <h3 class="text-xl font-bold text-white mt-1">Fotos do Artista & Shows</h3>
         </div>
-        <div id="displayPublicGalleryGrid" class="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-6xl mx-auto"></div>
+        <div id="displayPublicGalleryGrid" class="max-w-6xl mx-auto w-full"></div>
       </div>
 
       <!-- PLAYER INTERNO INTEGRADO ("VAMOS OUVIR") -->
@@ -1193,7 +1234,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
         </div>
         <div class="bg-brand-cardBg border border-brand-border p-4 sm:p-6 rounded-2xl space-y-4">
           <h3 class="font-bold text-white text-sm flex items-center gap-2"><i data-lucide="calendar-plus" class="w-5 h-5 text-blue-400"></i> Integrar com Google Agenda (opcional)</h3>
-          <p class="text-zinc-400 text-xs leading-relaxed">Os shows acima já aparecem aqui sem Google. Para enviar os eventos ao calendário Google, o artista precisa autorizar o acesso na conta Google escolhida. Digitar um e-mail não concede permissão.</p>
+          <p class="text-zinc-400 text-xs leading-relaxed">Os shows acima já aparecem aqui sem Google. Para sincronizar com a Agenda de cada artista, ele precisa escolher sua conta e conceder autorização ao StageKit. Digitar um e-mail, sozinho, não concede acesso.</p>
           <div class="flex flex-col sm:flex-row gap-3">
             <div class="flex-1">
               <label class="block text-[11px] text-zinc-400 mb-1" for="stagekitGoogleEmail">E-mail da conta Google</label>
@@ -1202,11 +1243,15 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
             <button type="button" onclick="connectGoogleCalendar()" id="connectCalendarBtn" class="self-end bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-xl shadow-md transition-all cursor-pointer text-xs">Conectar com Google</button>
           </div>
           <div class="flex flex-wrap gap-2 items-center">
+            <button type="button" onclick="downloadStagekitCalendarIcs()" class="inline-flex items-center gap-2 border border-amber-500/40 bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 font-bold rounded-xl py-2.5 px-4 text-xs" title="Baixar arquivo compatível com Google Agenda, sem autorização OAuth"><i data-lucide="download" class="w-4 h-4"></i> Exportar eventos (.ics)</button>
             <button id="syncStagekitCalendarBtn" type="button" onclick="syncStagekitEventsToGoogle()" class="hidden bg-amber-500 hover:bg-amber-600 text-black font-bold rounded-xl py-2.5 px-4 text-xs">Enviar eventos para o Google Agenda</button>
             <button id="disconnectStagekitGoogleBtn" type="button" onclick="disconnectGoogleCalendar()" class="hidden border border-zinc-700 text-zinc-300 rounded-xl py-2.5 px-4 text-xs">Desconectar nesta sessão</button>
             <span class="text-[11px] text-zinc-400">Status: <strong id="googleCalendarStatusText" class="font-semibold">Não conectado</strong></span>
           </div>
-          <p class="text-[11px] text-zinc-500">A autorização do Google expira e poderá precisar ser renovada. Os eventos permanecem salvos no StageKit. Sincronização apenas mediante clique do artista.</p>
+          <div id="stagekitGoogleConfigNotice" class="hidden border border-amber-500/30 rounded-xl bg-amber-500/5 p-3 text-xs text-amber-300 leading-relaxed">
+            O calendário de shows acima já funciona. A sincronização com o Google precisa ser habilitada uma única vez pelo administrador do StageKit no Google Cloud. Nenhuma conta Google precisa ser configurada pelo artista enquanto isso.
+          </div>
+          <p class="text-[11px] text-zinc-500">O arquivo .ics pode ser importado em Configurações → Importar e exportar no Google Agenda. É uma transferência manual, não uma sincronização contínua. Para sincronizar automaticamente no futuro, precisaremos da autorização Google. Os eventos permanecem salvos no StageKit.</p>
         </div>
       </div>
 
@@ -2378,6 +2423,77 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       }, 800);
     }
 
+    // Ícones das marcas SVG integrados no HTML (sem imagens extras no GitHub).
+    function stagekitSocialBrandIcon(name) {
+      const start = '<svg class="stagekit-gallery-brand-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">';
+      const shapes = {
+        YouTube: '<rect x="1.5" y="4.5" width="21" height="15" rx="5" fill="#ff0033"/><path d="m10 8 6 4-6 4z" fill="#fff"/>',
+        Instagram: '<rect x="2.5" y="2.5" width="19" height="19" rx="5.5" fill="none" stroke="#ed4a9c" stroke-width="2.5"/><circle cx="12" cy="12" r="4.25" fill="none" stroke="#ed4a9c" stroke-width="2.5"/><circle cx="17.6" cy="6.7" r="1.25" fill="#fbbf24"/>',
+        TikTok: '<path d="M14.2 2h3.2c.1 2.5 1.5 4 4.1 4.3v3.5c-1.7 0-3.3-.5-4.2-1.5v6.7c0 4.2-2.8 6.9-6.7 6.9S3.9 19 3.9 15.4a6.6 6.6 0 0 1 8.1-6.3v3.7c-2.7-1.2-4.8.5-4.8 2.6 0 1.8 1.3 3 3.1 3s3.1-1.3 3.1-3.4V2z" fill="#25f4ee" transform="translate(-.4 .5)"/><path d="M14.2 2h3.2c.1 2.5 1.5 4 4.1 4.3v3.5c-1.7 0-3.3-.5-4.2-1.5v6.7c0 4.2-2.8 6.9-6.7 6.9S3.9 19 3.9 15.4a6.6 6.6 0 0 1 8.1-6.3v3.7c-2.7-1.2-4.8.5-4.8 2.6 0 1.8 1.3 3 3.1 3s3.1-1.3 3.1-3.4V2z" fill="#fff"/>',
+        Facebook: '<path d="M14.5 22v-8.4h2.9l.45-3.4H14.5V8c0-.95.3-1.6 1.65-1.6H18V3.3C17.1 3.1 16 3 14.8 3c-3.2 0-5.2 1.9-5.2 5.5v1.7H7v3.4h2.6V22z" fill="#1877f2"/>'
+      };
+      return start + (shapes[name] || '') + '</svg>';
+    }
+
+    let stagekitGalleryTimer = null;
+    let stagekitGalleryIndex = 0;
+    let stagekitGalleryPaused = false;
+
+    function stagekitGalleryPhotos() {
+      return (Array.isArray(artistData.galleryPhotos) ? artistData.galleryPhotos : [])
+        .filter(url => typeof url === 'string' && safeExternalUrl(url));
+    }
+
+    function stopStagekitGalleryTimer() {
+      if (stagekitGalleryTimer !== null) {
+        clearInterval(stagekitGalleryTimer);
+        stagekitGalleryTimer = null;
+      }
+    }
+
+    function setStagekitGalleryIndex(next) {
+      const photos = stagekitGalleryPhotos();
+      if (!photos.length) return;
+      stagekitGalleryIndex = ((next % photos.length) + photos.length) % photos.length;
+      const slides = document.querySelectorAll('#stagekitGallerySlides [data-stagekit-gallery-slide]');
+      slides.forEach((slide, i) => {
+        const isActive = i === stagekitGalleryIndex;
+        slide.classList.toggle('is-active', isActive);
+        slide.setAttribute('aria-hidden', isActive ? 'false' : 'true');
+        slide.tabIndex = isActive ? 0 : -1;
+      });
+      document.querySelectorAll('#stagekitGalleryDots [data-gallery-dot]').forEach((dot, i) => {
+        dot.classList.toggle('is-active', i === stagekitGalleryIndex);
+        dot.setAttribute('aria-current', i === stagekitGalleryIndex ? 'true' : 'false');
+      });
+      const counter = document.getElementById('stagekitGalleryCounter');
+      if (counter) counter.textContent = `Foto ${stagekitGalleryIndex + 1} de ${photos.length}`;
+    }
+
+    function startStagekitGalleryTimer() {
+      stopStagekitGalleryTimer();
+      if (stagekitGalleryPhotos().length < 2 || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      stagekitGalleryTimer = setInterval(() => {
+        if (!stagekitGalleryPaused && !document.hidden &&
+            !document.getElementById('contractorView')?.classList.contains('hidden') &&
+            document.getElementById('stagekitGalleryLightbox')?.classList.contains('hidden')) {
+          setStagekitGalleryIndex(stagekitGalleryIndex + 1);
+        }
+      }, 5000);
+    }
+
+    function moveStagekitGallery(delta) {
+      setStagekitGalleryIndex(stagekitGalleryIndex + delta);
+      startStagekitGalleryTimer(); // Reinicia os 5 segundos após navegação manual.
+    }
+
+    function handleStagekitGalleryKey(event) {
+      if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+        event.preventDefault();
+        moveStagekitGallery(event.key === 'ArrowRight' ? 1 : -1);
+      }
+    }
+
     function applyPublicData() {
       const heroHeaderContainer = document.getElementById('displayHeroHeaderContainer');
       if(heroHeaderContainer) {
@@ -2444,7 +2560,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
           const safe = safeExternalUrl(url);
           if (!safe) return '';
           return `<a href="${escHtml(safe)}" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-brand-cardBg border border-brand-border text-white text-xs font-bold hover:border-amber-500/50 transition-all shadow-md">
-            <span class="w-8 h-8 rounded-lg ${s.bg} flex items-center justify-center"><i data-lucide="${s.icon}" class="w-4 h-4 ${s.color}"></i></span>${s.name}
+            <span class="w-9 h-9 rounded-lg ${s.bg} flex items-center justify-center">${stagekitSocialBrandIcon(s.name)}</span>${s.name}
           </a>`;
         }).join('');
       }
@@ -2478,16 +2594,42 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
 
       const galleryGrid = document.getElementById('displayPublicGalleryGrid');
       if (galleryGrid) {
-        // Renderiza somente as fotos de verdade. Foto removida NÃO vira imagem genérica.
-        const photos = (Array.isArray(artistData.galleryPhotos) ? artistData.galleryPhotos : [])
-          .filter(url => typeof url === 'string' && safeExternalUrl(url));
+        // Apresenta uma foto inteira por vez. Fotos não são recortadas nem substituídas.
+        stopStagekitGalleryTimer();
+        const photos = stagekitGalleryPhotos();
         const gallerySection = document.getElementById('secaoGaleriaFotos');
         if (gallerySection) gallerySection.classList.toggle('hidden', photos.length === 0);
-        galleryGrid.innerHTML = photos.map((photo, index) => `
-          <button type="button" onclick="openStagekitGalleryPhoto(${index})" class="stagekit-gallery-photo block text-left rounded-2xl overflow-hidden border border-zinc-800 bg-zinc-900 shadow-xl cursor-zoom-in hover:border-amber-500/60 transition-colors" aria-label="Ampliar foto ${index + 1} do artista">
-            <img src="${escHtml(safeExternalUrl(photo))}" alt="Foto ${index + 1} do artista" loading="lazy" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
-          </button>
-        `).join('');
+        stagekitGalleryIndex = 0;
+        stagekitGalleryPaused = false;
+        if (!photos.length) { galleryGrid.innerHTML = ''; }
+        else {
+          galleryGrid.innerHTML = `
+            <div class="stagekit-gallery-viewport" role="region" aria-roledescription="carrossel" aria-label="Fotos do artista e shows"
+                 onmouseenter="stagekitGalleryPaused=true" onmouseleave="stagekitGalleryPaused=false"
+                 onfocusin="stagekitGalleryPaused=true" onfocusout="stagekitGalleryPaused=false"
+                 onkeydown="handleStagekitGalleryKey(event)">
+              <div id="stagekitGallerySlides" class="absolute inset-0">
+                ${photos.map((photo, index) => `
+                  <button type="button" data-stagekit-gallery-slide="${index}" onclick="openStagekitGalleryPhoto(${index})"
+                     class="stagekit-gallery-slide ${index === 0 ? 'is-active' : ''} cursor-zoom-in"
+                     aria-label="Ampliar foto ${index + 1} do artista" aria-hidden="${index === 0 ? 'false' : 'true'}" tabindex="${index === 0 ? '0' : '-1'}">
+                     <img src="${escHtml(safeExternalUrl(photo))}" alt="Foto ${index + 1} do artista, sem cortes" loading="${index === 0 ? 'eager' : 'lazy'}" />
+                  </button>`).join('')}
+              </div>
+              ${photos.length > 1 ? `
+                <button type="button" onclick="moveStagekitGallery(-1)" class="stagekit-gallery-arrow prev" aria-label="Foto anterior"><i data-lucide="chevron-left" class="w-6 h-6"></i></button>
+                <button type="button" onclick="moveStagekitGallery(1)" class="stagekit-gallery-arrow next" aria-label="Próxima foto"><i data-lucide="chevron-right" class="w-6 h-6"></i></button>` : ''}
+            </div>
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-3 px-2 pt-4">
+              <p id="stagekitGalleryCounter" class="text-zinc-400 font-semibold text-xs" aria-live="polite">Foto 1 de ${photos.length}</p>
+              <div class="flex items-center justify-center gap-2" id="stagekitGalleryDots" aria-label="Selecionar foto">
+                ${photos.map((_, index) => `<button type="button" data-gallery-dot="${index}" onclick="setStagekitGalleryIndex(${index});startStagekitGalleryTimer()"
+                    class="stagekit-gallery-dot ${index === 0 ? 'is-active' : ''}" aria-current="${index === 0 ? 'true' : 'false'}" aria-label="Mostrar foto ${index + 1}"></button>`).join('')}
+              </div>
+              <p class="text-zinc-500 text-[11px]">${photos.length > 1 ? 'Troca automática a cada 5 segundos' : 'Clique para ampliar'}</p>
+            </div>`;
+          startStagekitGalleryTimer();
+        }
       }
 
       const playerList = document.getElementById('vamosOuvirPlayerList');
@@ -2607,6 +2749,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
     }
 
     function goHome(updateUrl = true) {
+      stopStagekitGalleryTimer();
       isAdminViewingArtistKit = false;
       isViewingOwnOnlineKit = false;
       if (updateUrl && window.location.pathname !== '/') window.history.pushState({}, '', '/');
@@ -2677,6 +2820,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
     }
 
     function showArtistDashboard(updateUrl = true) {
+      stopStagekitGalleryTimer();
       isViewingOwnOnlineKit = false;
       isAdminViewingArtistKit = false;
       if (updateUrl && window.location.pathname !== '/dashboard') window.history.pushState({}, '', '/dashboard');
@@ -4079,6 +4223,55 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
     let stagekitGoogleAuthorizedEmail = '';
     let stagekitGoogleTokenExpires = 0;
 
+    // Exportação gratuita e independente do OAuth; não expõe cachês privados.
+    function downloadStagekitCalendarIcs() {
+      if (!sessionUser || sessionUser.role === 'admin') return;
+      const sourceEvents = eventsList.filter(ev => /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}/.test(String(ev.date || '')));
+      if (!sourceEvents.length) {
+        showToast('Cadastre primeiro um evento com data e horário para exportar.', 'error');
+        return;
+      }
+      const escapeICS = value => String(value || '').replace(/\\/g,'\\\\').replace(/\r?\n/g,'\\n').replace(/,/g,'\\,').replace(/;/g,'\\;');
+      const utcParts = date => date.toISOString().replace(/[-:]/g,'').replace(/\.\d{3}Z$/,'Z');
+      const localParts = date => date.toISOString().replace(/[-:]/g,'').replace(/\.\d{3}Z$/,'');
+      const utcNow = utcParts(new Date());
+      const items = [];
+      sourceEvents.forEach((ev, index) => {
+        const match = String(ev.date).match(/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})/);
+        if (!match) return;
+        const [,yy,mo,dd,hh,mm] = match;
+        const start = new Date(Date.UTC(Number(yy), Number(mo)-1, Number(dd), Number(hh), Number(mm)));
+        if (Number.isNaN(start.getTime())) return;
+        const end = new Date(start.getTime() + 2 * 60 * 60 * 1000);
+        const uidKey = `${artistData.slug || 'artista'}-${String(ev.date)}-${index}`.replace(/[^a-zA-Z0-9-]/g,'-');
+        items.push([
+          'BEGIN:VEVENT',
+          `UID:${uidKey}@stagekit.local`,
+          `DTSTAMP:${utcNow}`,
+          `DTSTART;TZID=America/Sao_Paulo:${localParts(start)}`,
+          `DTEND;TZID=America/Sao_Paulo:${localParts(end)}`,
+          `SUMMARY:${escapeICS(ev.name || 'Show - StageKit')}`,
+          `LOCATION:${escapeICS(ev.location || ev.local || '')}`,
+          `DESCRIPTION:${escapeICS('Formato: ' + (ev.project || 'A combinar') + '\nEvento cadastrado no StageKit.')}`,
+          'END:VEVENT'
+        ].join('\r\n'));
+      });
+      if (!items.length) {
+        showToast('Não foi possível exportar as datas cadastradas.', 'error');
+        return;
+      }
+      const result = ['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//StageKit Casa 6//Agenda de Shows//PT-BR','CALSCALE:GREGORIAN','METHOD:PUBLISH',...items,'END:VCALENDAR'].join('\r\n')+'\r\n';
+      const objectUrl = URL.createObjectURL(new Blob([result], {type:'text/calendar;charset=utf-8'}));
+      const a = document.createElement('a');
+      a.href = objectUrl;
+      a.download = `stagekit-agenda-${String(artistData.slug || 'artista').replace(/[^a-z0-9-]/gi,'')}.ics`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      setTimeout(() => URL.revokeObjectURL(objectUrl), 1000);
+      showToast(`${items.length} evento(s) exportado(s). Importe o arquivo .ics no Google Agenda.`, 'success');
+    }
+
     function stagekitCalendarIsoDate(dt) {
       return `${dt.getFullYear()}-${String(dt.getMonth()+1).padStart(2,'0')}-${String(dt.getDate()).padStart(2,'0')}`;
     }
@@ -4176,6 +4369,15 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       if (status) { status.textContent = authorized ? `Conectado: ${stagekitGoogleAuthorizedEmail}` : 'Não conectado'; status.className=authorized?'text-emerald-400 font-semibold':'text-zinc-400'; }
       document.getElementById('syncStagekitCalendarBtn')?.classList.toggle('hidden',!authorized);
       document.getElementById('disconnectStagekitGoogleBtn')?.classList.toggle('hidden',!authorized);
+      const googleConfigured=STAGEKIT_GOOGLE_CLIENT_ID.endsWith('.apps.googleusercontent.com');
+      const googleButton=document.getElementById('connectCalendarBtn');
+      if (googleButton) {
+        googleButton.disabled=!googleConfigured;
+        googleButton.classList.toggle('opacity-50', !googleConfigured);
+        googleButton.classList.toggle('cursor-not-allowed', !googleConfigured);
+        googleButton.title=googleConfigured?'Conectar sua própria Agenda do Google':'Aguardando configuração do Google Cloud pelo administrador';
+      }
+      document.getElementById('stagekitGoogleConfigNotice')?.classList.toggle('hidden', googleConfigured);
       const googleEmail=document.getElementById('stagekitGoogleEmail');
       if (googleEmail && !googleEmail.value) googleEmail.value=artistData.googleCalendarEmail || sessionUser?.email || '';
       try { lucide.createIcons(); } catch(e) {}
