@@ -1,3 +1,9 @@
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="pt-BR" class="dark">
 <head>
@@ -158,11 +164,11 @@
     .stagekit-ig-shell { width: 100%; height: 540px; overflow: hidden; position: relative; background: #050505; }
     .stagekit-ig-shell .stagekit-instagram-frame { height: 665px; transform: translateY(-57px); }
     .stagekit-contract-content { white-space: pre-wrap; overflow-wrap: anywhere; font: 13px/1.7 'Plus Jakarta Sans', sans-serif; }
-    .stagekit-calendar-day { min-height: 88px; }
+    .stagekit-calendar-day { min-height: 56px; }
     .stagekit-calendar-day:focus-visible { outline: 2px solid #f59e0b; outline-offset: 1px; }
     .stagekit-modal-scroll { min-height: 0; overscroll-behavior: contain; }
     @media (max-width:640px) {
-      .stagekit-calendar-day { min-height: 66px; padding: 5px !important; }
+      .stagekit-calendar-day { min-height: 42px; padding: 5px !important; }
       .stagekit-instagram-frame { height: 600px; }
       .stagekit-ig-shell { height: 500px; }
     }
@@ -335,6 +341,34 @@ body[data-stagekit-public-theme="minimal-sessions"]>header #panelHeaderActions b
 .sk-theme-card-footer p{font-size:11px;color:#a1a1aa;line-height:1.6;margin-top:5px;}
 .sk-theme-selection-status{display:inline-flex;align-items:center;gap:6px;border-radius:999px;background:rgba(245,158,11,.15);padding:5px 9px;color:#fbbf24;font-size:10px;font-weight:800;margin-top:12px;}
 
+  /* v3.18 - Tamanhos escolhidos pelo artista (somente Press Kit público) */
+  .sk-size-btn {width:37px;height:37px;display:inline-flex;align-items:center;justify-content:center;border-radius:10px;border:1px solid #52525b;background:#27272a;color:#fafafa;font-size:24px;font-weight:700;line-height:1;cursor:pointer;}
+  .sk-size-btn:hover,.sk-size-btn:focus-visible {border-color:#f59e0b;color:#fbbf24;outline-offset:2px;}
+  #contractorView { --sk-title-scale:1; --sk-text-scale:1; --sk-photo-scale:1; }
+  #contractorView .sk-theme-display-name {font-size:calc(clamp(48px,8vw,115px) * var(--sk-title-scale));}
+  #contractorView[data-theme="rockstage"] .sk-theme-display-name {font-size:calc(clamp(76px,13vw,195px) * var(--sk-title-scale));}
+  #contractorView[data-theme="red-impact"] .sk-theme-display-name {font-size:calc(clamp(47px,6.3vw,98px) * var(--sk-title-scale));}
+  #contractorView[data-theme="golden-editorial"] .sk-theme-display-name {font-size:calc(clamp(46px,9.2vw,130px) * var(--sk-title-scale));}
+  #contractorView[data-theme="minimal-sessions"] .sk-theme-display-name {font-size:calc(clamp(50px,6.9vw,104px) * var(--sk-title-scale));}
+  #contractorView[data-theme="classic"] #displayHeroHeaderContainer span {font-size:calc(clamp(24px,3vw,38px) * var(--sk-title-scale))!important;}
+  #contractorView :is(#displayTitle,#displaySubtitle1,#displaySubtitle2,#displayBio) {font-size:calc(clamp(14px,1.5vw,18px) * var(--sk-text-scale))!important;line-height:1.55;}
+  #contractorView #hero :is(#secaoVideosReais,#secaoGaleriaFotos,#secaoDepoimentos) h3,
+  #contractorView #formatos h2 {font-size:calc(clamp(22px,3.2vw,46px) * var(--sk-text-scale))!important;line-height:1.15;}
+  #contractorView :is(#displayFormatsPublicGrid p,#displayTestimonialsGrid p) {font-size:calc(13px * var(--sk-text-scale))!important;line-height:1.6;}
+  #contractorView .sk-theme-intro-note {font-size:calc(13px * var(--sk-text-scale))!important;}
+  #contractorView .sk-theme-portrait {height:clamp(270px,calc(520px * var(--sk-photo-scale)),760px);min-height:0!important;}
+  #contractorView[data-theme="classic"] #displayAvatarContainer {width:calc(188px * var(--sk-photo-scale))!important;height:calc(188px * var(--sk-photo-scale))!important;max-width:100%;}
+  #tabCalendar .stagekit-calendar-day {font-size:11px;}
+  #tabCalendar #stagekitCalendarGrid {max-width:630px;margin:0 auto;}
+  #tabCalendar .stagekit-calendar-day > span:last-child {font-size:9px;}
+  @media(max-width:850px){
+    #contractorView[data-theme]:not([data-theme="classic"]) #hero .sk-theme-display-name {font-size:calc(clamp(44px,11vw,100px) * var(--sk-title-scale))!important;line-height:1;}
+    #contractorView .sk-theme-portrait {height:clamp(240px,calc(390px * var(--sk-photo-scale)),620px);min-height:0!important;}
+  }
+  @media(max-width:640px){
+    #contractorView :is(#displaySubtitle1,#displaySubtitle2,#displayBio,#displayTitle) {font-size:calc(14px * var(--sk-text-scale))!important;}
+    #tabCalendar .stagekit-calendar-day > span:last-child {font-size:8px;}
+  }
   </style>
 </head>
 <body class="min-h-screen flex flex-col antialiased selection:bg-amber-500 selection:text-black">
@@ -1171,7 +1205,7 @@ body[data-stagekit-public-theme="minimal-sessions"]>header #panelHeaderActions b
         <button onclick="saveFormatsEdits()" class="bg-amber-500 hover:bg-amber-600 text-black font-extrabold py-3 px-6 rounded-xl shadow-md cursor-pointer">Salvar Formatos de Show</button>
       </div>
 
-      <!-- STAGEKIT v3.17: BIBLIOTECA DE LAYOUTS -->
+      <!-- STAGEKIT v3.18: BIBLIOTECA DE LAYOUTS E AJUSTES -->
       <section id="tabThemes" class="dashboard-tab hidden max-w-6xl space-y-6">
         <div class="flex flex-wrap items-end justify-between gap-4">
           <div class="space-y-2">
@@ -1182,6 +1216,43 @@ body[data-stagekit-public-theme="minimal-sessions"]>header #panelHeaderActions b
           <span id="stagekitPublishedThemeLabel" class="border border-amber-500/30 bg-amber-500/10 px-4 py-2 text-amber-300 text-xs font-bold rounded-xl">Tema publicado: StageKit Original</span>
         </div>
         <div id="stagekitThemeCards" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5" aria-label="Temas disponíveis"></div>
+        <!-- StageKit v3.18 - Ajustes de tamanho, salvos só quando publicados -->
+        <div class="bg-brand-cardBg border border-brand-border rounded-2xl p-5 sm:p-6 space-y-4">
+          <div>
+            <h3 class="text-white font-extrabold text-lg flex items-center gap-2"><i data-lucide="sliders-horizontal" class="w-5 h-5 text-amber-400"></i> Ajustar tamanhos do site</h3>
+            <p class="text-zinc-400 text-xs mt-2">Use os botões − e + para ajustar o nome do artista, os textos e a foto de perfil em todos os temas. Veja antes em <strong>Visualizar tema</strong> e clique em <strong>Publicar tema e ajustes</strong> para salvar no seu site.</p>
+          </div>
+          <div class="grid sm:grid-cols-3 gap-3">
+            <div class="rounded-xl border border-zinc-700 bg-zinc-900 p-4 space-y-3">
+              <span class="text-xs font-bold text-zinc-200">Nome artístico</span>
+              <div class="flex items-center gap-2 justify-between">
+                <button type="button" onclick="adjustStagekitThemeSize('stagekitTitleScale',-5)" class="sk-size-btn" aria-label="Diminuir nome artístico">−</button>
+                <output id="stagekitTitleScaleLabel" class="text-amber-400 text-sm font-extrabold tabular-nums" aria-live="polite">100%</output>
+                <button type="button" onclick="adjustStagekitThemeSize('stagekitTitleScale',5)" class="sk-size-btn" aria-label="Aumentar nome artístico">+</button>
+              </div>
+            </div>
+            <div class="rounded-xl border border-zinc-700 bg-zinc-900 p-4 space-y-3">
+              <span class="text-xs font-bold text-zinc-200">Textos e títulos</span>
+              <div class="flex items-center gap-2 justify-between">
+                <button type="button" onclick="adjustStagekitThemeSize('stagekitTextScale',-5)" class="sk-size-btn" aria-label="Diminuir textos e títulos">−</button>
+                <output id="stagekitTextScaleLabel" class="text-amber-400 text-sm font-extrabold tabular-nums" aria-live="polite">100%</output>
+                <button type="button" onclick="adjustStagekitThemeSize('stagekitTextScale',5)" class="sk-size-btn" aria-label="Aumentar textos e títulos">+</button>
+              </div>
+            </div>
+            <div class="rounded-xl border border-zinc-700 bg-zinc-900 p-4 space-y-3">
+              <span class="text-xs font-bold text-zinc-200">Foto de perfil</span>
+              <div class="flex items-center gap-2 justify-between">
+                <button type="button" onclick="adjustStagekitThemeSize('stagekitPhotoScale',-5)" class="sk-size-btn" aria-label="Diminuir foto de perfil">−</button>
+                <output id="stagekitPhotoScaleLabel" class="text-amber-400 text-sm font-extrabold tabular-nums" aria-live="polite">100%</output>
+                <button type="button" onclick="adjustStagekitThemeSize('stagekitPhotoScale',5)" class="sk-size-btn" aria-label="Aumentar foto de perfil">+</button>
+              </div>
+            </div>
+          </div>
+          <div class="flex flex-wrap items-center justify-between gap-3">
+            <button type="button" onclick="resetStagekitThemeSizes()" class="text-xs font-bold text-amber-400 hover:underline">Restaurar tamanhos originais</button>
+            <span id="stagekitThemeUnsavedNotice" class="hidden text-amber-400 text-xs font-semibold">Alterações não publicadas</span>
+          </div>
+        </div>
         <div class="bg-brand-cardBg border border-brand-border p-5 sm:p-6 rounded-2xl space-y-4">
           <div>
             <h3 class="text-white font-extrabold text-lg" id="stagekitThemeSelectedTitle">StageKit Original</h3>
@@ -1189,7 +1260,7 @@ body[data-stagekit-public-theme="minimal-sessions"]>header #panelHeaderActions b
           </div>
           <div class="flex flex-wrap gap-3">
             <button type="button" onclick="previewStagekitTheme()" class="inline-flex items-center gap-2 px-5 py-3 rounded-xl border border-amber-500/50 text-amber-300 hover:bg-amber-500/10 font-bold text-sm"><i data-lucide="eye" class="w-4 h-4"></i> Visualizar tema</button>
-            <button type="button" id="stagekitPublishThemeBtn" onclick="publishStagekitTheme()" class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-amber-500 hover:bg-amber-600 text-black font-extrabold text-sm"><i data-lucide="check" class="w-4 h-4"></i> Publicar tema</button>
+            <button type="button" id="stagekitPublishThemeBtn" onclick="publishStagekitTheme()" class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-amber-500 hover:bg-amber-600 text-black font-extrabold text-sm"><i data-lucide="check" class="w-4 h-4"></i> Publicar tema e ajustes</button>
           </div>
           <p class="text-xs text-zinc-500">Dica: imagens que você já cadastrou serão utilizadas automaticamente. Não é necessário enviar fotos novamente.</p>
         </div>
@@ -1420,7 +1491,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       </div>
 
       <!-- ABA 10: GOOGLE AGENDA / CALENDARIO DE EVENTOS -->
-      <div id="tabCalendar" class="dashboard-tab max-w-5xl space-y-6 hidden">
+      <div id="tabCalendar" class="dashboard-tab max-w-3xl space-y-5 hidden">
         <div>
           <h2 class="text-xl font-bold text-white">Agenda dos Shows</h2>
           <p class="text-xs text-zinc-400 mt-1">Veja seus eventos cadastrados por data. Clique em um dia para consultar os detalhes e os cachês.</p>
@@ -2225,6 +2296,9 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       bio: "Músico profissional, multi-instrumentista e arranjador com vasta experiência em palcos de eventos corporativos, casamentos e casas noturnas de destaque.",
       slug: "seu-nome",
       stagekitTheme: "classic",
+      stagekitTitleScale: 100,
+      stagekitTextScale: 100,
+      stagekitPhotoScale: 100,
       coverUrl: "",
       coverZoom: 1,
       coverRotate: 0,
@@ -2284,6 +2358,34 @@ let stagekitThemeDraftId = 'classic';
 let stagekitThemeDraftDirty = false;
 let stagekitThemePreviewActive = false;
 let stagekitThemePublishBusy = false;
+const STAGEKIT_SIZE_FIELDS = Object.freeze({
+  stagekitTitleScale:[75,130],
+  stagekitTextScale:[85,125],
+  stagekitPhotoScale:[70,130]
+});
+let stagekitThemeSettingsDraft={stagekitTitleScale:100,stagekitTextScale:100,stagekitPhotoScale:100};
+function stagekitValidSize(field,value) {
+  const [min,max]=STAGEKIT_SIZE_FIELDS[field]||[100,100];
+  const num=Number(value);
+  return Number.isFinite(num)?Math.max(min,Math.min(max,Math.round(num/5)*5)):100;
+}
+function resetStagekitSizeDraftFromProfile(profile) {
+  for (const key of Object.keys(STAGEKIT_SIZE_FIELDS)) stagekitThemeSettingsDraft[key]=stagekitValidSize(key,profile?.[key]);
+}
+function stagekitSizeDraftIsChanged(profile) {
+  return Object.keys(STAGEKIT_SIZE_FIELDS).some(key=>stagekitThemeSettingsDraft[key]!==stagekitValidSize(key,profile?.[key]));
+}
+function adjustStagekitThemeSize(field,delta) {
+  if(!Object.hasOwn(STAGEKIT_SIZE_FIELDS,field)) return;
+  stagekitThemeSettingsDraft[field]=stagekitValidSize(field,stagekitThemeSettingsDraft[field]+delta);
+  stagekitThemeDraftDirty=true;
+  renderStagekitThemeCards();
+}
+function resetStagekitThemeSizes() {
+  for(const key of Object.keys(STAGEKIT_SIZE_FIELDS)) stagekitThemeSettingsDraft[key]=100;
+  stagekitThemeDraftDirty=true;
+  renderStagekitThemeCards();
+}
 function validStagekitTheme(value) {
   return STAGEKIT_THEMES.some(t=>t.id === value) ? value : 'classic';
 }
@@ -2303,8 +2405,14 @@ function renderStagekitThemeCards() {
   if(publishedLabel) publishedLabel.textContent='Tema publicado: '+stagekitThemeInfo(published).name;
   const selectedLabel=document.getElementById('stagekitThemeSelectedTitle');
   if(selectedLabel) selectedLabel.textContent=stagekitThemeInfo(selected).name;
+  const changed = selected!==published || stagekitSizeDraftIsChanged(sessionUser || artistData);
   const publishBtn=document.getElementById('stagekitPublishThemeBtn');
-  if(publishBtn) {publishBtn.disabled=stagekitThemePublishBusy||selected===published; publishBtn.classList.toggle('opacity-50',selected===published);}
+  if(publishBtn) {publishBtn.disabled=stagekitThemePublishBusy||!changed;publishBtn.classList.toggle('opacity-50',!changed);}
+  document.getElementById('stagekitThemeUnsavedNotice')?.classList.toggle('hidden',!changed);
+  for (const key of Object.keys(STAGEKIT_SIZE_FIELDS)) {
+    const label=document.getElementById(`${key}Label`);
+    if(label) label.textContent=stagekitThemeSettingsDraft[key]+'%';
+  }
 }
 function selectStagekitTheme(id) {
   stagekitThemeDraftId=validStagekitTheme(id);
@@ -2315,7 +2423,7 @@ function selectStagekitTheme(id) {
 function previewStagekitTheme() {
   if(!sessionUser || sessionUser.role==='admin') {showToast('Entre como artista para visualizar temas.','error');return;}
   stagekitThemePreviewActive=true;
-  artistData=sessionUser;
+  artistData={...sessionUser};
   isViewingOwnOnlineKit=true;
   showPublicPressKit(true,true);
   window.scrollTo({top:0,behavior:'instant'});
@@ -2324,8 +2432,8 @@ async function publishStagekitTheme() {
   if(!sessionUser || sessionUser.role==='admin'||stagekitThemePublishBusy) return;
   const id=validStagekitTheme(stagekitThemeDraftId);
   stagekitThemePublishBusy=true;renderStagekitThemeCards();
-  const previous=validStagekitTheme(sessionUser.stagekitTheme);
-  artistData={...sessionUser,stagekitTheme:id};
+  const previous={...sessionUser};
+  artistData={...sessionUser,stagekitTheme:id,...stagekitThemeSettingsDraft};
   try {
     const ok=await saveData(true);
     if(!ok) throw new Error('O Supabase não confirmou o salvamento do tema.');
@@ -2333,13 +2441,16 @@ async function publishStagekitTheme() {
     // Confirm the public projection before promising the visitor will see it.
     const {data,error}=await supabaseClient.from('stagekit_public_kits')
       .select('profile_data').eq('slug',sessionUser.slug).maybeSingle();
-    if(error || !data || validStagekitTheme(data.profile_data?.stagekitTheme)!==id) {
-      showToast('Salvo no painel, mas falta executar o SQL StageKit Themes para publicar no link.','error');
+    const remote=data?.profile_data||{};
+    const sizesMatch=Object.keys(STAGEKIT_SIZE_FIELDS).every(key=>stagekitValidSize(key,remote[key])===stagekitThemeSettingsDraft[key]);
+    if(error || !data || validStagekitTheme(remote.stagekitTheme)!==id || !sizesMatch) {
+      showToast('Salvo no painel, mas falta executar o SQL StageKit v3.18 para publicar os ajustes no link.','error');
     } else {
       showToast(`Tema ${stagekitThemeInfo(id).name} publicado no seu Press Kit!`,'success');
     }
   } catch(e) {
-    artistData={...sessionUser,stagekitTheme:previous};
+    artistData=previous;
+    if(sessionUser?.user_id===previous.user_id) sessionUser=previous;
     showToast('Não foi possível publicar o tema: '+(e.message||'erro'),'error');
   } finally {stagekitThemePublishBusy=false;renderStagekitThemeCards();}
 }
@@ -2348,6 +2459,11 @@ function applyStagekitTheme() {
   if(!view || !artistData) return;
   const theme=validStagekitTheme(stagekitThemePreviewActive ? stagekitThemeDraftId : artistData.stagekitTheme);
   view.dataset.theme=theme;
+  const settings=stagekitThemePreviewActive ? stagekitThemeSettingsDraft : artistData;
+  for(const key of Object.keys(STAGEKIT_SIZE_FIELDS)) {
+    view.style.setProperty(({stagekitTitleScale:'--sk-title-scale',stagekitTextScale:'--sk-text-scale',stagekitPhotoScale:'--sk-photo-scale'})[key],String(stagekitValidSize(key,settings[key])/100));
+  }
+  // CSS names: --sk-title-scale, --sk-text-scale, --sk-photo-scale
   const visible=!view.classList.contains('hidden');
   document.body.dataset.stagekitPublicTheme=visible ? theme : '';
   const name=String(artistData.artistMainName||artistData.coverText||'ARTISTA');
@@ -2700,7 +2816,10 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       updateAvatarPreviews();
       updateCoverPreviews();
       renderTestimonialsBuilder();
-      if (!stagekitThemeDraftDirty) stagekitThemeDraftId=validStagekitTheme(artistData.stagekitTheme);
+      if (!stagekitThemeDraftDirty) {
+        stagekitThemeDraftId=validStagekitTheme(artistData.stagekitTheme);
+        resetStagekitSizeDraftFromProfile(artistData);
+      }
       renderStagekitThemeCards();
       applyPublicData();
 
@@ -4659,7 +4778,9 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       const offset = (firstDay.getDay()+6)%7;
       const start = new Date(year,month,1-offset);
       const today=stagekitCalendarIsoDate(new Date());
-      grid.innerHTML = Array.from({length:42},(_,index) => {
+      const daysInMonth=new Date(year,month+1,0).getDate();
+      const visibleCells=Math.ceil((offset+daysInMonth)/7)*7;
+      grid.innerHTML = Array.from({length:visibleCells},(_,index) => {
         const day=new Date(start.getFullYear(),start.getMonth(),start.getDate()+index);
         const iso=stagekitCalendarIsoDate(day);
         const count=stagekitEventsForDay(iso).length;
@@ -4969,4 +5090,8 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
   </script>
 </body>
 </html>
+
+
+
+
 
