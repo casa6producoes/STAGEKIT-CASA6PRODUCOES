@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>StageKit — Press Kits para Músicos Profissionais</title>
-  <!-- StageKit v3.16: galeria sem cortes com autoplay, ícones sociais SVG e orientação Google Agenda; mantém autenticação da v3.14.1. -->
+  <!-- StageKit v3.17: temas públicos com layouts diferentes, prévia local e publicação com Supabase. -->
   <!-- StageKit 3.7: identifica rotas diretas antes de renderizar a página inicial. -->
   <script>
     (function () {
@@ -166,6 +166,175 @@
       .stagekit-instagram-frame { height: 600px; }
       .stagekit-ig-shell { height: 500px; }
     }
+
+
+/* ======================= STAGEKIT THEMES v3.17 ========================
+   Themes are scoped to the public Press Kit, never to the artist dashboard.
+   No additional images/assets required: existing Supabase photos are used.
+====================================================================== */
+#contractorView { --sk-bg:#09090b;--sk-surface:#18181b;--sk-accent:#f59e0b;--sk-ink:#fafafa;--sk-muted:#a1a1aa; }
+#contractorView[data-theme="rockstage"] {--sk-bg:#070707;--sk-surface:#171513;--sk-accent:#ff7c1b;--sk-ink:#fcf8f2;--sk-muted:#b3aba2;}
+#contractorView[data-theme="red-impact"] {--sk-bg:#0d090b;--sk-surface:#191014;--sk-accent:#ee304a;--sk-ink:#fff6f5;--sk-muted:#cbb5ba;}
+#contractorView[data-theme="golden-editorial"] {--sk-bg:#11100e;--sk-surface:#1e1a15;--sk-accent:#dcc19a;--sk-ink:#fff6e8;--sk-muted:#c2b7a7;}
+#contractorView[data-theme="minimal-sessions"] {--sk-bg:#f4f1ed;--sk-surface:#fffdfb;--sk-accent:#181818;--sk-ink:#1b1b1b;--sk-muted:#696662;}
+#contractorView[data-theme]:not([data-theme="classic"]) { background:var(--sk-bg); color:var(--sk-ink); transition:background .3s,color .3s; }
+#contractorView[data-theme]:not([data-theme="classic"]) :is(#hero,#formatos) {color:var(--sk-ink)}
+#contractorView[data-theme]:not([data-theme="classic"]) :is(.text-white,.text-zinc-200,.text-zinc-300,#displayTitle,#displayArtistName) { color:var(--sk-ink)!important; }
+#contractorView[data-theme]:not([data-theme="classic"]) :is(.text-zinc-400,.text-zinc-500,#displayBio) {color:var(--sk-muted)!important;}
+#contractorView[data-theme]:not([data-theme="classic"]) :is(.text-amber-400,.text-amber-500,#displayArtistCity) {color:var(--sk-accent)!important;}
+#contractorView[data-theme]:not([data-theme="classic"]) :is(.bg-brand-cardBg,.bg-zinc-900,.bg-zinc-800) {background:var(--sk-surface)!important;border-color:color-mix(in srgb,var(--sk-accent) 22%,transparent)!important;}
+#contractorView[data-theme]:not([data-theme="classic"]) :is(.bg-amber-500,.bg-amber-400) {background:var(--sk-accent)!important;color:var(--sk-bg)!important;}
+#contractorView[data-theme]:not([data-theme="classic"]) :is(.border-brand-border,.border-zinc-800,.border-zinc-700){border-color:color-mix(in srgb,var(--sk-accent) 21%,transparent)!important;}
+#contractorView[data-theme]:not([data-theme="classic"]) :is(#hero,#formatos){max-width:1320px!important;margin-inline:auto;padding-left:clamp(20px,5vw,72px)!important;padding-right:clamp(20px,5vw,72px)!important;}
+#contractorView[data-theme]:not([data-theme="classic"]) #hero{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:clamp(12px,2.2vw,32px);row-gap:32px;text-align:left;}
+#contractorView[data-theme]:not([data-theme="classic"]) #hero>*{min-width:0;margin-inline:0!important;max-width:none!important;}
+#contractorView[data-theme]:not([data-theme="classic"]) #hero>.sk-subtitles {grid-column:1/-1;max-width:660px!important;text-align:left;}
+#contractorView[data-theme]:not([data-theme="classic"]) #hero>.sk-bio-card {grid-column:1/-1;}
+#contractorView[data-theme]:not([data-theme="classic"]) #hero>:is(#secaoVideosReais,#secaoGaleriaFotos,#vamosOuvirPublicContainer,#secaoDepoimentos){grid-column:1/-1;}
+#contractorView[data-theme]:not([data-theme="classic"]) #displayTitle {font-size:clamp(20px,2.8vw,38px);line-height:1.16;letter-spacing:-.035em;text-align:left;}
+#contractorView[data-theme]:not([data-theme="classic"]) :is(#secaoVideosReais,#secaoGaleriaFotos,#secaoDepoimentos){padding-block:36px;border-top:1px solid color-mix(in srgb,var(--sk-accent) 25%,transparent);}
+#contractorView[data-theme]:not([data-theme="classic"]) :is(#secaoVideosReais,#secaoGaleriaFotos,#secaoDepoimentos)>div:first-child{text-align:left!important;margin-bottom:22px;}
+#contractorView[data-theme]:not([data-theme="classic"]) :is(#secaoVideosReais,#secaoGaleriaFotos,#secaoDepoimentos) h3{font-size:clamp(26px,3.2vw,48px);letter-spacing:-.045em;line-height:1.1;}
+#contractorView[data-theme]:not([data-theme="classic"]) #displayFormatsPublicGrid>div{background:var(--sk-surface)!important;border:1px solid color-mix(in srgb,var(--sk-accent) 26%,transparent)!important;}
+#contractorView[data-theme]:not([data-theme="classic"]) #displayFormatsPublicGrid button{background:var(--sk-accent)!important;color:var(--sk-bg)!important;}
+#contractorView[data-theme]:not([data-theme="classic"]) .stagekit-gallery-viewport{border-color:color-mix(in srgb,var(--sk-accent) 35%,transparent);}
+#contractorView[data-theme]:not([data-theme="classic"]) .stagekit-gallery-dot.is-active{background:var(--sk-accent)}
+#contractorView[data-theme]:not([data-theme="classic"]) .stagekit-gallery-arrow:hover{background:var(--sk-accent);color:var(--sk-bg)}
+#contractorView[data-theme]:not([data-theme="classic"]) .sk-theme-only {display:block;}
+#contractorView[data-theme="classic"] .sk-theme-only {display:none!important;}
+#contractorView .sk-theme-only {display:none;}
+#contractorView .sk-theme-nav{position:relative;z-index:5;display:flex;gap:16px;flex-wrap:wrap;align-items:center;justify-content:space-between;max-width:1320px;margin:0 auto;padding:20px clamp(20px,5vw,72px);border-bottom:1px solid color-mix(in srgb,var(--sk-accent) 29%,transparent);}
+#contractorView .sk-theme-nav .sk-theme-brand{font-size:14px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;max-width:50%;overflow-wrap:anywhere;}
+#contractorView .sk-theme-nav .sk-theme-links{display:flex;gap:19px;flex-wrap:wrap;font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;}
+#contractorView .sk-theme-nav a:hover{color:var(--sk-accent);}
+#contractorView .sk-theme-kicker{font-weight:800;letter-spacing:.24em;text-transform:uppercase;font-size:11px;color:var(--sk-accent);}
+#contractorView .sk-theme-display-name{font-weight:900;letter-spacing:-.085em;line-height:.84;overflow-wrap:anywhere;color:var(--sk-ink);}
+#contractorView .sk-theme-intro-note{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--sk-accent);}
+#contractorView .sk-theme-portrait{background:var(--sk-surface);min-height:410px;border:1px solid color-mix(in srgb,var(--sk-accent) 30%,transparent);overflow:hidden;position:relative;}
+#contractorView .sk-theme-portrait img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;}
+#contractorView .sk-theme-portrait::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.35),transparent 60%);pointer-events:none;}
+#contractorView .sk-theme-portrait-empty{height:100%;min-height:410px;display:flex;align-items:center;justify-content:center;font-size:90px;color:var(--sk-accent);}
+#contractorView .sk-theme-explore{display:inline-flex;align-items:center;justify-content:center;padding:14px 22px;background:var(--sk-accent);color:var(--sk-bg);font-weight:800;font-size:12px;border-radius:2px;text-transform:uppercase;letter-spacing:.12em;width:max-content;}
+#contractorView .sk-theme-explore:hover{filter:brightness(1.1);}
+#contractorView .sk-theme-marquee{padding:14px 22px;background:var(--sk-accent);color:var(--sk-bg);font-size:clamp(14px,2.5vw,28px);font-weight:900;letter-spacing:-.05em;text-transform:uppercase;overflow:hidden;text-align:center;}
+#contractorView .sk-theme-bio-card>.bg-brand-cardBg{background:var(--sk-surface)!important;}
+/* Theme 1: Rockstage. Immersive concert photography, ticker, headline and media first. */
+#contractorView[data-theme="rockstage"] .sk-theme-nav{font-family:'Bebas Neue','Montserrat',sans-serif;font-size:18px;letter-spacing:.1em}
+#contractorView[data-theme="rockstage"] .sk-theme-display-name{font-family:'Bebas Neue','Montserrat',sans-serif;font-size:clamp(76px,13vw,195px);letter-spacing:-.025em;grid-column:1/-1;grid-row:auto;order:2;line-height:.86;text-transform:uppercase;}
+#contractorView[data-theme="rockstage"] .sk-theme-kicker{grid-column:1/-1;order:1;}
+#contractorView[data-theme="rockstage"] #displayHeroHeaderContainer{grid-column:1/-1;order:3;}
+#contractorView[data-theme="rockstage"] #displayHeroHeaderContainer>div{height:clamp(300px,48vw,550px)!important;border-radius:0!important;border:0!important;}
+#contractorView[data-theme="rockstage"] #displayHeroHeaderContainer img{filter:grayscale(1) contrast(1.2)}
+#contractorView[data-theme="rockstage"] .sk-theme-portrait{display:none;}
+#contractorView[data-theme="rockstage"] .sk-theme-marquee{order:4;grid-column:1/-1;margin-top:-32px}
+#contractorView[data-theme="rockstage"] #displayTitle{order:5;grid-column:1/9;}
+#contractorView[data-theme="rockstage"] .sk-theme-intro-note{order:6;grid-column:9/-1;align-self:center;text-align:right;}
+#contractorView[data-theme="rockstage"] .sk-theme-explore{order:7;grid-column:1/-1;}
+#contractorView[data-theme="rockstage"] #secaoVideosReais{order:8;}
+#contractorView[data-theme="rockstage"] #secaoGaleriaFotos{order:9;}
+#contractorView[data-theme="rockstage"] .sk-bio-card{order:10;}
+#contractorView[data-theme="rockstage"] .sk-subtitles{order:11;}
+#contractorView[data-theme="rockstage"] #vamosOuvirPublicContainer{order:12;}
+#contractorView[data-theme="rockstage"] #secaoDepoimentos{order:13;}
+#contractorView[data-theme="rockstage"] :is(#secaoVideosReais,#secaoGaleriaFotos,#formatos) h3,#contractorView[data-theme="rockstage"] #formatos h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(40px,5.2vw,80px)}
+#contractorView[data-theme="rockstage"] #displayFormatsPublicGrid>div{border-radius:0!important;}
+/* Theme 2: Red Impact. Asymmetric editorial introduction with portrait. */
+#contractorView[data-theme="red-impact"] #hero {padding-top:72px;}
+#contractorView[data-theme="red-impact"] .sk-theme-kicker{order:1;grid-column:1/8;}
+#contractorView[data-theme="red-impact"] .sk-theme-display-name{order:2;grid-column:1/8;font-family:Montserrat,sans-serif;font-size:clamp(47px,6.3vw,98px);text-transform:uppercase;}
+#contractorView[data-theme="red-impact"] .sk-theme-portrait{grid-column:8/-1;grid-row:1/span 5;order:3;border-radius:18px;min-height:520px;box-shadow:42px 35px 0 -18px rgba(238,48,74,.16);}
+#contractorView[data-theme="red-impact"] #displayTitle{grid-column:1/8;order:4;}
+#contractorView[data-theme="red-impact"] .sk-theme-intro-note{grid-column:1/8;order:5;}
+#contractorView[data-theme="red-impact"] .sk-theme-explore{grid-column:1/8;order:6;}
+#contractorView[data-theme="red-impact"] #displayHeroHeaderContainer{display:none;}
+#contractorView[data-theme="red-impact"] .sk-theme-marquee{display:none;}
+#contractorView[data-theme="red-impact"] .sk-subtitles{order:7;}
+#contractorView[data-theme="red-impact"] .sk-bio-card{order:8;}
+#contractorView[data-theme="red-impact"] #secaoGaleriaFotos{order:9;}
+#contractorView[data-theme="red-impact"] #secaoVideosReais{order:10;}
+#contractorView[data-theme="red-impact"] #vamosOuvirPublicContainer{order:11;}
+#contractorView[data-theme="red-impact"] #secaoDepoimentos{order:12;}
+#contractorView[data-theme="red-impact"] #displayFormatsPublicGrid>div{border-radius:8px!important;}
+/* Theme 3: Golden Editorial. Monumental serif title, portrait, refined separated sections. */
+#contractorView[data-theme="golden-editorial"] .sk-theme-nav{border-color:rgba(220,193,154,.3)}
+#contractorView[data-theme="golden-editorial"] .sk-theme-kicker{grid-column:1/-1;order:1;}
+#contractorView[data-theme="golden-editorial"] .sk-theme-display-name{grid-column:1/-1;order:2;font-family:'Cinzel','Playfair Display',serif;font-size:clamp(46px,9.2vw,130px);letter-spacing:-.075em;text-transform:uppercase;}
+#contractorView[data-theme="golden-editorial"] .sk-theme-portrait{grid-column:4/11;min-height:520px;order:3;border-radius:2px;}
+#contractorView[data-theme="golden-editorial"] .sk-theme-intro-note{grid-column:1/4;order:4;align-self:center;font-family:'Playfair Display',serif;font-size:20px;line-height:1.4;letter-spacing:0;text-transform:none;}
+#contractorView[data-theme="golden-editorial"] #displayTitle{grid-column:11/-1;order:5;align-self:center;font-family:'Playfair Display',serif;font-size:clamp(16px,1.6vw,24px);}
+#contractorView[data-theme="golden-editorial"] #displayHeroHeaderContainer{display:none;}
+#contractorView[data-theme="golden-editorial"] .sk-theme-marquee{display:none;}
+#contractorView[data-theme="golden-editorial"] .sk-theme-explore{order:6;grid-column:1/-1;margin-inline:auto!important;}
+#contractorView[data-theme="golden-editorial"] .sk-subtitles{order:7;}
+#contractorView[data-theme="golden-editorial"] .sk-bio-card{order:8;}
+#contractorView[data-theme="golden-editorial"] #secaoGaleriaFotos{order:9;}
+#contractorView[data-theme="golden-editorial"] #secaoVideosReais{order:10;}
+#contractorView[data-theme="golden-editorial"] #vamosOuvirPublicContainer{order:11;}
+#contractorView[data-theme="golden-editorial"] #secaoDepoimentos{order:12;}
+#contractorView[data-theme="golden-editorial"] #formatos h2,#contractorView[data-theme="golden-editorial"] #hero h3{font-family:'Playfair Display',serif;letter-spacing:-.03em;}
+#contractorView[data-theme="golden-editorial"] :is(#displayFormatsPublicGrid>div,#displayTestimonialsGrid>div){border-radius:2px!important;}
+/* Theme 4: Minimal Sessions. White editorial with airy grid and black typography. */
+#contractorView[data-theme="minimal-sessions"] .sk-theme-nav{border-color:#bbb5ac;}
+#contractorView[data-theme="minimal-sessions"] .sk-theme-kicker{order:1;grid-column:1/7;}
+#contractorView[data-theme="minimal-sessions"] .sk-theme-display-name{order:2;grid-column:1/7;font-family:'Playfair Display',serif;font-weight:400;font-size:clamp(50px,6.9vw,104px);line-height:1;letter-spacing:-.06em;}
+#contractorView[data-theme="minimal-sessions"] .sk-theme-portrait{order:3;grid-column:7/-1;grid-row:1/span 5;min-height:530px;border:0;border-radius:0;filter:grayscale(1);}
+#contractorView[data-theme="minimal-sessions"] #displayTitle{order:4;grid-column:1/7;font-size:clamp(18px,2vw,30px);font-family:'Playfair Display',serif;font-weight:400;}
+#contractorView[data-theme="minimal-sessions"] .sk-theme-explore{order:5;grid-column:1/7;}
+#contractorView[data-theme="minimal-sessions"] .sk-theme-intro-note{order:6;grid-column:1/7;}
+#contractorView[data-theme="minimal-sessions"] :is(#displayHeroHeaderContainer,.sk-theme-marquee){display:none;}
+#contractorView[data-theme="minimal-sessions"] .sk-subtitles{order:7;}
+#contractorView[data-theme="minimal-sessions"] .sk-bio-card{order:8;}
+#contractorView[data-theme="minimal-sessions"] #secaoGaleriaFotos{order:9;}
+#contractorView[data-theme="minimal-sessions"] #secaoVideosReais{order:10;}
+#contractorView[data-theme="minimal-sessions"] #vamosOuvirPublicContainer{order:11;}
+#contractorView[data-theme="minimal-sessions"] #secaoDepoimentos{order:12;}
+#contractorView[data-theme="minimal-sessions"] #hero h3,#contractorView[data-theme="minimal-sessions"] #formatos h2{font-family:'Playfair Display',serif;font-weight:400;}
+#contractorView[data-theme="minimal-sessions"] :is(.bg-zinc-900,.bg-brand-cardBg,.bg-zinc-800,#displayFormatsPublicGrid>div) {background:#fffdfb!important;color:#1b1b1b!important;border-color:#d5d0ca!important;}
+#contractorView[data-theme="minimal-sessions"] :is(.text-zinc-200,.text-zinc-300,.text-white,.text-amber-400,.text-amber-500) {color:#1b1b1b!important;}
+#contractorView[data-theme="minimal-sessions"] #hero .stagekit-gallery-viewport{background:#e6e1dc;border:1px solid #dad3cb;}
+#contractorView[data-theme="minimal-sessions"] #displayFormatsPublicGrid>div{border-radius:0!important;}
+#contractorView[data-theme="minimal-sessions"] #displayFormatsPublicGrid button{background:#1b1b1b!important;color:#fff!important;}
+body[data-stagekit-public-theme="minimal-sessions"]>header{background:rgba(244,241,237,.96)!important;border-color:#ddd7cf!important;}
+body[data-stagekit-public-theme="minimal-sessions"]>header span{color:#181818!important;}
+body[data-stagekit-public-theme="minimal-sessions"]>header #panelHeaderActions button{color:#181818!important;border-color:#d0c8ba!important;}
+/* Shared mobile layouts, all variants preserve a visible CTA and no horizontal overflow. */
+@media(max-width:850px){
+ #contractorView[data-theme]:not([data-theme="classic"]) #hero{display:flex;flex-direction:column;padding-top:42px!important;gap:24px;}
+ #contractorView[data-theme]:not([data-theme="classic"]) #hero>*{width:100%;order:unset!important;grid-row:auto!important;grid-column:auto!important;}
+ #contractorView[data-theme]:not([data-theme="classic"]) .sk-theme-portrait{min-height:420px;max-height:550px;}
+ #contractorView[data-theme="golden-editorial"] .sk-theme-portrait{min-height:460px;}
+ #contractorView[data-theme="minimal-sessions"] .sk-theme-portrait{min-height:440px;}
+ #contractorView[data-theme]:not([data-theme="classic"]) #hero .sk-theme-explore{width:max-content;max-width:100%;}
+ #contractorView[data-theme]:not([data-theme="classic"]) #hero #secaoVideosReais{order:10!important;}
+ #contractorView[data-theme]:not([data-theme="classic"]) #hero #secaoGaleriaFotos{order:11!important;}
+ #contractorView[data-theme]:not([data-theme="classic"]) #hero #vamosOuvirPublicContainer{order:12!important;}
+ #contractorView[data-theme]:not([data-theme="classic"]) #hero #secaoDepoimentos{order:13!important;}
+ #contractorView[data-theme="rockstage"] #hero .sk-theme-display-name{font-size:clamp(65px,16vw,112px);}
+ #contractorView[data-theme="rockstage"] #displayHeroHeaderContainer>div{height:320px!important;}
+ #contractorView[data-theme="red-impact"] .sk-theme-portrait{box-shadow:none;}
+ #contractorView[data-theme]:not([data-theme="classic"]) #displayTitle{font-size:clamp(19px,5vw,29px);}
+}
+@media(prefers-reduced-motion:reduce){#contractorView[data-theme]:not([data-theme="classic"]) *{scroll-behavior:auto!important;transition:none!important}}
+/* Artist theme selector. Only shows in dashboard. */
+.sk-theme-card{border:1px solid #3f3f46;background:#18181b;border-radius:20px;overflow:hidden;text-align:left;transition:border-color .18s,transform .18s;}
+.sk-theme-card:hover{transform:translateY(-2px);border-color:#d9a348;}
+.sk-theme-card.is-selected{border:2px solid #f59e0b;box-shadow:0 0 0 3px rgba(245,158,11,.14);}
+.sk-theme-sample{height:160px;display:flex;flex-direction:column;justify-content:space-between;padding:18px;position:relative;overflow:hidden;}
+.sk-theme-sample span{font-size:10px;text-transform:uppercase;letter-spacing:.16em;font-weight:800;}
+.sk-theme-sample strong{font-weight:900;font-size:clamp(23px,3vw,38px);letter-spacing:-.075em;line-height:.9;}
+.sk-theme-sample .sk-theme-sample-bar{height:4px;width:70%;}
+.sk-theme-sample--classic{background:linear-gradient(145deg,#131315,#2c2115);color:#f59e0b;}
+.sk-theme-sample--rockstage{background:linear-gradient(125deg,#090909,#32302f);color:#ff7c1b;}
+.sk-theme-sample--red-impact{background:radial-gradient(circle at 82% 35%,#9a152a,#150a0d 58%);color:#ff5268;}
+.sk-theme-sample--golden-editorial{background:linear-gradient(115deg,#14100d,#363029);color:#e8cba8;}
+.sk-theme-sample--golden-editorial strong{font-family:'Cinzel',serif;font-size:28px;}
+.sk-theme-sample--minimal-sessions{background:#f3f0eb;color:#212121;}
+.sk-theme-sample--minimal-sessions strong{font-family:'Playfair Display',serif;font-weight:400;}
+.sk-theme-card-footer{padding:16px;}
+.sk-theme-card-footer h4{font-weight:800;font-size:15px;color:#fafafa;}
+.sk-theme-card-footer p{font-size:11px;color:#a1a1aa;line-height:1.6;margin-top:5px;}
+.sk-theme-selection-status{display:inline-flex;align-items:center;gap:6px;border-radius:999px;background:rgba(245,158,11,.15);padding:5px 9px;color:#fbbf24;font-size:10px;font-weight:800;margin-top:12px;}
+
   </style>
 </head>
 <body class="min-h-screen flex flex-col antialiased selection:bg-amber-500 selection:text-black">
@@ -361,7 +530,22 @@
         </button>
       </div>
     </div>
+    <nav id="stagekitThemeNav" class="sk-theme-nav sk-theme-only" aria-label="Navegação do site do artista">
+      <div id="stagekitThemeNavBrand" class="sk-theme-brand">SEU NOME</div>
+      <div class="sk-theme-links">
+        <a href="#secaoVideosReais">Performances</a>
+        <a href="#secaoGaleriaFotos">Galeria</a>
+        <a href="#formatos">Formatos</a>
+        <a href="#secaoDepoimentos">Depoimentos</a>
+      </div>
+    </nav>
     <section id="hero" class="relative py-16 md:py-24 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto text-center space-y-6">
+      <div class="sk-theme-only sk-theme-kicker" id="stagekitThemeKicker">MÚSICA AO VIVO • PRESS KIT</div>
+      <h2 class="sk-theme-only sk-theme-display-name" id="stagekitThemeName">SEU NOME</h2>
+      <div class="sk-theme-only sk-theme-portrait" id="stagekitThemePortrait"><div class="sk-theme-portrait-empty">♪</div></div>
+      <p class="sk-theme-only sk-theme-intro-note" id="stagekitThemeIntro">A MÚSICA DO SEU PRÓXIMO MOMENTO</p>
+      <div class="sk-theme-only sk-theme-marquee" id="stagekitThemeMarquee">SHOWS • MÚSICA • EXPERIÊNCIAS • AO VIVO</div>
+      <a class="sk-theme-only sk-theme-explore" href="#formatos">Conheça os formatos de show ↓</a>
       
       <!-- CAPA OU TEXTO COM ESTILO CUSTOMIZADO (ATUALIZADO) -->
       <div id="displayHeroHeaderContainer" class="w-full max-w-4xl mx-auto transition-all duration-300">
@@ -372,12 +556,12 @@
         A TRILHA SONORA PERFEITA PARA O SEU MOMENTO
       </h1>
 
-      <div class="max-w-3xl mx-auto leading-relaxed space-y-4 text-left sm:text-center pt-2">
+      <div class="sk-subtitles max-w-3xl mx-auto leading-relaxed space-y-4 text-left sm:text-center pt-2">
         <p id="displaySubtitle1" class="text-base sm:text-lg text-zinc-300">Já pensou em transformar o seu evento em uma experiência inesquecível, com uma trilha sonora executada sob medida e zero dor de cabeça com a produção?</p>
         <p id="displaySubtitle2" class="text-base sm:text-lg text-zinc-300">Do clima intimista de um acústico à energia de uma apresentação completa: repertório refinado, som de alta qualidade e o profissionalismo que o seu momento exige.</p>
       </div>
 
-      <div class="pt-6 max-w-4xl mx-auto">
+      <div class="sk-bio-card pt-6 max-w-4xl mx-auto">
         <div class="bg-brand-cardBg border border-brand-border p-6 sm:p-8 rounded-3xl shadow-xl grid md:grid-cols-12 gap-6 items-center text-left">
           <div class="md:col-span-4 flex justify-center">
             <div id="displayAvatarContainer" class="relative rounded-2xl overflow-hidden border border-brand-border shadow-md w-40 h-40 sm:w-48 sm:h-48 bg-zinc-800 flex items-center justify-center">
@@ -485,6 +669,10 @@
             <div class="flex items-center gap-3"><i data-lucide="sliders-horizontal" class="w-4 h-4"></i> Formatos de Show</div>
             <span id="lockFormats" class="hidden text-zinc-500"><i data-lucide="lock" class="w-3.5 h-3.5"></i></span>
           </button>
+          <button onclick="switchTab('tabThemes')" id="btnTabThemes" class="tab-menu-btn w-full flex items-center justify-between px-4 py-3 rounded-xl text-xs font-semibold text-zinc-400 hover:bg-zinc-800 hover:text-white transition-all cursor-pointer">
+            <span class="flex items-center gap-3"><i data-lucide="palette" class="w-4 h-4"></i> Aparência & Temas</span>
+            <span id="lockThemes" class="hidden text-zinc-500"><i data-lucide="lock" class="w-3.5 h-3.5"></i></span>
+          </button>
           <button onclick="switchTab('tabDashboard')" id="btnTabDashboard" class="tab-menu-btn w-full flex items-center justify-between px-4 py-3 rounded-xl text-xs font-semibold text-zinc-400 hover:bg-zinc-800 hover:text-white transition-all cursor-pointer">
             <div class="flex items-center gap-3"><i data-lucide="layout-dashboard" class="w-4 h-4"></i> Dashboard</div>
             <span id="lockDashboard" class="hidden text-zinc-500"><i data-lucide="lock" class="w-3.5 h-3.5"></i></span>
@@ -516,7 +704,7 @@
         <button onclick="toggleTheme()" class="w-full flex items-center justify-center gap-2 p-3 rounded-xl bg-zinc-900 border border-zinc-800 text-amber-400 hover:bg-zinc-800 transition-colors text-xs font-bold cursor-pointer">
           <i data-lucide="sun" id="dashThemeIcon" class="w-4 h-4"></i> Alternar Tema
         </button>
-        <p class="text-[10px] text-zinc-500 text-center">StageKit v3.6 — Casa 6</p>
+        <p class="text-[10px] text-zinc-500 text-center">StageKit v3.17 — Casa 6</p>
       </div>
     </aside>
 
@@ -982,6 +1170,30 @@
 
         <button onclick="saveFormatsEdits()" class="bg-amber-500 hover:bg-amber-600 text-black font-extrabold py-3 px-6 rounded-xl shadow-md cursor-pointer">Salvar Formatos de Show</button>
       </div>
+
+      <!-- STAGEKIT v3.17: BIBLIOTECA DE LAYOUTS -->
+      <section id="tabThemes" class="dashboard-tab hidden max-w-6xl space-y-6">
+        <div class="flex flex-wrap items-end justify-between gap-4">
+          <div class="space-y-2">
+            <span class="text-[10px] font-extrabold text-amber-400 tracking-[.25em]">STAGEKIT THEMES</span>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-white">Escolha o palco do seu site</h2>
+            <p class="text-zinc-400 text-sm max-w-2xl">Experimente layouts completos, com disposição, tipografia e identidade visual diferentes. Seus dados e seu link continuam os mesmos.</p>
+          </div>
+          <span id="stagekitPublishedThemeLabel" class="border border-amber-500/30 bg-amber-500/10 px-4 py-2 text-amber-300 text-xs font-bold rounded-xl">Tema publicado: StageKit Original</span>
+        </div>
+        <div id="stagekitThemeCards" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5" aria-label="Temas disponíveis"></div>
+        <div class="bg-brand-cardBg border border-brand-border p-5 sm:p-6 rounded-2xl space-y-4">
+          <div>
+            <h3 class="text-white font-extrabold text-lg" id="stagekitThemeSelectedTitle">StageKit Original</h3>
+            <p class="text-zinc-400 text-xs mt-2">A prévia é particular. Seu público só verá a mudança depois de publicar o tema.</p>
+          </div>
+          <div class="flex flex-wrap gap-3">
+            <button type="button" onclick="previewStagekitTheme()" class="inline-flex items-center gap-2 px-5 py-3 rounded-xl border border-amber-500/50 text-amber-300 hover:bg-amber-500/10 font-bold text-sm"><i data-lucide="eye" class="w-4 h-4"></i> Visualizar tema</button>
+            <button type="button" id="stagekitPublishThemeBtn" onclick="publishStagekitTheme()" class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-amber-500 hover:bg-amber-600 text-black font-extrabold text-sm"><i data-lucide="check" class="w-4 h-4"></i> Publicar tema</button>
+          </div>
+          <p class="text-xs text-zinc-500">Dica: imagens que você já cadastrou serão utilizadas automaticamente. Não é necessário enviar fotos novamente.</p>
+        </div>
+      </section>
 
       <!-- ABA 5: DASHBOARD GERAL -->
       <div id="tabDashboard" class="dashboard-tab max-w-4xl space-y-6 hidden">
@@ -2012,6 +2224,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       title: "A TRILHA SONORA PERFEITA PARA O SEU MOMENTO",
       bio: "Músico profissional, multi-instrumentista e arranjador com vasta experiência em palcos de eventos corporativos, casamentos e casas noturnas de destaque.",
       slug: "seu-nome",
+      stagekitTheme: "classic",
       coverUrl: "",
       coverZoom: 1,
       coverRotate: 0,
@@ -2056,6 +2269,102 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       eventsList: [],
       musiciansList: []
     };
+
+
+// ====================== STAGEKIT THEMES v3.17 =======================
+// This module changes only public presentation. Admin/security rules are unchanged.
+const STAGEKIT_THEMES = Object.freeze([
+  {id:'classic',name:'StageKit Original',tag:'Clássico',description:'Preto, âmbar e cartões elegantes. O layout tradicional do StageKit.'},
+  {id:'rockstage',name:'Rockstage',tag:'Palco',description:'Tipografia gigante, capa de show panorâmica, faixa editorial e performances primeiro.'},
+  {id:'red-impact',name:'Red Impact',tag:'Impacto',description:'Vermelho profundo, retrato lateral e apresentação assimétrica.'},
+  {id:'golden-editorial',name:'Golden Editorial',tag:'Premium',description:'Nome monumental, retrato central, contraste champagne e refinamento editorial.'},
+  {id:'minimal-sessions',name:'Minimal Sessions',tag:'Minimal',description:'Fundo claro, títulos serifados, respiro e imagens em destaque.'}
+]);
+let stagekitThemeDraftId = 'classic';
+let stagekitThemeDraftDirty = false;
+let stagekitThemePreviewActive = false;
+let stagekitThemePublishBusy = false;
+function validStagekitTheme(value) {
+  return STAGEKIT_THEMES.some(t=>t.id === value) ? value : 'classic';
+}
+function stagekitThemeInfo(value) {
+  return STAGEKIT_THEMES.find(t=>t.id === validStagekitTheme(value)) || STAGEKIT_THEMES[0];
+}
+function renderStagekitThemeCards() {
+  const holder=document.getElementById('stagekitThemeCards');
+  if(!holder) return;
+  const published=validStagekitTheme(sessionUser?.stagekitTheme || artistData?.stagekitTheme);
+  const selected=validStagekitTheme(stagekitThemeDraftId);
+  holder.innerHTML=STAGEKIT_THEMES.map(t=>`<button type="button" class="sk-theme-card ${selected===t.id?'is-selected':''}" aria-pressed="${selected===t.id?'true':'false'}" onclick="selectStagekitTheme('${t.id}')">
+    <div class="sk-theme-sample sk-theme-sample--${t.id}"><span>${escHtml(t.tag)} • StageKit</span><strong>${t.id==='minimal-sessions'?'MUSIC.':t.id==='golden-editorial'?'A R T I S T':'AO VIVO'}</strong><div class="sk-theme-sample-bar" style="background:currentColor"></div></div>
+    <div class="sk-theme-card-footer"><h4>${escHtml(t.name)}</h4><p>${escHtml(t.description)}</p>${published===t.id?'<span class="sk-theme-selection-status">✓ Publicado</span>':''}${selected===t.id && published!==t.id?'<span class="sk-theme-selection-status">● Selecionado para prévia</span>':''}</div>
+  </button>`).join('');
+  const publishedLabel=document.getElementById('stagekitPublishedThemeLabel');
+  if(publishedLabel) publishedLabel.textContent='Tema publicado: '+stagekitThemeInfo(published).name;
+  const selectedLabel=document.getElementById('stagekitThemeSelectedTitle');
+  if(selectedLabel) selectedLabel.textContent=stagekitThemeInfo(selected).name;
+  const publishBtn=document.getElementById('stagekitPublishThemeBtn');
+  if(publishBtn) {publishBtn.disabled=stagekitThemePublishBusy||selected===published; publishBtn.classList.toggle('opacity-50',selected===published);}
+}
+function selectStagekitTheme(id) {
+  stagekitThemeDraftId=validStagekitTheme(id);
+  stagekitThemeDraftDirty=true;
+  renderStagekitThemeCards();
+  try{lucide.createIcons();}catch(e){}
+}
+function previewStagekitTheme() {
+  if(!sessionUser || sessionUser.role==='admin') {showToast('Entre como artista para visualizar temas.','error');return;}
+  stagekitThemePreviewActive=true;
+  artistData=sessionUser;
+  isViewingOwnOnlineKit=true;
+  showPublicPressKit(true,true);
+  window.scrollTo({top:0,behavior:'instant'});
+}
+async function publishStagekitTheme() {
+  if(!sessionUser || sessionUser.role==='admin'||stagekitThemePublishBusy) return;
+  const id=validStagekitTheme(stagekitThemeDraftId);
+  stagekitThemePublishBusy=true;renderStagekitThemeCards();
+  const previous=validStagekitTheme(sessionUser.stagekitTheme);
+  artistData={...sessionUser,stagekitTheme:id};
+  try {
+    const ok=await saveData(true);
+    if(!ok) throw new Error('O Supabase não confirmou o salvamento do tema.');
+    stagekitThemeDraftDirty=false;
+    // Confirm the public projection before promising the visitor will see it.
+    const {data,error}=await supabaseClient.from('stagekit_public_kits')
+      .select('profile_data').eq('slug',sessionUser.slug).maybeSingle();
+    if(error || !data || validStagekitTheme(data.profile_data?.stagekitTheme)!==id) {
+      showToast('Salvo no painel, mas falta executar o SQL StageKit Themes para publicar no link.','error');
+    } else {
+      showToast(`Tema ${stagekitThemeInfo(id).name} publicado no seu Press Kit!`,'success');
+    }
+  } catch(e) {
+    artistData={...sessionUser,stagekitTheme:previous};
+    showToast('Não foi possível publicar o tema: '+(e.message||'erro'),'error');
+  } finally {stagekitThemePublishBusy=false;renderStagekitThemeCards();}
+}
+function applyStagekitTheme() {
+  const view=document.getElementById('contractorView');
+  if(!view || !artistData) return;
+  const theme=validStagekitTheme(stagekitThemePreviewActive ? stagekitThemeDraftId : artistData.stagekitTheme);
+  view.dataset.theme=theme;
+  const visible=!view.classList.contains('hidden');
+  document.body.dataset.stagekitPublicTheme=visible ? theme : '';
+  const name=String(artistData.artistMainName||artistData.coverText||'ARTISTA');
+  const n=document.getElementById('stagekitThemeName'); if(n) n.textContent=name;
+  const brand=document.getElementById('stagekitThemeNavBrand'); if(brand) brand.textContent=name;
+  const intro=document.getElementById('stagekitThemeIntro');if(intro) intro.textContent=artistData.city ? `AO VIVO • ${artistData.city}` : 'MÚSICA AO VIVO • EVENTOS';
+  const portrait=document.getElementById('stagekitThemePortrait');
+  if(portrait){
+    const url=safeExternalUrl(artistData.avatarUrl||artistData.coverUrl||'');
+    portrait.replaceChildren();
+    if(url && (/^data:image\//i.test(url)||/^https?:\/\//i.test(url))){
+      const img=document.createElement('img');img.src=url;img.alt='Foto de '+name;img.loading='eager';portrait.appendChild(img);
+    } else {
+      const mark=document.createElement('div');mark.className='sk-theme-portrait-empty';mark.textContent='♪';portrait.appendChild(mark);
+    }
+  }
+}
 
     let eventsList = [];
     let editingEventIndex = null;
@@ -2391,6 +2700,8 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       updateAvatarPreviews();
       updateCoverPreviews();
       renderTestimonialsBuilder();
+      if (!stagekitThemeDraftDirty) stagekitThemeDraftId=validStagekitTheme(artistData.stagekitTheme);
+      renderStagekitThemeCards();
       applyPublicData();
 
 
@@ -2697,6 +3008,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
           `;
         }).join('');
       }
+      applyStagekitTheme();
       try { lucide.createIcons(); } catch(e) {}
     }
 
@@ -2749,6 +3061,8 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
     }
 
     function goHome(updateUrl = true) {
+      document.body.dataset.stagekitPublicTheme='';
+      stagekitThemePreviewActive=false;
       stopStagekitGalleryTimer();
       isAdminViewingArtistKit = false;
       isViewingOwnOnlineKit = false;
@@ -2813,13 +3127,17 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
 
     function handleBackToDashboardFromPublic() {
       if (!sessionUser) { goHome(); return; }
+      const returningFromThemePreview = stagekitThemePreviewActive;
+      stagekitThemePreviewActive = false;
       artistData = sessionUser;
       isViewingOwnOnlineKit = false;
       isAdminViewingArtistKit = false;
       showArtistDashboard();
+      if (returningFromThemePreview) switchTab('tabThemes');
     }
 
     function showArtistDashboard(updateUrl = true) {
+      document.body.dataset.stagekitPublicTheme='';
       stopStagekitGalleryTimer();
       isViewingOwnOnlineKit = false;
       isAdminViewingArtistKit = false;
@@ -2841,8 +3159,8 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
       if(backBtnContainer) backBtnContainer.classList.add('hidden');
       if(viewOnlineBtn) viewOnlineBtn.classList.remove('hidden');
 
-      const restrictedTabs = ['btnTabProfile', 'btnTabBio', 'btnTabMedia', 'btnTabFormats', 'btnTabDashboard', 'btnTabRepertoire', 'btnTabEvents', 'btnTabTeam', 'btnTabCalendar'];
-      const locks = ['lockProfile', 'lockBio', 'lockMedia', 'lockFormats', 'lockDashboard', 'lockRepertoire', 'lockEvents', 'lockTeam', 'lockCalendar'];
+      const restrictedTabs = ['btnTabProfile', 'btnTabBio', 'btnTabMedia', 'btnTabFormats', 'btnTabThemes', 'btnTabDashboard', 'btnTabRepertoire', 'btnTabEvents', 'btnTabTeam', 'btnTabCalendar'];
+      const locks = ['lockProfile', 'lockBio', 'lockMedia', 'lockFormats', 'lockThemes', 'lockDashboard', 'lockRepertoire', 'lockEvents', 'lockTeam', 'lockCalendar'];
 
       if(sessionUser && sessionUser.role === 'admin') {
         document.getElementById('btnTabSuperAdmin').classList.remove('hidden');
@@ -3208,6 +3526,7 @@ Este documento é gerado através da plataforma StageKit com padrão Casa 6 Prod
         'tabBio': 'btnTabBio',
         'tabMedia': 'btnTabMedia',
         'tabFormats': 'btnTabFormats',
+        'tabThemes': 'btnTabThemes',
         'tabDashboard': 'btnTabDashboard',
         'tabRepertoire': 'btnTabRepertoire',
         'tabContracts': 'btnTabContracts',
