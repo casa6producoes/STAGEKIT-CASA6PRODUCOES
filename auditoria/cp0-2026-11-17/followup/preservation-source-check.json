@@ -1,0 +1,140 @@
+{
+  "original_commit": "b3b7016d5563a3d22ec96529855aa1cbd9ad9549",
+  "original_files": 21,
+  "all_unchanged": true,
+  "local_git_objects_valid": true,
+  "remote_branch_confirmed": false,
+  "external_durability_confirmed": false,
+  "github_api": "401 Bad credentials",
+  "git_push_dry_run": "No authentication for write; no push performed",
+  "supabase_plugin_installed": false,
+  "vercel_plugin_installed": false,
+  "checks": [
+    {
+      "path": "auditoria/cp0-2026-11-17/.gitignore",
+      "bytes": 50,
+      "sha256": "ecd462b29dc7d724c720c6f2a6597c42ba31c5765ee4e918c61447c43862b0ea",
+      "equals_original_commit": true
+    },
+    {
+      "path": "auditoria/cp0-2026-11-17/CHANGELOG.md",
+      "bytes": 904,
+      "sha256": "e8950f1a8914dc4d1f186a69e5cc8f7517ebc017ba1b8697ed3b38ff7295086f",
+      "equals_original_commit": true
+    },
+    {
+      "path": "auditoria/cp0-2026-11-17/MANIFESTO_REVISAO_2_3.json",
+      "bytes": 3369,
+      "sha256": "4e7710733d77c2e69965cd05e8edc6c66ea35482a0d74c0e375b0d7de3ee9de6",
+      "equals_original_commit": true
+    },
+    {
+      "path": "auditoria/cp0-2026-11-17/README.md",
+      "bytes": 3129,
+      "sha256": "4037e15eaff6939f8089edac2e481bdc4045b5897c0a247c77b6174ec60bf566",
+      "equals_original_commit": true
+    },
+    {
+      "path": "auditoria/cp0-2026-11-17/checklists/BACKLOG_ATUALIZADO.csv",
+      "bytes": 16051,
+      "sha256": "1c6e3bc8eecf1d964003c25f0af92d354322558256aed4cc8cf6d19d24a8732b",
+      "equals_original_commit": true
+    },
+    {
+      "path": "auditoria/cp0-2026-11-17/checklists/GATES_CP0_ATUALIZADOS.csv",
+      "bytes": 1652,
+      "sha256": "85ba63fd7d43c3174a87d0e7246aa0b9cb7b2bd99c1f8100b474b033460897cc",
+      "equals_original_commit": true
+    },
+    {
+      "path": "auditoria/cp0-2026-11-17/checklists/MATRIZ_PROTO_MVP.csv",
+      "bytes": 3762,
+      "sha256": "211e3c0c47c43424452c0a7797702f1dff43786463e9d822d26ef24e2a2238ac",
+      "equals_original_commit": true
+    },
+    {
+      "path": "auditoria/cp0-2026-11-17/docs/30_RELATORIO_CP0_ATUALIZADO.md",
+      "bytes": 7474,
+      "sha256": "e31c15f008cea37bbb423fe5af16412fb6e67db2f9904f9cd79e3ebd36a7c14d",
+      "equals_original_commit": true
+    },
+    {
+      "path": "auditoria/cp0-2026-11-17/docs/31_SEGURANCA_E_EVIDENCIAS.md",
+      "bytes": 5844,
+      "sha256": "ab8379f3d440714a975056536bdf44289a12809309140528de3494c60dbec054",
+      "equals_original_commit": true
+    },
+    {
+      "path": "auditoria/cp0-2026-11-17/docs/32_ESPECIFICACOES_COMPLEMENTARES.md",
+      "bytes": 9453,
+      "sha256": "7023912dbd934b1f9d06b3d2133db3a1886e0904bd534f33188e264278eeefbe",
+      "equals_original_commit": true
+    },
+    {
+      "path": "auditoria/cp0-2026-11-17/docs/33_PLANO_NEXTJS_CP0_CP7.md",
+      "bytes": 6336,
+      "sha256": "e1976df685a11304116f4aa47658d4164cc85f59ef8db51e3466d6a72dd16ccf",
+      "equals_original_commit": true
+    },
+    {
+      "path": "auditoria/cp0-2026-11-17/docs/34_DADOS_BACKUP_ROLLBACK.md",
+      "bytes": 5790,
+      "sha256": "73df65d5c617dfcb2e65c1e5d0beecf52beca7fb5727c81d029e4837efe4bec4",
+      "equals_original_commit": true
+    },
+    {
+      "path": "auditoria/cp0-2026-11-17/docs/35_CONTROLE_E_CONTINUIDADE.md",
+      "bytes": 3218,
+      "sha256": "205af763c9e3b04df76a8634de933b7cbd28bdc2ea1783b0358a1115c29cd816",
+      "equals_original_commit": true
+    },
+    {
+      "path": "auditoria/cp0-2026-11-17/evidence/VALIDACAO_ENTREGA.json",
+      "bytes": 2580,
+      "sha256": "b2cdbfa297e2fd5e728e36fe3fb6d94fe947f19c05c4c0775e70517f56897f47",
+      "equals_original_commit": true
+    },
+    {
+      "path": "auditoria/cp0-2026-11-17/evidence/cp0-local-audit.json",
+      "bytes": 28059,
+      "sha256": "532e586e65d4dbb3194d0b5acfe247d604c1fadded2311b15104dcf83223d6c4",
+      "equals_original_commit": true
+    },
+    {
+      "path": "auditoria/cp0-2026-11-17/evidence/input-and-runtime.json",
+      "bytes": 409,
+      "sha256": "491cc64b24f3b314a57faacc6e7a4f4f4d4466256dfcd17705c08fa1608fd40d",
+      "equals_original_commit": true
+    },
+    {
+      "path": "auditoria/cp0-2026-11-17/evidence/legacy-checks.json",
+      "bytes": 7818,
+      "sha256": "e6ab1a4cdfa5fe541923b6985e2274a560a3ac6d413c95d9a01bd1bb90c560ad",
+      "equals_original_commit": true
+    },
+    {
+      "path": "auditoria/cp0-2026-11-17/evidence/package-integrity.json",
+      "bytes": 10452,
+      "sha256": "9cf0bdcb97e584dcdb984edc2eb38c93fcf508958e739dc3767acaf883fe4cca",
+      "equals_original_commit": true
+    },
+    {
+      "path": "auditoria/cp0-2026-11-17/scripts/audit_cp0.py",
+      "bytes": 10825,
+      "sha256": "dea9714599092449469455a81a60b592c9aef0907d80dbbf1bd42034717dbed1",
+      "equals_original_commit": true
+    },
+    {
+      "path": "auditoria/cp0-2026-11-17/scripts/legacy_checks.cjs",
+      "bytes": 10885,
+      "sha256": "11ddce9be8e60b1bc45f073959c194a17e88ac5585ac0c7a1d67230ad7b804ea",
+      "equals_original_commit": true
+    },
+    {
+      "path": "auditoria/cp0-2026-11-17/sql/01_METADADOS_SOMENTE_LEITURA.sql",
+      "bytes": 4019,
+      "sha256": "fbfe2f800b8e76fdd64df071bd6ebb43cb9406c9f485405edd4ea0e1fea5ed0d",
+      "equals_original_commit": true
+    }
+  ]
+}

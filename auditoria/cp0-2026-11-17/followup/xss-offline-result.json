@@ -1,0 +1,12 @@
+{
+  "observed_at_utc": "2026-11-17T03:58:34.134Z",
+  "source_commit": "3399f680c01301cb19f36305fac9a064764d10b6",
+  "function": "applyPublicData",
+  "fixture": "Synthetic title containing an image error handler",
+  "browser": "Chromium headless",
+  "network": "offline; all requests aborted",
+  "synthetic_script_executed": true,
+  "production_tested": false,
+  "stored_attack_tested": false,
+  "limitation": "Demonstrates execution in local HTML rendering only; does not prove persistence, CSP behavior or exploitability in production."
+}

@@ -1,0 +1,37 @@
+[
+  {
+    "path": "36_ONZE_REPROVACOES_E_LIMITES.md",
+    "sha256": "a96cfb5b5e05699525461b460fbc2eb8fb0b3256f7d91ed1040da92d732e25a3",
+    "bytes": 6267
+  },
+  {
+    "path": "37_GUIA_CONEXOES_CORRETAS.md",
+    "sha256": "ba8bf2563f837249f471e9fba378fb7dfb94b5b44b9c1742fc080e34b65d018e",
+    "bytes": 3966
+  },
+  {
+    "path": "38_PRESERVACAO_E_ESTADO.md",
+    "sha256": "1fb6c2dfdb36cf1a92471c56536fad7dfcf674b1b96db512c85fcee8928d294f",
+    "bytes": 2707
+  },
+  {
+    "path": "preservation-source-check.json",
+    "sha256": "b6a450a636862c83d6f796e4f9af77c8c7b7c16f89ed3e4123e3fdf98bccd871",
+    "bytes": 5184
+  },
+  {
+    "path": "preserve_cp0.py",
+    "sha256": "708c962a858592b9e5ab6229dcef581a2aa4e9197f938483e52b572ce069b5de",
+    "bytes": 7477
+  },
+  {
+    "path": "xss-offline-result.json",
+    "sha256": "7b57fbac203abaaad1184fdcecc9b1a081fee49495b94a8922ae41b2fd103ffe",
+    "bytes": 540
+  },
+  {
+    "path": "xss_offline.cjs",
+    "sha256": "f4866b18aaea932320897f216db72557033d23881357ec0a875ab5261602ea9d",
+    "bytes": 2115
+  }
+]
