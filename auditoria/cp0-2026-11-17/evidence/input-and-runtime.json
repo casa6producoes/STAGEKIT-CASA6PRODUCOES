@@ -1,0 +1,9 @@
+{
+  "zip_filename": "STAGEKIT_MASTER_HANDOFF_v2_2_COM_PROMPT_DE_CONTINUIDADE.zip",
+  "zip_sha256": "0ffea33d1b6c1c2608979738bc9a6aba3098d1d3cdf8b348e50ebd5376e20295",
+  "zip_bytes": 392134,
+  "decisoes_sha256": "7361adb6dcadd2a99e3328d899caace62fcc5b27f98c699a94d9717d2d65d1a3",
+  "prd_sha256": "69a353db0f828b067599d3e73225789093c7840d4fa462d4099d95257625466c",
+  "python": "3.12.14",
+  "node": "v24.22.1"
+}

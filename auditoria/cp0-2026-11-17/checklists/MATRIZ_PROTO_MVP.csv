@@ -1,0 +1,22 @@
+id,requisito,decisoes,checkpoint,estado,alcance,evidencia,pendencia
+GAP-01,Convites e signup fechado,DEC-005 DEC-014,CP1,AUSENTE,Fluxo aprovado ausente no codigo; configuracao real signup habilitado,AUTH-01 e Auth settings,Backend de convites e bloqueio de API
+GAP-02,Isolamento e owner unico,DEC-011,CP0 CP1,NAO_VALIDADO,Frontend parcialmente alinhado; RLS real desconhecida,restoreStagekitAuthSession e SQL historico,Policies reais e testes A B admin bloqueado
+GAP-03,Turma ate dez convidados,DEC-013 DEC-014,CP1,AUSENTE,Sem emissao e contagem segura comprovada,Codigo de cadastro e admin,Contagem atomica e regra operacional de vagas
+GAP-04,Cotas no backend,DEC-006,CP2,NAO_VALIDADO,Limites de UI presentes; backend nao auditado,Inputs e arrays no HTML,Testes API concorrencia substituicao exclusao
+GAP-05,Tres temas e preservacao de dois,DEC-004,CP4,PARCIAL,Cinco opcoes expostas e previsualizacao/publicacao presentes,STAGEKIT_THEMES e publishStagekitTheme,Restringir oferta beta e homologar tres layouts
+GAP-06,Formulario obrigatorio,DEC-017,CP3,PARCIAL,Nome validado; data local e tipo aceitam vazio,BUD-01 BUD-02 BUD-03 BUD-04,Validacao completa observacao opcional e UX
+GAP-07,Sem persistir solicitacao,DEC-017,CP3,PARCIAL,Nao copia PII no stub mas chama saveData de contador,BUD-06 BUD-08,Remover chamada de gravacao e auditar logs e requests
+GAP-08,Shows musicos e caches,DEC-003,CP5,PARCIAL,Editor e persistencia referenciada sem integracao real,addNewEvent e saveData,CRUD relogin concorrencia isolamento e calculos
+GAP-09,Status manual por vinculo,DEC-009,CP5,AUSENTE,Conversor nao preserva status e UI nao o edita,EV-03,Modelo e UI persistentes por musico evento
+GAP-10,Calendario ICS manual,DEC-008,CP5,PARCIAL,Exportacao presente com tres falhas locais,ICS-01 a ICS-06,UID estavel datas folding e importacao Google real
+GAP-11,Noindex e OG por kit,DEC-012 DEC-015,CP3,AUSENTE,Ausentes nas respostas iniciais observadas,public_http em cp0-local-audit.json,Metadata SSR headers Preview e canonical
+GAP-12,Alertas e suspensao upload,DEC-016,CP0 CP2 CP6A,AUSENTE,Sem mecanismo comprovado no repositorio,Inventario das arvores,Conferir planos reais e testar alertas 70 90
+GAP-13,Preservacao de contratos,DEC-007,CP0 CP6A,PARCIAL,Codigo preservado e intacto; dados reais desconhecidos,Hashes dos HTML e funcoes de contrato,Backup e prova de integridade e privacidade
+GAP-14,Next.js e TypeScript gradual,DEC-010,CP1,AUSENTE,Repo so contem HTML config e imagens,Arvores Git auditadas,Base modular apos aceite CP0
+GAP-15,Backup e restore,DEC-010 DEC-016,CP0,NAO_VALIDADO,Plano elaborado; sem backup verificavel,docs/34_DADOS_BACKUP_ROLLBACK.md,Conexao e ensaio isolado autorizado
+GAP-16,Vercel correta e rollback,DEC-010 DEC-012,CP0,NAO_VALIDADO,Dominio responde com main; equipe e deployment desconhecidos,HTTP publico,Gestao Vercel e ensaio
+GAP-17,Schema Supabase e vinculos reais,DEC-010 DEC-011,CP0,NAO_VALIDADO,Projeto correto responde Auth settings; schema nao consultado,Evidencia publica Auth,Auditoria SQL e gestao do projeto correto
+GAP-18,Recuperar assets exatos,DEC-010,CP0,IMPLEMENTADO,Binarios recuperados e blobs conferidos em ambas branches,Arvores Git e hashes,Nenhuma pendencia de recuperacao identificada
+SEC-XSS,Renderizacao de texto seguro,DEC-011,CP1 CP3,PARCIAL,escHtml existe mas formatos interpolam HTML cru,XSS-01 e XSS-02,Renderizacao textual e testes de injecao
+UTIL-WA,Mensagem individual sem cache de terceiros,DEC-003 DEC-009,CP5,IMPLEMENTADO,Somente funcao pura com fixture sintetica aprovada,EV-01 e EV-04,Entrega real e isolamento continuam nao validados
+OPS-BETA,Metas do piloto de trinta dias,DEC-018,CP6B CP7,AUSENTE,Somente plano sem piloto iniciado,Documentos canonicos,Operar piloto apos CP6A e medir quatro metas

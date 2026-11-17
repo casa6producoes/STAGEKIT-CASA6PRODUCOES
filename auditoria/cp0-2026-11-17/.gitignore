@@ -1,0 +1,6 @@
+scratch/
+__pycache__/
+*.pyc
+.env*
+*.dump
+*.backup

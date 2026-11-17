@@ -1,0 +1,332 @@
+[
+  {
+    "path": "DECISOES_CONFIRMADAS.md",
+    "bytes": 27930,
+    "sha256": "7361adb6dcadd2a99e3328d899caace62fcc5b27f98c699a94d9717d2d65d1a3",
+    "matches_manifest": true
+  },
+  {
+    "path": "README_COMECE_AQUI.md",
+    "bytes": 4426,
+    "sha256": "c4466faca08170c71fbd75a363a91a5386febd296c896c964b2b856c7afd786f",
+    "matches_manifest": true
+  },
+  {
+    "path": "SOURCE_MANIFEST.json",
+    "bytes": 6987,
+    "sha256": "edfd2ab14c587d7e1cde579be81b22838daec1e1d3efced72a072a98307731fd",
+    "matches_manifest": true
+  },
+  {
+    "path": "agent/AGENTS.md",
+    "bytes": 7805,
+    "sha256": "bf5425b9ddd7d28b0e2a628ea3c4122a8254410b7f14a02e8fe30350b40946f0",
+    "matches_manifest": true
+  },
+  {
+    "path": "agent/CLAUDE.md",
+    "bytes": 5553,
+    "sha256": "0ae366e2568e05eac4a17adbd64ccdbb91c4b2d7e8721ab2dd329b942954084e",
+    "matches_manifest": true
+  },
+  {
+    "path": "auditoria/CP0_SQL_AUDITORIA_SOMENTE_LEITURA.sql",
+    "bytes": 1739,
+    "sha256": "2c6c1f98217f7f3bae71e3cc5e5de84de0f931f137eada2b7de4bdb64f4ef2fb",
+    "matches_manifest": true
+  },
+  {
+    "path": "auditoria/RESULTADO_VALIDACAO_CODIGO.json",
+    "bytes": 1671,
+    "sha256": "9462890980aa2052b1ae6e7e720541f9bda74eb570c5db78496a09152db9580c",
+    "matches_manifest": true
+  },
+  {
+    "path": "checklists/BACKLOG_INICIAL.csv",
+    "bytes": 10115,
+    "sha256": "fb16ecb71214009a83bbac779ca962a4ccf2ff2b47aa3dec1919bdf89a32aee3",
+    "matches_manifest": true
+  },
+  {
+    "path": "checklists/CP0_GATES_E_EVIDENCIAS.csv",
+    "bytes": 1075,
+    "sha256": "40188ffede1839735daadced210d89d5ee67ec66b27b4b9f1f983ab31a7683c3",
+    "matches_manifest": true
+  },
+  {
+    "path": "checklists/GAP_ANALYSIS_MVP.csv",
+    "bytes": 1244,
+    "sha256": "747360253c0bbb31c7e90453cc424afed41e40ee6be5da31a3019437a395b4f2",
+    "matches_manifest": true
+  },
+  {
+    "path": "checklists/INSTRUCOES_BACKLOG.md",
+    "bytes": 279,
+    "sha256": "ee05bfa5ae451578caafeba29f84e5ed26c6a81e173b0315b1005619460349b9",
+    "matches_manifest": true
+  },
+  {
+    "path": "checklists/MATRIZ_DE_VALIDACAO.csv",
+    "bytes": 9258,
+    "sha256": "80a4b957a81aff80e21301b34ec2bca55f377846ef7685cf9a59508765f914b7",
+    "matches_manifest": true
+  },
+  {
+    "path": "checklists/PLANO_TESTES_MVP.csv",
+    "bytes": 2487,
+    "sha256": "ae1c48f6cdb5cf057189470c29ab86f345dee8c51708fe68463b99e513a1ff32",
+    "matches_manifest": true
+  },
+  {
+    "path": "codigo/LEIA_PRIMEIRO.md",
+    "bytes": 1639,
+    "sha256": "635296fec9013522492a17fa6a56ca5b4db43f9cb4f6e6f65c0e22ed572490d4",
+    "matches_manifest": true
+  },
+  {
+    "path": "codigo/github_main/index.html",
+    "bytes": 240461,
+    "sha256": "a6f4e8db6d2d6f26bf5d8f0a800c9764a9a661b97df1dbb9bd2444437cba2904",
+    "matches_manifest": true
+  },
+  {
+    "path": "codigo/github_main/vercel.json",
+    "bytes": 81,
+    "sha256": "9379feb4a18382f80c05ed87fbd5cb539ad6d36a93b5cd1c905e7f3eed3a8b73",
+    "matches_manifest": true
+  },
+  {
+    "path": "codigo/github_teste/index.html",
+    "bytes": 313489,
+    "sha256": "1981c31fd83138bca6260b2330bdf29ce52f3255a11df2dbe217ab11c30a0154",
+    "matches_manifest": true
+  },
+  {
+    "path": "codigo/github_teste/vercel.json",
+    "bytes": 81,
+    "sha256": "9379feb4a18382f80c05ed87fbd5cb539ad6d36a93b5cd1c905e7f3eed3a8b73",
+    "matches_manifest": true
+  },
+  {
+    "path": "codigo/historico_local/STAGEKIT_v3.13_original.html",
+    "bytes": 240457,
+    "sha256": "341573856a36cf1924474ecc21ee79b3ed4c5e7e5a52a79119523718e963ce3c",
+    "matches_manifest": true
+  },
+  {
+    "path": "codigo/historico_local/STAGEKIT_v3.18_original.html",
+    "bytes": 313480,
+    "sha256": "a56c8593086cea9bc764c1f43cfb2f1fb73d2a5ef78465ee93eabb03543e05d0",
+    "matches_manifest": true
+  },
+  {
+    "path": "docs/00_PRD_FINAL_ESCOPO_PRODUTO.md",
+    "bytes": 6617,
+    "sha256": "69a353db0f828b067599d3e73225789093c7840d4fa462d4099d95257625466c",
+    "matches_manifest": true
+  },
+  {
+    "path": "docs/01_INVENTARIO_E_FONTES.md",
+    "bytes": 2788,
+    "sha256": "498561f2bb0b94f3b13ad6c17bf074add6feeaec1819b9393a8fd65c2eb9f08a",
+    "matches_manifest": true
+  },
+  {
+    "path": "docs/02_FUNCIONALIDADES_E_ESTADO.md",
+    "bytes": 5449,
+    "sha256": "356dd806438e6361cd656008267f8c3d597a997c920c42bcc5f2b1aa2afb7602",
+    "matches_manifest": true
+  },
+  {
+    "path": "docs/03_ARQUITETURA_TECNICA.md",
+    "bytes": 3869,
+    "sha256": "01a3ce9121d19f5ec80f5b632a6d23d237b76049dd7da39ec5d163071186b9e7",
+    "matches_manifest": true
+  },
+  {
+    "path": "docs/04_TELAS_E_JORNADAS.md",
+    "bytes": 3543,
+    "sha256": "555f0a7126aefaa785af221441dafa8b319375e5f628cf91f1936bf0c91101f9",
+    "matches_manifest": true
+  },
+  {
+    "path": "docs/05_DADOS_E_MIGRACAO.md",
+    "bytes": 5899,
+    "sha256": "712af658c2594cbf663b86b21cbafdc85f5650be2aef5be804abc17c34d84ea0",
+    "matches_manifest": true
+  },
+  {
+    "path": "docs/06_PRD_MVP_RASCUNHO.md",
+    "bytes": 33858,
+    "sha256": "9a337d70b664af7c95368a3618a12249f67edf10afae9944edd49cf50ebc11ca",
+    "matches_manifest": true
+  },
+  {
+    "path": "docs/07_ROADMAP_CHECKPOINTS.md",
+    "bytes": 9409,
+    "sha256": "c5c471ebb7566660bc3ca1d2a3ae27fc98a3e89cd305fb1ea7a6c08adc6ef473",
+    "matches_manifest": true
+  },
+  {
+    "path": "docs/08_SEGURANCA_E_RISCOS.md",
+    "bytes": 5302,
+    "sha256": "f2812cd033323b4f2073980bb6759f9d13e91a1805a4893a9decf0af4fb07872",
+    "matches_manifest": true
+  },
+  {
+    "path": "docs/09_TESTES_E_CRITERIOS.md",
+    "bytes": 14019,
+    "sha256": "76938d6fc7203d74ce32b7c663aaa7a20a434f40d44db94adefeb9a74c5bd90b",
+    "matches_manifest": true
+  },
+  {
+    "path": "docs/10_DECISOES_PENDENTES.md",
+    "bytes": 18103,
+    "sha256": "cfa94ff7f4eb62b1d4d2e42fa2c3a950d42d22447d7e0fbeac116e6ada561400",
+    "matches_manifest": true
+  },
+  {
+    "path": "docs/11_EVOLUCAO_HISTORICA.md",
+    "bytes": 1632,
+    "sha256": "3750f613096d9752f1d887e097fab8fef6605ada688c576ae98dc7c3d78a5f4f",
+    "matches_manifest": true
+  },
+  {
+    "path": "docs/12_PLANO_DE_HANDOFF.md",
+    "bytes": 5626,
+    "sha256": "2568998b6d53469e317a3ae58cf6e8def864aa1cffa0e08a8de13d0bd2002e7c",
+    "matches_manifest": true
+  },
+  {
+    "path": "docs/13_PLANO_MIGRACAO_NEXTJS.md",
+    "bytes": 4447,
+    "sha256": "d856ff6da34221cfea5c83c42d24d40d163aad062392b34cebcedc7183b5b592",
+    "matches_manifest": true
+  },
+  {
+    "path": "docs/14_MATRIZ_DE_PERMISSOES_MVP.md",
+    "bytes": 4697,
+    "sha256": "59391b98dcb8807d6626948037040d35992be959440c011713fefe923b39d894",
+    "matches_manifest": true
+  },
+  {
+    "path": "docs/15_PENDENCIAS_FECHAMENTO_MVP.md",
+    "bytes": 4064,
+    "sha256": "46c3dab0f23b361b495e66ee9389822f72b28626996eeb54080ffbe85a2ce368",
+    "matches_manifest": true
+  },
+  {
+    "path": "docs/16_REVISAO_FINAL_ESCOPO_E_CHECKPOINTS.md",
+    "bytes": 7419,
+    "sha256": "eaa159b12097a5052ca9e2205168da3f8193b027c055b0cae7114936d9fcdb0d",
+    "matches_manifest": true
+  },
+  {
+    "path": "docs/17_PLANO_BETA_METRICAS_DEC018.md",
+    "bytes": 4715,
+    "sha256": "792d55c03157a15910fb0f61ba634a90c90a14a28de5ce892360be8bb38ff8cb",
+    "matches_manifest": true
+  },
+  {
+    "path": "docs/18_AUDITORIA_CP0_FONTES_REAIS.md",
+    "bytes": 7225,
+    "sha256": "86c53069729cb25783453aaffb9799aac01469cee484976b03fcc32e4903d639",
+    "matches_manifest": true
+  },
+  {
+    "path": "docs/19_ESPECIFICACAO_FUNCIONAL_MVP.md",
+    "bytes": 6780,
+    "sha256": "4b3bc78df9bb5712a610a05285ff39a0d601b3e91a0652027e8db6fa69344723",
+    "matches_manifest": true
+  },
+  {
+    "path": "docs/20_DESIGN_SYSTEM_EXTRAIDO_DO_CODIGO.md",
+    "bytes": 3545,
+    "sha256": "ef9d262f46445c66d9ebd2411d804f6b849a1c709feaf9a46de48da2a4a2bf9b",
+    "matches_manifest": true
+  },
+  {
+    "path": "docs/21_MAPA_TELAS_E_JORNADAS_PARA_AGENTES.md",
+    "bytes": 2853,
+    "sha256": "9603abc7684cf093538b64e21c4a92ceee2ac22a9c6c0ce4d548941e51f3a92f",
+    "matches_manifest": true
+  },
+  {
+    "path": "docs/22_MODELO_DE_DADOS_E_APIS_PROPOSTAS.md",
+    "bytes": 4823,
+    "sha256": "fdec1603e6be74b3e0e130e9c57ea14b1513722812b4ab1c8aeeb7ec6ad12c4c",
+    "matches_manifest": true
+  },
+  {
+    "path": "docs/23_GAP_ANALYSIS_PROTOTIPO_X_MVP.md",
+    "bytes": 3955,
+    "sha256": "2c2aac36f0dd8d11730fc2ee8a9ef45d7246f89cc1659ec749588cdd2c141312",
+    "matches_manifest": true
+  },
+  {
+    "path": "docs/24_QUALIDADE_E_CRITERIOS_DE_ACEITE.md",
+    "bytes": 3208,
+    "sha256": "c46befdf0b58e578fe46e779f07492c894000198e12abf215ccf4cc8d2649d13",
+    "matches_manifest": true
+  },
+  {
+    "path": "docs/25_PLANO_DE_MIGRACAO_E_ROLLBACK.md",
+    "bytes": 3101,
+    "sha256": "aa2fbffa56b0305ac1d70aa9691997bddc6657e01795ac29b1feb55e97dcc594",
+    "matches_manifest": true
+  },
+  {
+    "path": "docs/26_GUIA_OPERACIONAL_PARA_ENTRADA_NO_CODEX_CLAUDE.md",
+    "bytes": 2497,
+    "sha256": "ebb524e1d1d66f2a1e4df7e0402fc263a8930e1cb0da54cdaa68ecc6414651c3",
+    "matches_manifest": true
+  },
+  {
+    "path": "docs/27_CONFERENCIA_ACESSOS_E_PENDENCIAS.md",
+    "bytes": 2375,
+    "sha256": "ea939f163784cf8f90ac0b547bc3c5292e3bab725df2178ee9020bb7e4299b0a",
+    "matches_manifest": true
+  },
+  {
+    "path": "docs/28_REFERENCIAS_TECNICAS_E_CUIDADOS_2026.md",
+    "bytes": 1201,
+    "sha256": "388270dfcfd8cbf657ef80397b731f821d9411e181c6303d41e1d76c0a1c0be6",
+    "matches_manifest": true
+  },
+  {
+    "path": "docs/29_RISCOS_E_ACHADOS_ESTATICOS.md",
+    "bytes": 1848,
+    "sha256": "611403bd9daee00633895160dc10c25a378efd382c366b2d71098eacd3d15b49",
+    "matches_manifest": true
+  },
+  {
+    "path": "docs/HISTORICO_README_V2_0.md",
+    "bytes": 13581,
+    "sha256": "8752f66cdc9085b763ad4298a6c9dcac007641794f1a139d037d5bc87cc97148",
+    "matches_manifest": true
+  },
+  {
+    "path": "referencias_sql/LEIA_PRIMEIRO.md",
+    "bytes": 417,
+    "sha256": "2667a11a6772add02a5f4cbc88de198298b19c3d50095817b0cb1ba84bdc4284",
+    "matches_manifest": true
+  },
+  {
+    "path": "referencias_sql/STAGEKIT_v3.14_01_PREPARAR_SUPABASE.sql",
+    "bytes": 7850,
+    "sha256": "5a8cb7b55b7e33efd35c713ce44e12e69e479f7b43548884b9c02c6278f4903e",
+    "matches_manifest": true
+  },
+  {
+    "path": "referencias_sql/STAGEKIT_v3.17_TEMAS_SUPABASE.sql",
+    "bytes": 2477,
+    "sha256": "c42153a8f95a21b45119f39676beeb7c20165e3a78558f7d6723acf0fb829706",
+    "matches_manifest": true
+  },
+  {
+    "path": "referencias_sql/STAGEKIT_v3.18_AJUSTES_SUPABASE.sql",
+    "bytes": 3227,
+    "sha256": "be5bfe3600de5f1aafdfa6858260627c34939312e73c5d596467c8bd2d23dd82",
+    "matches_manifest": true
+  }
+]

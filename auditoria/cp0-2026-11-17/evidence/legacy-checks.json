@@ -1,0 +1,281 @@
+{
+  "executed_at_utc": "2026-11-17T03:34:21.833Z",
+  "scope": "Funções reais v3.18 extraídas; VM com DOM/serviços stubados; dados sintéticos. Sem rede ou E2E.",
+  "acceptance_pass": 10,
+  "acceptance_fail": 11,
+  "results": [
+    {
+      "id": "BUD-01",
+      "criterion": "qDateTime obrigatório impede abertura vazia",
+      "status": "FAIL",
+      "reason": "WhatsApp abriu com campo obrigatório vazio\n\n1 !== 0\n",
+      "source": [
+        {
+          "function": "sendWhatsAppBudget",
+          "startLine": 3711,
+          "endLine": 3729
+        }
+      ]
+    },
+    {
+      "id": "BUD-02",
+      "criterion": "qLocation obrigatório impede abertura vazia",
+      "status": "FAIL",
+      "reason": "WhatsApp abriu com campo obrigatório vazio\n\n1 !== 0\n",
+      "source": [
+        {
+          "function": "sendWhatsAppBudget",
+          "startLine": 3711,
+          "endLine": 3729
+        }
+      ]
+    },
+    {
+      "id": "BUD-03",
+      "criterion": "qEventType obrigatório impede abertura vazia",
+      "status": "FAIL",
+      "reason": "WhatsApp abriu com campo obrigatório vazio\n\n1 !== 0\n",
+      "source": [
+        {
+          "function": "sendWhatsAppBudget",
+          "startLine": 3711,
+          "endLine": 3729
+        }
+      ]
+    },
+    {
+      "id": "BUD-04",
+      "criterion": "Nome vazio impede abertura",
+      "status": "PASS",
+      "source": [
+        {
+          "function": "sendWhatsAppBudget",
+          "startLine": 3711,
+          "endLine": 3729
+        }
+      ]
+    },
+    {
+      "id": "BUD-05",
+      "criterion": "Contato ausente impede destino inválido",
+      "status": "FAIL",
+      "reason": "WhatsApp abriu sem contato válido\n\n1 !== 0\n",
+      "source": [
+        {
+          "function": "sendWhatsAppBudget",
+          "startLine": 3711,
+          "endLine": 3729
+        }
+      ]
+    },
+    {
+      "id": "BUD-06",
+      "criterion": "Fluxo público não tenta gravar perfil",
+      "status": "FAIL",
+      "reason": "saveData foi chamado no orçamento\n\n1 !== 0\n",
+      "source": [
+        {
+          "function": "sendWhatsAppBudget",
+          "startLine": 3711,
+          "endLine": 3729
+        }
+      ]
+    },
+    {
+      "id": "BUD-07",
+      "criterion": "Nome com símbolos chega corretamente codificado",
+      "status": "PASS",
+      "source": [
+        {
+          "function": "sendWhatsAppBudget",
+          "startLine": 3711,
+          "endLine": 3729
+        }
+      ]
+    },
+    {
+      "id": "BUD-08",
+      "criterion": "Orçamento não envia conteúdo à persistência stubada",
+      "status": "PASS",
+      "source": [
+        {
+          "function": "sendWhatsAppBudget",
+          "startLine": 3711,
+          "endLine": 3729
+        }
+      ]
+    },
+    {
+      "id": "AUTH-01",
+      "criterion": "Cadastro novo exige convite antes de chamar signUp",
+      "status": "FAIL",
+      "reason": "signUp chamado sem validar convite\n\n1 !== 0\n",
+      "source": [
+        {
+          "function": "submitRegister",
+          "startLine": 3588,
+          "endLine": 3612
+        }
+      ]
+    },
+    {
+      "id": "EV-01",
+      "criterion": "Mensagem do músico não contém cachês dos demais",
+      "status": "PASS",
+      "source": [
+        {
+          "function": "buildStagekitEventMessage",
+          "startLine": 4506,
+          "endLine": 4519
+        },
+        {
+          "function": "getStagekitEventDateTime",
+          "startLine": 4478,
+          "endLine": 4491
+        }
+      ]
+    },
+    {
+      "id": "EV-02",
+      "criterion": "Formatter rejeita data impossível",
+      "status": "PASS",
+      "source": [
+        {
+          "function": "getStagekitEventDateTime",
+          "startLine": 4478,
+          "endLine": 4491
+        }
+      ]
+    },
+    {
+      "id": "EV-03",
+      "criterion": "Escala preserva status por músico ao converter dados",
+      "status": "FAIL",
+      "reason": "Status não preservado pelo conversor legado\n+ actual - expected\n\n+ undefined\n- 'Confirmado'\n",
+      "source": [
+        {
+          "function": "getEventMusicians",
+          "startLine": 4262,
+          "endLine": 4277
+        }
+      ]
+    },
+    {
+      "id": "EV-04",
+      "criterion": "Mensagem não modifica confirmação",
+      "status": "PASS",
+      "source": [
+        {
+          "function": "buildStagekitEventMessage",
+          "startLine": 4506,
+          "endLine": 4519
+        },
+        {
+          "function": "getStagekitEventDateTime",
+          "startLine": 4478,
+          "endLine": 4491
+        }
+      ]
+    },
+    {
+      "id": "ICS-01",
+      "criterion": "Exportação preserva horário local digitado",
+      "status": "PASS",
+      "source": [
+        {
+          "function": "downloadStagekitCalendarIcs",
+          "startLine": 4665,
+          "endLine": 4711
+        }
+      ]
+    },
+    {
+      "id": "ICS-02",
+      "criterion": "Exportação exclui campos financeiros e notas privadas",
+      "status": "PASS",
+      "source": [
+        {
+          "function": "downloadStagekitCalendarIcs",
+          "startLine": 4665,
+          "endLine": 4711
+        }
+      ]
+    },
+    {
+      "id": "ICS-03",
+      "criterion": "UID estável ao reordenar lista de eventos",
+      "status": "FAIL",
+      "reason": "UID muda com índice na lista\n+ actual - expected\n\n+ 'artista-teste-2026-12-20T19-30-0@stagekit.local'\n- 'artista-teste-2026-12-20T19-30-1@stagekit.local'\n",
+      "source": [
+        {
+          "function": "downloadStagekitCalendarIcs",
+          "startLine": 4665,
+          "endLine": 4711
+        }
+      ]
+    },
+    {
+      "id": "ICS-04",
+      "criterion": "Data impossível não é normalizada para outro dia",
+      "status": "FAIL",
+      "reason": "Data impossível foi exportada\n+ actual - expected\n\n+ 'BEGIN:VCALENDAR\\r\\n' +\n+   'VERSION:2.0\\r\\n' +\n+   'PRODID:-//StageKit Casa 6//Agenda de Shows//PT-BR\\r\\n' +\n+   'CALSCALE:GREGORIAN\\r\\n' +\n+   'METHOD:PUBLISH\\r\\n' +\n+   'BEGIN:VEVENT\\r\\n' +\n+   'UID:artista-teste-2026-02-30T20-00-0@stagekit.local\\r\\n' +\n+   'DTSTAMP:20261117T033421Z\\r\\n' +\n+   'DTSTART;TZID=America/Sao_Paulo:20260302T200000\\r\\n' +\n+   'DTEND;TZID=America/Sao_Paulo:20260302T220000\\r\\n' +\n+   'SUMMARY:Show Teste\\r\\n' +\n+   'LOCATION:Local Teste\\r\\n' +\n+   'DESCRIPTION:Formato: Acústico\\\\nEvento cadastrado no StageKit.\\r\\n' +\n+   'END:VEVENT\\r\\n' +\n+   'END:VCALENDAR\\r\\n'\n- ''\n",
+      "source": [
+        {
+          "function": "downloadStagekitCalendarIcs",
+          "startLine": 4665,
+          "endLine": 4711
+        }
+      ]
+    },
+    {
+      "id": "ICS-05",
+      "criterion": "Linhas ICS até 75 octetos com folding",
+      "status": "FAIL",
+      "reason": "Há linha maior que 75 octetos sem folding",
+      "source": [
+        {
+          "function": "downloadStagekitCalendarIcs",
+          "startLine": 4665,
+          "endLine": 4711
+        }
+      ]
+    },
+    {
+      "id": "ICS-06",
+      "criterion": "Escape de vírgula ponto e vírgula e nova linha",
+      "status": "PASS",
+      "source": [
+        {
+          "function": "downloadStagekitCalendarIcs",
+          "startLine": 4665,
+          "endLine": 4711
+        }
+      ]
+    },
+    {
+      "id": "XSS-01",
+      "criterion": "Campos de formato são texto escapado no HTML público",
+      "status": "FAIL",
+      "reason": "HTML inserido sem escape no título do formato",
+      "source": [
+        {
+          "function": "applyPublicData",
+          "startLine": 2927,
+          "endLine": 3132
+        }
+      ]
+    },
+    {
+      "id": "XSS-02",
+      "criterion": "Escape HTML trata aspas e tags",
+      "status": "PASS",
+      "source": [
+        {
+          "function": "escHtml",
+          "startLine": 2107,
+          "endLine": 2109
+        }
+      ]
+    }
+  ]
+}

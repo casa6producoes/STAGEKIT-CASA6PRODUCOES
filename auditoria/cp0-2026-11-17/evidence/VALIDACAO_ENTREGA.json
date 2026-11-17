@@ -1,0 +1,109 @@
+{
+  "scope": "Validacao dos artefatos CP0; nao substitui QA de produto ou SQL runtime",
+  "checks": [
+    {
+      "check": "manifesto_original_55_iguais",
+      "passed": true
+    },
+    {
+      "check": "blobs_git_8_conferidos",
+      "passed": true
+    },
+    {
+      "check": "scripts_inline_6_sintaxe_ok",
+      "passed": true
+    },
+    {
+      "check": "21_criterios_registrados_sem_homologacao_falsa",
+      "passed": true
+    },
+    {
+      "check": "evidencia_http_anterior_preservada",
+      "passed": true
+    },
+    {
+      "check": "projeto_supabase_correto",
+      "passed": true
+    },
+    {
+      "check": "jsons_validos",
+      "passed": true
+    },
+    {
+      "check": "csv_sem_colunas_soltas_BACKLOG_ATUALIZADO.csv",
+      "passed": true
+    },
+    {
+      "check": "csv_ids_unicos_BACKLOG_ATUALIZADO.csv",
+      "passed": true
+    },
+    {
+      "check": "csv_sem_colunas_soltas_GATES_CP0_ATUALIZADOS.csv",
+      "passed": true
+    },
+    {
+      "check": "csv_ids_unicos_GATES_CP0_ATUALIZADOS.csv",
+      "passed": true
+    },
+    {
+      "check": "csv_sem_colunas_soltas_MATRIZ_PROTO_MVP.csv",
+      "passed": true
+    },
+    {
+      "check": "csv_ids_unicos_MATRIZ_PROTO_MVP.csv",
+      "passed": true
+    },
+    {
+      "check": "link_interno_README.md_docs/30_RELATORIO_CP0_ATUALIZADO.md",
+      "passed": true
+    },
+    {
+      "check": "link_interno_README.md_docs/31_SEGURANCA_E_EVIDENCIAS.md",
+      "passed": true
+    },
+    {
+      "check": "link_interno_README.md_docs/32_ESPECIFICACOES_COMPLEMENTARES.md",
+      "passed": true
+    },
+    {
+      "check": "link_interno_README.md_docs/33_PLANO_NEXTJS_CP0_CP7.md",
+      "passed": true
+    },
+    {
+      "check": "link_interno_README.md_docs/34_DADOS_BACKUP_ROLLBACK.md",
+      "passed": true
+    },
+    {
+      "check": "link_interno_README.md_docs/35_CONTROLE_E_CONTINUIDADE.md",
+      "passed": true
+    },
+    {
+      "check": "main_inalterada",
+      "passed": true
+    },
+    {
+      "check": "fontes_e_binarios_legados_intactos",
+      "passed": true
+    },
+    {
+      "check": "script_python_compila",
+      "passed": true
+    },
+    {
+      "check": "script_node_sintaxe",
+      "passed": true
+    },
+    {
+      "check": "git_diff_check",
+      "passed": true
+    }
+  ],
+  "passed": 24,
+  "failed": 0,
+  "sql_executed": false,
+  "deployment_executed": false,
+  "notes": [
+    "CRLF do CSV gerado normalizado para LF apos verificacao do diff staged; conteudo preservado.",
+    "Padroes de chave publicavel/secret/token GitHub/JWT completos: zero ocorrencias nos novos artefatos."
+  ]
+}

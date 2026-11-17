@@ -1,0 +1,1013 @@
+{
+  "observed_at_utc": "2026-11-17T03:34:20.464098+00:00",
+  "method": "Local hashes, git objects, node --check; optional allowlisted public GET only",
+  "remote_mutations": false,
+  "historical_sql_executed": false,
+  "package": {
+    "file_count": 57,
+    "manifest_checked": 55,
+    "matches": 55,
+    "mismatches": [],
+    "not_in_manifest": [
+      "00_COLE_ESTA_MENSAGEM_NO_NOVO_CHAT.md",
+      "auditoria/MANIFESTO_SHA256_ARQUIVOS.json"
+    ]
+  },
+  "history_pattern_scan": {
+    "unique_html_blobs_checked": 76,
+    "hits": [
+      {
+        "commit": "4309db685a8066d681b92da2be0caa410b35b58c",
+        "blob": "c972f60cc84624ad3a3f54063d6779bfd7fe0ce0",
+        "hits_redacted": [
+          {
+            "kind": "credential_literal",
+            "line": 1659
+          },
+          {
+            "kind": "credential_literal",
+            "line": 1715
+          },
+          {
+            "kind": "credential_literal",
+            "line": 1770
+          }
+        ]
+      },
+      {
+        "commit": "a847fc7cf1ff1b931b4401503f49f4d215e15425",
+        "blob": "82c09a4bf2a1c9a5f1ad49507ac01298ce1819e6",
+        "hits_redacted": [
+          {
+            "kind": "credential_literal",
+            "line": 1655
+          },
+          {
+            "kind": "credential_literal",
+            "line": 1711
+          },
+          {
+            "kind": "credential_literal",
+            "line": 1766
+          }
+        ]
+      },
+      {
+        "commit": "691465b96fefef86b27ac99d04b46b1ecd957f2f",
+        "blob": "595a2c1a9dd4a57168b7d65b7163d1be65abd258",
+        "hits_redacted": [
+          {
+            "kind": "credential_literal",
+            "line": 1645
+          },
+          {
+            "kind": "credential_literal",
+            "line": 1701
+          },
+          {
+            "kind": "credential_literal",
+            "line": 1754
+          }
+        ]
+      },
+      {
+        "commit": "207a49ebdc71dc328da63ddfef5966d4f3a82338",
+        "blob": "e9a8becc8c38525f3782ee892ba5e89be061f729",
+        "hits_redacted": [
+          {
+            "kind": "credential_literal",
+            "line": 1544
+          },
+          {
+            "kind": "credential_literal",
+            "line": 1600
+          },
+          {
+            "kind": "credential_literal",
+            "line": 1653
+          }
+        ]
+      },
+      {
+        "commit": "5e415c9b81efbf2046788243795ca2b7fee7e5ff",
+        "blob": "82b363b345056fe554125bd93fb30b8fd8562a13",
+        "hits_redacted": [
+          {
+            "kind": "credential_literal",
+            "line": 1525
+          },
+          {
+            "kind": "credential_literal",
+            "line": 1581
+          },
+          {
+            "kind": "credential_literal",
+            "line": 1634
+          }
+        ]
+      },
+      {
+        "commit": "5c4b07120f10f01046c45d0feba3ec817616b0aa",
+        "blob": "400208efc8ab52fa5dd04fc6ca4d57ef3086b155",
+        "hits_redacted": [
+          {
+            "kind": "credential_literal",
+            "line": 1540
+          },
+          {
+            "kind": "credential_literal",
+            "line": 1596
+          },
+          {
+            "kind": "credential_literal",
+            "line": 1649
+          }
+        ]
+      },
+      {
+        "commit": "c90217fc036e0b65165352b5dce7437db5ccc5b1",
+        "blob": "94ff9e2a63ededc0dd5505e312b3d636003a8512",
+        "hits_redacted": [
+          {
+            "kind": "credential_literal",
+            "line": 2834
+          },
+          {
+            "kind": "credential_literal",
+            "line": 2944
+          },
+          {
+            "kind": "credential_literal",
+            "line": 3042
+          }
+        ]
+      },
+      {
+        "commit": "b29233a84d6760aa647334a3709d0cf872be3912",
+        "blob": "88057a5d29d007327de8421f34b2554ab5dab752",
+        "hits_redacted": [
+          {
+            "kind": "credential_literal",
+            "line": 1425
+          },
+          {
+            "kind": "credential_literal",
+            "line": 1481
+          },
+          {
+            "kind": "credential_literal",
+            "line": 1534
+          }
+        ]
+      },
+      {
+        "commit": "0adb6e66749120e4dc3cbc53b0ddd61648b8d5d2",
+        "blob": "6f930c87c871cebdff7be2790f08559d66114fd2",
+        "hits_redacted": [
+          {
+            "kind": "credential_literal",
+            "line": 1431
+          },
+          {
+            "kind": "credential_literal",
+            "line": 1487
+          },
+          {
+            "kind": "credential_literal",
+            "line": 1540
+          }
+        ]
+      },
+      {
+        "commit": "d36ba832f18d6f07b57a0201ff320077ddd32a16",
+        "blob": "a9cf8b2151cff1f1fc55330c0f14ea41ef08adc2",
+        "hits_redacted": [
+          {
+            "kind": "credential_literal",
+            "line": 1343
+          },
+          {
+            "kind": "credential_literal",
+            "line": 1399
+          },
+          {
+            "kind": "credential_literal",
+            "line": 1452
+          }
+        ]
+      },
+      {
+        "commit": "0b5aaf3de70c9b7e464a75a41361e56e21d933cb",
+        "blob": "0a88c670515912528aafdb8511a921691520f480",
+        "hits_redacted": [
+          {
+            "kind": "credential_literal",
+            "line": 1343
+          },
+          {
+            "kind": "credential_literal",
+            "line": 1399
+          },
+          {
+            "kind": "credential_literal",
+            "line": 1452
+          }
+        ]
+      },
+      {
+        "commit": "65b1f7f887bb9f9b619c3ae2041d85bf2af1ae27",
+        "blob": "7d76187c898f254833c2b1f5dac5675bb569d517",
+        "hits_redacted": [
+          {
+            "kind": "credential_literal",
+            "line": 1343
+          },
+          {
+            "kind": "credential_literal",
+            "line": 1399
+          },
+          {
+            "kind": "credential_literal",
+            "line": 1452
+          }
+        ]
+      },
+      {
+        "commit": "f17d0b192bd7faef918e93dddec6c1d300808f72",
+        "blob": "87691adf8776e49cb7c7058d9447f633b877bcd8",
+        "hits_redacted": [
+          {
+            "kind": "credential_literal",
+            "line": 1343
+          },
+          {
+            "kind": "credential_literal",
+            "line": 1399
+          },
+          {
+            "kind": "credential_literal",
+            "line": 1452
+          }
+        ]
+      },
+      {
+        "commit": "4fb51746eb94a7085233c31788b42bbc0ce8a56c",
+        "blob": "6155eaac341c0c681030f03dc1581e685c3fe041",
+        "hits_redacted": [
+          {
+            "kind": "credential_literal",
+            "line": 1343
+          },
+          {
+            "kind": "credential_literal",
+            "line": 1399
+          },
+          {
+            "kind": "credential_literal",
+            "line": 1452
+          }
+        ]
+      },
+      {
+        "commit": "0cedec00a02b0aa8593edf7cc0a01cecd51383f7",
+        "blob": "0cdafa6439178c16f9be725b66936585bf7d5291",
+        "hits_redacted": [
+          {
+            "kind": "credential_literal",
+            "line": 1343
+          },
+          {
+            "kind": "credential_literal",
+            "line": 1399
+          },
+          {
+            "kind": "credential_literal",
+            "line": 1452
+          }
+        ]
+      },
+      {
+        "commit": "27c6c348343368d80a5a4b850dcc11dcbedbdf61",
+        "blob": "4b53e4f0dcfb8f53f5728263e92370b622fc6711",
+        "hits_redacted": [
+          {
+            "kind": "credential_literal",
+            "line": 1343
+          },
+          {
+            "kind": "credential_literal",
+            "line": 1399
+          },
+          {
+            "kind": "credential_literal",
+            "line": 1452
+          }
+        ]
+      },
+      {
+        "commit": "686b5be05f70d69afffd2c0aed6bfa4eccff57e7",
+        "blob": "867332f529c74e4abfa02ea022a84e58bf20b5d6",
+        "hits_redacted": [
+          {
+            "kind": "credential_literal",
+            "line": 1343
+          },
+          {
+            "kind": "credential_literal",
+            "line": 1399
+          },
+          {
+            "kind": "credential_literal",
+            "line": 1452
+          }
+        ]
+      },
+      {
+        "commit": "5d87403cd1e6817526f2d14f5f6c7ae17ce15771",
+        "blob": "3a7ca24a099e88c254ee0e65a211096454479300",
+        "hits_redacted": [
+          {
+            "kind": "credential_literal",
+            "line": 1343
+          },
+          {
+            "kind": "credential_literal",
+            "line": 1399
+          },
+          {
+            "kind": "credential_literal",
+            "line": 1452
+          }
+        ]
+      },
+      {
+        "commit": "c71c6ca9a12fe6e82e7d4ee9065359bc35880f6d",
+        "blob": "4d3b6a233a05e88b019df77c954d42214571efc6",
+        "hits_redacted": [
+          {
+            "kind": "credential_literal",
+            "line": 1343
+          },
+          {
+            "kind": "credential_literal",
+            "line": 1399
+          },
+          {
+            "kind": "credential_literal",
+            "line": 1452
+          }
+        ]
+      },
+      {
+        "commit": "eed6149f7189286e4d50ef5590944aae9ede23e7",
+        "blob": "8ac6d554b9dea8fce3c295fba0372dd8d3ea71a8",
+        "hits_redacted": [
+          {
+            "kind": "credential_literal",
+            "line": 1292
+          },
+          {
+            "kind": "credential_literal",
+            "line": 1347
+          }
+        ]
+      },
+      {
+        "commit": "4c3e4f39de1743d2da597b292d60162a79742020",
+        "blob": "91d09a904655accace984c5a6d1726d7d29db8b9",
+        "hits_redacted": [
+          {
+            "kind": "credential_literal",
+            "line": 1292
+          },
+          {
+            "kind": "credential_literal",
+            "line": 1347
+          }
+        ]
+      },
+      {
+        "commit": "357e073c91b81b1b82c99c3e340930e4f2618902",
+        "blob": "02bf6644910f3acb0446716130c0dfa094d30240",
+        "hits_redacted": [
+          {
+            "kind": "credential_literal",
+            "line": 1231
+          },
+          {
+            "kind": "credential_literal",
+            "line": 1279
+          }
+        ]
+      },
+      {
+        "commit": "41122bfde147411efd60d0f5d787c56e214a9268",
+        "blob": "ddd29944a486b6575c2792efcf65c5bfbeeae5b1",
+        "hits_redacted": [
+          {
+            "kind": "credential_literal",
+            "line": 1173
+          },
+          {
+            "kind": "credential_literal",
+            "line": 1213
+          }
+        ]
+      },
+      {
+        "commit": "466f4580fa73b575ac6eae46ae647fd6abe4ab4d",
+        "blob": "75c8462cdb58c93da00f89d2436cd28bf9f6779a",
+        "hits_redacted": [
+          {
+            "kind": "credential_literal",
+            "line": 1195
+          },
+          {
+            "kind": "credential_literal",
+            "line": 1235
+          }
+        ]
+      },
+      {
+        "commit": "b11693f58e0e1625a3f09a4d371a6ae932bc3c15",
+        "blob": "f7a4b4e4ba9a82770b1d84882c8f6ba7fa3a26df",
+        "hits_redacted": [
+          {
+            "kind": "credential_literal",
+            "line": 1180
+          },
+          {
+            "kind": "credential_literal",
+            "line": 1220
+          }
+        ]
+      },
+      {
+        "commit": "1cefb550c0b8c9ccdcfa753e4b1ace49a2165d08",
+        "blob": "1532c5912d3bc84f9081d2d131b9e0a8b8e65df6",
+        "hits_redacted": [
+          {
+            "kind": "credential_literal",
+            "line": 1202
+          },
+          {
+            "kind": "credential_literal",
+            "line": 1246
+          }
+        ]
+      },
+      {
+        "commit": "3ab4a1f8c5b72924c0d4f200ab54a1c041586510",
+        "blob": "d1f899f46dd44e97361a2f553961195c7537f2cb",
+        "hits_redacted": [
+          {
+            "kind": "credential_literal",
+            "line": 1213
+          },
+          {
+            "kind": "credential_literal",
+            "line": 1257
+          }
+        ]
+      },
+      {
+        "commit": "2b0b5832583b19cb6b91eef6ba906e1e916533d0",
+        "blob": "604bcf4d0377cfd3c84b66de7eb24ca9ee2b74b5",
+        "hits_redacted": [
+          {
+            "kind": "credential_literal",
+            "line": 1101
+          }
+        ]
+      },
+      {
+        "commit": "fa1b7b72070e6cc12f4d6e07cbb0968ee8439441",
+        "blob": "f7624c32ab91141b42998205d3e2ff619cbf948a",
+        "hits_redacted": [
+          {
+            "kind": "credential_literal",
+            "line": 941
+          }
+        ]
+      },
+      {
+        "commit": "94631ae45bb9edd6f642cd311fea2fbe9f85e4fd",
+        "blob": "fb4b81ac18d1deb40753bbd2e855d39cb4cf467b",
+        "hits_redacted": [
+          {
+            "kind": "credential_literal",
+            "line": 932
+          }
+        ]
+      },
+      {
+        "commit": "ae1a80de81aa9de17822b874774b5d510fac81f1",
+        "blob": "3d0f19512de9e6f8a5670101508cc5eda373cbcd",
+        "hits_redacted": [
+          {
+            "kind": "credential_literal",
+            "line": 941
+          }
+        ]
+      },
+      {
+        "commit": "e481953869ae71947f82b0582602556f99155a69",
+        "blob": "12e429e3645edecefb0a5393b2f0750181d6b2b2",
+        "hits_redacted": [
+          {
+            "kind": "credential_literal",
+            "line": 917
+          },
+          {
+            "kind": "credential_literal",
+            "line": 2631
+          }
+        ]
+      },
+      {
+        "commit": "408220ccea87d4af6816b6b8244cfe3956fa8c44",
+        "blob": "d53b3659089d6e44814f1c1eaff0bd4ba486ae64",
+        "hits_redacted": [
+          {
+            "kind": "credential_literal",
+            "line": 836
+          }
+        ]
+      },
+      {
+        "commit": "3ca4a7127e328b4e4966cda7291c416d449b4bce",
+        "blob": "156573a60b11034bc9d15409cdcd100a85703ee1",
+        "hits_redacted": [
+          {
+            "kind": "credential_literal",
+            "line": 836
+          }
+        ]
+      },
+      {
+        "commit": "ceb17a257e00019ef5185b977a0005fba0ca2c48",
+        "blob": "909bb83a7a6fbdefba265c5d65355888528879a1",
+        "hits_redacted": [
+          {
+            "kind": "credential_literal",
+            "line": 836
+          }
+        ]
+      },
+      {
+        "commit": "c94a6eb41ee6e52fe31b5f36191c4cbc7c5191b0",
+        "blob": "e7f63bf3865dccb73e126c3c6df259b89e075505",
+        "hits_redacted": [
+          {
+            "kind": "credential_literal",
+            "line": 864
+          }
+        ]
+      },
+      {
+        "commit": "1ba6b45e80197574d451866dcfe8a281a1534223",
+        "blob": "1d37a0e9381bbc1d558ec36650faa923f94e159e",
+        "hits_redacted": [
+          {
+            "kind": "credential_literal",
+            "line": 866
+          }
+        ]
+      },
+      {
+        "commit": "bb970c1963fe486eb08f97dfeca98589dacd991d",
+        "blob": "29e9efa1901579ff313d9d8e9fa439a5ecce7b89",
+        "hits_redacted": [
+          {
+            "kind": "credential_literal",
+            "line": 937
+          }
+        ]
+      },
+      {
+        "commit": "6f6eb693fa4210c0d80044a7b2be611959fd8bc1",
+        "blob": "d3c294c72bd8c351c3b467de42e56bebb6ab9763",
+        "hits_redacted": [
+          {
+            "kind": "credential_literal",
+            "line": 938
+          }
+        ]
+      },
+      {
+        "commit": "4dc9db77b3f71876f6fa332ccbd825fd3b42c0f4",
+        "blob": "e851bd8cae797a3697b7a92eee7696e2f925e991",
+        "hits_redacted": [
+          {
+            "kind": "credential_literal",
+            "line": 938
+          }
+        ]
+      },
+      {
+        "commit": "c683dc0dc9e59d67006abeb6474f29732269aa49",
+        "blob": "f086dce9bb0c9c5c32861c76e64c5097598bab33",
+        "hits_redacted": [
+          {
+            "kind": "credential_literal",
+            "line": 1003
+          }
+        ]
+      },
+      {
+        "commit": "346e5c363b1c80f8ffb3a0a9712271c8b7b6bc04",
+        "blob": "67bce38e397c22d5cae71c3db20edd9e81457e4a",
+        "hits_redacted": [
+          {
+            "kind": "credential_literal",
+            "line": 1003
+          }
+        ]
+      },
+      {
+        "commit": "945c4b82eeb075c25dc12b7c0c76b9c79ece2225",
+        "blob": "ddc3adb1bc1e3d3fb8533e2525df37dde62fedae",
+        "hits_redacted": [
+          {
+            "kind": "credential_literal",
+            "line": 1005
+          }
+        ]
+      },
+      {
+        "commit": "b0d5c8ab575c1d66652e91c27635688cd08c4a0d",
+        "blob": "9f7c39064bd49508e6f7dcf7b7db9f35a1329c59",
+        "hits_redacted": [
+          {
+            "kind": "credential_literal",
+            "line": 1005
+          }
+        ]
+      },
+      {
+        "commit": "f5082f205e75965f1e2c638c0bd1a1a959297f7e",
+        "blob": "ec177e704dc5eeff1424521514544c9ce540a084",
+        "hits_redacted": [
+          {
+            "kind": "credential_literal",
+            "line": 1018
+          }
+        ]
+      },
+      {
+        "commit": "58a8e51557764ef948cac3ed48ba1ba30f0da2a4",
+        "blob": "b963f25e9f7565fd044c28d089bd8c68d93800f3",
+        "hits_redacted": [
+          {
+            "kind": "credential_literal",
+            "line": 989
+          }
+        ]
+      },
+      {
+        "commit": "80b01852ab4ea4c6b7145376e844d4ff8002882c",
+        "blob": "216601117d8f0847b6ce2b101930555687004498",
+        "hits_redacted": [
+          {
+            "kind": "credential_literal",
+            "line": 731
+          }
+        ]
+      },
+      {
+        "commit": "1d7de403de830eb0043a20cc836f2ffe898ec645",
+        "blob": "0f83c7f6ac794b4459c94a3c07017f8fb567e4ce",
+        "hits_redacted": [
+          {
+            "kind": "credential_literal",
+            "line": 954
+          },
+          {
+            "kind": "credential_literal",
+            "line": 1143
+          }
+        ]
+      },
+      {
+        "commit": "524ba0d6f3e71c00ab49797c98028b19409487d2",
+        "blob": "96608e406499f2d296c8adbfaa786cfa1bbfa1cc",
+        "hits_redacted": [
+          {
+            "kind": "credential_literal",
+            "line": 975
+          },
+          {
+            "kind": "credential_literal",
+            "line": 1159
+          }
+        ]
+      },
+      {
+        "commit": "71318171f0803c63c37336a46233ed358de1252f",
+        "blob": "f0e5a7bb39a31d7b1a6bed9598b9d14b14e85abc",
+        "hits_redacted": [
+          {
+            "kind": "credential_literal",
+            "line": 968
+          },
+          {
+            "kind": "credential_literal",
+            "line": 1152
+          }
+        ]
+      },
+      {
+        "commit": "d4697872192b9325a85a8bbf8532d9c9ada14f29",
+        "blob": "54f523fa8fa2cc7f1ad939fca7d57a8d2476e859",
+        "hits_redacted": [
+          {
+            "kind": "credential_literal",
+            "line": 968
+          },
+          {
+            "kind": "credential_literal",
+            "line": 1152
+          }
+        ]
+      },
+      {
+        "commit": "add4a301528891bd9d379f38bcb0d6fd4baff35c",
+        "blob": "0793294ab64fd9235e17725d138f7c52c2090e74",
+        "hits_redacted": [
+          {
+            "kind": "credential_literal",
+            "line": 920
+          },
+          {
+            "kind": "credential_literal",
+            "line": 1096
+          }
+        ]
+      },
+      {
+        "commit": "fc34b1f56cd4fa8fa5f3454c2d9608ca6738ae7e",
+        "blob": "33bfc0031388044a6405989e1d104cb512133885",
+        "hits_redacted": [
+          {
+            "kind": "credential_literal",
+            "line": 849
+          },
+          {
+            "kind": "credential_literal",
+            "line": 1029
+          }
+        ]
+      },
+      {
+        "commit": "eb1c464966e48eaf55c34f15f58aab7a29753656",
+        "blob": "937378ea5897d7839d7ae6a30e6c0b4913d71e27",
+        "hits_redacted": [
+          {
+            "kind": "credential_literal",
+            "line": 539
+          }
+        ]
+      }
+    ],
+    "limitation": "Recognizable patterns only; not proof of no secrets; no values are emitted; other files/history and external providers need separate review"
+  },
+  "github": {
+    "repository": "casa6producoes/STAGEKIT-CASA6PRODUCOES",
+    "branches": {
+      "main": {
+        "head": "9f46f9d6ca1e9605dfc90a82dede9c3559f03f72",
+        "tree": [
+          {
+            "path": "SIMBOLO CASA 6.jpg",
+            "git_blob": "59e06442954b8a334b5a8b8da693b1937c806acf",
+            "bytes": 123369,
+            "sha256": "248c165caa0d6d5fc0e0e7aa05f67455dacb9c7c89440df5b3ba25d6f4fdb848",
+            "blob_verified": true,
+            "in_original_package": false,
+            "equals_original": null
+          },
+          {
+            "path": "index.html",
+            "git_blob": "3c459ff01446297eef46623de3be16ba1a2e0508",
+            "bytes": 240461,
+            "sha256": "a6f4e8db6d2d6f26bf5d8f0a800c9764a9a661b97df1dbb9bd2444437cba2904",
+            "blob_verified": true,
+            "in_original_package": true,
+            "equals_original": true
+          },
+          {
+            "path": "vercel.json",
+            "git_blob": "fd39cb48eb5722dc0fed7a0cdcc8410248f3e5a1",
+            "bytes": 81,
+            "sha256": "9379feb4a18382f80c05ed87fbd5cb539ad6d36a93b5cd1c905e7f3eed3a8b73",
+            "blob_verified": true,
+            "in_original_package": true,
+            "equals_original": true
+          },
+          {
+            "path": "videodoyoutube.png",
+            "git_blob": "014bf22420a550b4ea330e1f2e905a3711fd21cd",
+            "bytes": 1914641,
+            "sha256": "f5fbd872ea965bd4621e453268c310f4ee7abcde41187e9d32f66c59b25f9c42",
+            "blob_verified": true,
+            "in_original_package": false,
+            "equals_original": null
+          }
+        ],
+        "inline_syntax": [
+          {
+            "script": 1,
+            "bytes": 516,
+            "passed": true
+          },
+          {
+            "script": 2,
+            "bytes": 306,
+            "passed": true
+          },
+          {
+            "script": 3,
+            "bytes": 142454,
+            "passed": true
+          }
+        ],
+        "html_ids": 213,
+        "duplicate_ids": {},
+        "dependencies": [
+          "https://cdn.tailwindcss.com",
+          "https://unpkg.com/lucide@latest",
+          "https://cdn.jsdelivr.net/npm/chart.js",
+          "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2",
+          "https://cdn.jsdelivr.net/npm/tus-js-client@4.3.1/dist/tus.min.js"
+        ],
+        "robots_meta": [],
+        "og_meta_count": 0,
+        "jwt_public_metadata": [],
+        "sensitive_pattern_hits_redacted": [],
+        "publishable_key_count": 1,
+        "innerHTML_occurrences": 30
+      },
+      "stagekit-v3-14-teste": {
+        "head": "3399f680c01301cb19f36305fac9a064764d10b6",
+        "tree": [
+          {
+            "path": "SIMBOLO CASA 6.jpg",
+            "git_blob": "59e06442954b8a334b5a8b8da693b1937c806acf",
+            "bytes": 123369,
+            "sha256": "248c165caa0d6d5fc0e0e7aa05f67455dacb9c7c89440df5b3ba25d6f4fdb848",
+            "blob_verified": true,
+            "in_original_package": false,
+            "equals_original": null
+          },
+          {
+            "path": "index.html",
+            "git_blob": "1f3ff21d2554d762698f456c1a9a301f707dba42",
+            "bytes": 313489,
+            "sha256": "1981c31fd83138bca6260b2330bdf29ce52f3255a11df2dbe217ab11c30a0154",
+            "blob_verified": true,
+            "in_original_package": true,
+            "equals_original": true
+          },
+          {
+            "path": "vercel.json",
+            "git_blob": "fd39cb48eb5722dc0fed7a0cdcc8410248f3e5a1",
+            "bytes": 81,
+            "sha256": "9379feb4a18382f80c05ed87fbd5cb539ad6d36a93b5cd1c905e7f3eed3a8b73",
+            "blob_verified": true,
+            "in_original_package": true,
+            "equals_original": true
+          },
+          {
+            "path": "videodoyoutube.png",
+            "git_blob": "014bf22420a550b4ea330e1f2e905a3711fd21cd",
+            "bytes": 1914641,
+            "sha256": "f5fbd872ea965bd4621e453268c310f4ee7abcde41187e9d32f66c59b25f9c42",
+            "blob_verified": true,
+            "in_original_package": false,
+            "equals_original": null
+          }
+        ],
+        "inline_syntax": [
+          {
+            "script": 1,
+            "bytes": 516,
+            "passed": true
+          },
+          {
+            "script": 2,
+            "bytes": 306,
+            "passed": true
+          },
+          {
+            "script": 3,
+            "bytes": 172857,
+            "passed": true
+          }
+        ],
+        "html_ids": 253,
+        "duplicate_ids": {},
+        "dependencies": [
+          "https://cdn.tailwindcss.com",
+          "https://unpkg.com/lucide@latest",
+          "https://cdn.jsdelivr.net/npm/chart.js",
+          "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2",
+          "https://cdn.jsdelivr.net/npm/tus-js-client@4.3.1/dist/tus.min.js",
+          "https://accounts.google.com/gsi/client"
+        ],
+        "robots_meta": [],
+        "og_meta_count": 0,
+        "jwt_public_metadata": [],
+        "sensitive_pattern_hits_redacted": [],
+        "publishable_key_count": 1,
+        "innerHTML_occurrences": 33
+      }
+    },
+    "left_right_count": "0\t6",
+    "diff_numstat": "1382\t546\tindex.html",
+    "commits_ahead": [
+      "3399f680c01301cb19f36305fac9a064764d10b6 Update styles and comments for StageKit v3.18",
+      "008e7bb3f2bf9796d77a97467310b1ee3ec3063d Update index.html",
+      "b02d41f0eb87c8984ef2729f0acd314d587f9ff6 Update StageKit HTML for gallery and Google Calendar",
+      "955ec6ffbf4cb2764cc361553d61f320368c07a3 Update print statement from 'Hello' to 'Goodbye'",
+      "b59da6efe87db511c61f0a971aded0d9a7b6e0cc Enhance password recovery UI and feedback",
+      "bfc835c563804cdcc42e2ac9345c4905c1744ad9 StageKit v3.14 - Login por email"
+    ]
+  },
+  "public_http": [
+    {
+      "url": "https://stagekitcasa6.vercel.app/",
+      "status": 200,
+      "bytes": 240461,
+      "sha256": "a6f4e8db6d2d6f26bf5d8f0a800c9764a9a661b97df1dbb9bd2444437cba2904",
+      "matches_main": true,
+      "matches_test": false,
+      "x_robots_tag": null,
+      "content_security_policy_present": false,
+      "robots_meta": [],
+      "og_meta_count": 0
+    },
+    {
+      "url": "https://stagekitcasa6.vercel.app/cantormatheusfelipe",
+      "status": 200,
+      "bytes": 240461,
+      "sha256": "a6f4e8db6d2d6f26bf5d8f0a800c9764a9a661b97df1dbb9bd2444437cba2904",
+      "matches_main": true,
+      "matches_test": false,
+      "x_robots_tag": null,
+      "content_security_policy_present": false,
+      "robots_meta": [],
+      "og_meta_count": 0
+    },
+    {
+      "url": "https://stagekitcasa6.vercel.app/dashboard",
+      "status": 200,
+      "bytes": 240461,
+      "sha256": "a6f4e8db6d2d6f26bf5d8f0a800c9764a9a661b97df1dbb9bd2444437cba2904",
+      "matches_main": true,
+      "matches_test": false,
+      "x_robots_tag": null,
+      "content_security_policy_present": false,
+      "robots_meta": [],
+      "og_meta_count": 0
+    }
+  ],
+  "supabase_public_auth_settings": {
+    "project_ref": "gixxspfvcgxumyxnyumi",
+    "status": 200,
+    "settings": {
+      "disable_signup": false,
+      "mailer_autoconfirm": false,
+      "phone_autoconfirm": false,
+      "external": {
+        "anonymous_users": true,
+        "apple": false,
+        "azure": false,
+        "bitbucket": false,
+        "discord": false,
+        "facebook": false,
+        "snapchat": false,
+        "figma": false,
+        "fly": false,
+        "github": false,
+        "gitlab": false,
+        "google": false,
+        "keycloak": false,
+        "kakao": false,
+        "linkedin": false,
+        "linkedin_oidc": false,
+        "notion": false,
+        "spotify": false,
+        "slack": false,
+        "slack_oidc": false,
+        "workos": false,
+        "twitch": false,
+        "twitter": false,
+        "email": true,
+        "phone": false,
+        "zoom": false
+      }
+    },
+    "scope": "Public Auth configuration only; no users, private data, database, storage or management API audited"
+  },
+  "public_http_observed_at_utc": "2026-11-17T03:22:18.902359+00:00"
+}

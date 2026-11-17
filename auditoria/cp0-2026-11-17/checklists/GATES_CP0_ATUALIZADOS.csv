@@ -1,0 +1,13 @@
+id,gate,estado,evidencia,proxima_acao
+CP0-01,Repositorio e HEADs,CONFIRMADO,evidence/cp0-local-audit.json,Revalidar antes de CP1
+CP0-02,HTML e configuracao vs pacote,CONFIRMADO,Hashes e bytes iguais nas duas branches,Preservar referencias
+CP0-03,Inventario e dois binarios,CONFIRMADO,Quatro arquivos por branch e blobs das imagens iguais,Assets recuperados na raiz do clone
+CP0-04,Schema RLS Auth Storage e vinculos reais,BLOQUEADO,Somente Auth settings publico consultado,Autorizar Supabase gixxspfvcgxumyxnyumi para leitura de gestao e SQL
+CP0-05,Vercel equipe projeto e ambientes,BLOQUEADO,HTTP publico corresponde a main; gestao indisponivel,Autorizar equipe dona de stagekitcasa6.vercel.app
+CP0-06,Backup e restauracao,BLOQUEADO,Nenhum backup ou restore real verificado,Auditar cobertura e preparar destino isolado autorizado
+CP0-07,Isolamento e acesso financeiro,BLOQUEADO,RLS real desconhecida; riscos historicos,Auditar policies e testar A B owner anonimo em staging
+CP0-08,Plano e ensaio de rollback,PENDENTE,docs/34_DADOS_BACKUP_ROLLBACK.md preparado,Conferir deployments e executar ensaio isolado autorizado
+CP0-09,Matriz de equivalencia,CONFIRMADO,checklists/MATRIZ_PROTO_MVP.csv e 21 checks locais,Homologar integracao nos CPs correspondentes
+CP0-10,Planos e capacidades reais,BLOQUEADO,Sem acesso aos planos dos provedores,Inventariar limites reais e responsavel operacional
+CP0-11,Credenciais e legado,PENDENTE,76 blobs avaliados por padroes; candidatos redigidos,Verificar natureza e revogacao segura sem usar valores
+CP0-12,Aceite integral CP0,BLOQUEADO,Gates de infraestrutura e seguranca abertos,Nao iniciar CP1 ate fechar criterios
